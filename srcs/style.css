@@ -1,0 +1,26 @@
+body
+{
+	color: white;
+}
+
+#register-container
+{
+	background-color: #343436;
+	width: 300px;
+	margin: auto;
+	margin-top: 30px;
+	min-height: 500px;
+	border-radius: 5px;
+	text-align: center;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-size: 22px;
+	color: white;
+}
+
+.input-container
+{
+	width: 50%;
+	padding: 10px;
+	border: solid 1px #707070;
+	box-shadow: 0 0 2px 1px #969696;
+}
