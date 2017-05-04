@@ -1,0 +1,18 @@
+<?php
+namespace Tutoriel;
+
+class Autoloader
+{
+	static function register()
+	{
+		spl_autoload_register(array(__CLASS__, 'autoload'));
+	}
+
+	static function autoload($class_name)
+	{
+		$class = str_replace(__NAMESPACE__ . '\\', '', $class_name);
+		require './class/' . $class. '.php';
+	}
+}
+
+?>
