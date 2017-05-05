@@ -1,5 +1,0 @@
-<?php
-
-CarFactory::getCar();
-
-?>
