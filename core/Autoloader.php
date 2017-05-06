@@ -21,7 +21,3 @@ class Autoloader{
         echo "__DIR = " . __DIR__;
     }
 }
-
-// __class = Autoloader
-// __NAMESPACE = core
-
