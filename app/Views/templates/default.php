@@ -27,7 +27,7 @@
 
 <div class="container">
     <div class="starter-template" style="padding-top: 100px;">
-        <?php //$content; ?>
+        <?= $content; ?>
     </div>
 </div>
 
