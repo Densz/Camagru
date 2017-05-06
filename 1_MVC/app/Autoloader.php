@@ -25,4 +25,7 @@ class Autoloader{
         }
     }
 
+    static function text(){
+        echo "ABCDE";
+    }
 }

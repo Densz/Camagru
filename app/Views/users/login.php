@@ -1,13 +1,12 @@
 <?php
-require ROOT . '/core/HTML/Form.php';
-require ROOT . '/core/HTML/BootstrapForm.php';
-use \Core\HTML\BootstrapForm;
-
-$form = new BootstrapForm();
+$form = new \core\HTML\BootstrapForm($_POST);
 ?>
 
 <form method="post">
-    <?= $form->input('username', 'Pseudo'); ?>
-    <?= $form->input('password', 'Mot de passe', ['type' => 'password']); ?> 
-    <button class="btn btn-primary">Envoyer</button>
+    <?= $form->input('username', 'Login'); ?>
+    <?= $form->input('password', 'Password', ['type' => 'password']); ?> 
+    <button class="btn btn-primary">Log In</button>
 </form>
+
+<hr>
+<p>Don't have an account? <a href="index.php?p=sign_up">Sign up</a></p>
