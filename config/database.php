@@ -1,9 +1,5 @@
 <?php
-
-
-return array(
-    "db_user" => "root",
-    "db_pass" => "root",
-    "db_host" => "localhost",
-    "db_name" => "mvc"
-);
+$DB_DSN = "mysql:dbname=camagru;host=localhost";
+$DB_USER = "root";
+$DB_PASSWORD = "root";
+?>
