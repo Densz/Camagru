@@ -4,13 +4,13 @@ class ControllerVisitor extends Controller
 {
 	public function view()
 	{
-		$this->bonjour();
+		$this->form();
 		$this->add_buff('first_var');
 	}
 
-	public function bonjour()
+	public function form()
 	{
-		echo 'test';
+		
 	}
 }
 
