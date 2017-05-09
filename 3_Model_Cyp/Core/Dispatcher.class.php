@@ -2,6 +2,7 @@
 
 class Dispatcher
 {
+	public $content;
 
 	public function __construct()
 	{
@@ -14,8 +15,9 @@ class Dispatcher
 		ob_start();
 		$controller = new Controller();
 		$controller->init();
-		ob_end_clean();
-		$controller->rend(Routeur::$url['controller']);
+		$controller->rend(Routeur::$url['controller']);		
+		$this->content = ob_get_clean();
+		require('View/templates/default.php');
 	}
 }
 ?>
