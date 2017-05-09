@@ -11,4 +11,4 @@ $form = new BootstrapForm();
 </form>
 
 <hr>
-<p>Already have an account? <a href="index.php">Sign in</a></p>
+<p>Already have an account? <a href="http://e2r5p7.42.fr:8080/Camagru_AD/3_Model_Cyp/visitorsignin/View/">Sign in</a></p>

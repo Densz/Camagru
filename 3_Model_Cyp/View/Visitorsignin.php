@@ -9,4 +9,4 @@ $form = new BootstrapForm($_POST);
 </form>
 
 <hr>
-<p>Don't have an account? <a href="index.php?p=sign_up">Sign up</a></p>
+<p>Don't have an account? <a href="http://e2r5p7.42.fr:8080/Camagru_AD/3_Model_Cyp/visitorsignup/View/">Sign up</a></p>
