@@ -14,6 +14,5 @@
     ob_start();
     require ROOT . '/app/Views/users/' . $page . '.php';
     $content = ob_get_clean();
-    
     require(ROOT . '/app/Views/templates/default.php');
 ?>

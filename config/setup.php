@@ -10,6 +10,7 @@ $database->query("CREATE TABLE IF NOT EXISTS users
 	login VARCHAR(32) NOT NULL,
 	email VARCHAR(128) NOT NULL,
 	password VARCHAR(128) NOT NULL,
+	email_confirmed ENUM('yes', 'no') DEFAULT 'no' NOT NULL,
 	admin ENUM('yes','no') DEFAULT 'no' NOT NULL
 );");
 
@@ -40,5 +41,5 @@ $database->query("CREATE TABLE IF NOT EXISTS comments
 );");
 
 $database->query("INSERT INTO users VALUES
-(null, 'admin', 'admin@admin.com', 'admin', 'yes')
+(null, 'admin', 'admin@admin.com', '6a4e012bd9583858a5a6fa15f58bd86a25af266d3a4344f1ec2018b778f29ba83be86eb45e6dc204e11276f4a99eff4e2144fbe15e756c2c88e999649aae7d94', 'no', 'yes')
 ;");

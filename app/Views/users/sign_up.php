@@ -1,8 +1,9 @@
 <?php
 $form = new \core\HTML\BootstrapForm($_POST);
+
 ?>
 
-<form method="post">
+<form method="post" action="/Controller/Sign_up.php">
     <?= $form->input('username', 'Login'); ?>
     <?= $form->input('username', 'Email address'); ?>
     <?= $form->input('password', 'Password', ['type' => 'password']); ?> 
