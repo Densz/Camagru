@@ -6,7 +6,6 @@ class Dispatcher
 
 	public function __construct()
 	{
-		//Parse l'url -- pour savoir quel controller on va utiliser sinon page 404
 		$routeur = new Routeur();
 		ob_start();
 		$controller = new Controller();
