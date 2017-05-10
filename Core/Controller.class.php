@@ -21,7 +21,8 @@ class Controller
 
 	public function rend($name)
 	{
-		extract(Controller::$cont, EXTR_OVERWRITE);
+		if (isset(Controller::$cont))
+			extract(Controller::$cont, EXTR_OVERWRITE);
 		require_once('View/' . ucfirst($name) . '.php');
 	}
 

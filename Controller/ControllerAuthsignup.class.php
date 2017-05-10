@@ -12,9 +12,9 @@ class ControllerAuthsignup extends Controller
 
 	public function signUp(){
 		if ($_POST['signup'] === 'Submit' && $_POST['password'] === $_POST['password2']){
-			
+			$data = Table::select_all("users");
+			print_r($data);
 		}
-		print_r($_POST);
 	}
 }
 ?>

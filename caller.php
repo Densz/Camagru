@@ -5,5 +5,5 @@
 	require_once("Core/Routeur.class.php");
 	require_once("Core/Form.class.php");
 	require_once("Core/Mysqldb.class.php");
-	require_once("Model/Select.class.php");
+	require_once("Model/Table.class.php");
 ?>
