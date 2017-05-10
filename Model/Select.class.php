@@ -1,7 +1,7 @@
 <?php
-class Table extends Core\Mysqldb {
+class Select{
 
-	public static function select_all($table){
+	public static function all($table){
 		$database = new Core\MysqlDb("mysql:dbname=camagru;host=localhost", $DB_USER, $DB_PASSWORD);
 		$data = $database->query("SELECT * FROM $table");
 		return $data;

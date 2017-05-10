@@ -7,4 +7,4 @@
 </form>
 
 <hr>
-<p>Don't have an account? <a href="http://localhost:<?= PORT ?>/Camagru_AD/authsignup/View/">Sign up</a></p>
+<p>Don't have an account? <a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignup/View/">Sign up</a></p>

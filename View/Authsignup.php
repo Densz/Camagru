@@ -1,6 +1,6 @@
 <?php $form = new Form(); ?>
 
-<form method="post" action="http://localhost:<?= PORT ?>/Camagru_AD/authsignup/signUp/">
+<form method="post" action="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir']; ?>/authsignup/signUp/">
     <?= $form->input('username', 'Login'); ?>
     <?= $form->input('email', 'Email address'); ?>
     <?= $form->input('password', 'Password', ['type' => 'password']); ?> 
@@ -9,4 +9,4 @@
 </form>
 
 <hr>
-<p>Already have an account? <a href='http://localhost:<?= PORT ?>/Camagru_AD/authsignin/View/'>Sign in</a></p>
+<p>Already have an account? <a href='http://localhost:<?= PORT ?>/<?= Routeur::$url['dir']; ?>/authsignin/View/'>Sign in</a></p>
