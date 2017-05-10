@@ -24,7 +24,6 @@ class ControllerAuthsignup extends Controller
 		$emailFrom = 'tasoeur@camagru.com';
 		$subject = "Camagru - Confirm Your Account";
 		$message = "To create your account, confirm by clicking on the link below <br/> <a href='http://localhost:" . PORT . "/" . $url[1] . "/Authsignin/validEmail/" . $_POST['username'] . "'>Confirm account</a>";
-		echo $message . "\n";
 		$headers = "From: " . $emailFrom . "\r\n";
 		$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 		mail($emailTo, $subject, $message, $headers);
