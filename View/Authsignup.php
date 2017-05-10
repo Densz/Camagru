@@ -1,7 +1,7 @@
 <?php $form = new Form(); ?>
 
 <form method="post" action="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir']; ?>/authsignup/signUp/">
-    <?= $form->input('username', 'Login'); ?>
+    <?= $form->input('login', 'Login'); ?>
     <?= $form->input('email', 'Email address'); ?>
     <?= $form->input('password', 'Password', ['type' => 'password']); ?> 
     <?= $form->input('password2', 'Password confirmation', ['type' => 'password']); ?> 

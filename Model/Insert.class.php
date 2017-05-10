@@ -2,11 +2,11 @@
 
 class Insert{
 
-	static function NewUser($username, $email, $password){
+	static function NewUser($login, $email, $password){
 		$database = new Core\MysqlDb("mysql:dbname=camagru;host=localhost", $DB_USER, $DB_PASSWORD);
-		$data = $database->prepare("INSERT INTO users VALUES (null, :username, :email, :password, 'no', 'no');", 
+		$data = $database->prepare("INSERT INTO users VALUES (null, :login, :email, :password, 'no', 'no');", 
 			array(
-				'username'	=>	$username, 
+				'login'	=>	$login, 
 				'email'		=>	$email,
 				'password'	=>	$password
 				));

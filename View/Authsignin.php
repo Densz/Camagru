@@ -1,9 +1,9 @@
 <?php $form = new Form($_POST); ?>
 
 <form method="post">
-    <?= $form->input('username', 'Login'); ?>
+    <?= $form->input('login', 'Login'); ?>
     <?= $form->input('password', 'Password', ['type' => 'password']); ?> 
-    <?= $form->submit('Sign_in', 'Login', 'btn btn-primary'); ?>
+    <?= $form->submit('sign_in', 'Login', 'btn btn-primary'); ?>
 </form>
 
 <hr>

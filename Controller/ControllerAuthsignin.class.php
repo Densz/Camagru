@@ -7,8 +7,11 @@ class ControllerAuthsignin extends Controller
 	}
 
 	public function validEmail(){
-		var_dump(Routeur::$url['params']);
-		echo "<p>tasoeur</p>";
+		Update::accountConfirmed(Routeur::$url['params'][0]);
+		// Update la db pour valider le compte
+		// Connecter l'utilisateur
+		// Rediriger la page sur la vue principale
+
 	}
 }
 
