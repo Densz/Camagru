@@ -1,5 +1,5 @@
 <?php
-$form = new \core\HTML\BootstrapForm($_POST);
+$form = new BootstrapForm($_POST);
 ?>
 
 <form method="post">
@@ -9,4 +9,4 @@ $form = new \core\HTML\BootstrapForm($_POST);
 </form>
 
 <hr>
-<p>Don't have an account? <a href="index.php?p=sign_up">Sign up</a></p>
+<p>Don't have an account? <a href="http://localhost:<?= PORT ?>/Camagru_AD/visitorsignup/View/">Sign up</a></p>

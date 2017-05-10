@@ -1,9 +1,8 @@
 <?php
-$form = new \core\HTML\BootstrapForm($_POST);
-
+$form = new BootstrapForm();
 ?>
 
-<form method="post" action="/Controller/Sign_up.php">
+<form method="post" action="#">
     <?= $form->input('username', 'Login'); ?>
     <?= $form->input('username', 'Email address'); ?>
     <?= $form->input('password', 'Password', ['type' => 'password']); ?> 
@@ -12,4 +11,4 @@ $form = new \core\HTML\BootstrapForm($_POST);
 </form>
 
 <hr>
-<p>Already have an account? <a href="index.php">Sign in</a></p>
+<p>Already have an account? <a href='http://localhost:<?= PORT ?>/Camagru_AD/visitorsignin/View/'>Sign in</a></p>
