@@ -14,5 +14,8 @@ class Dispatcher
 		$this->content = ob_get_clean();
 		require('View/templates/default.php');
 	}
+
+
+
 }
 ?>
