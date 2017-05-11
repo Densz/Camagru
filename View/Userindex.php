@@ -1,1 +1,1 @@
-<p><?= $_SESSION['auth']; ?></p>
+<p><?= $no_access; ?></p>

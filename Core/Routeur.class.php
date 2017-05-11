@@ -10,11 +10,18 @@ class Routeur
 		$url = explode('/', $uri);
 		Routeur::$url['dir'] = $url[1];
 		(CB::my_assert($url[2])) ? Routeur::$url['controller'] = $url[2] : header('Location: http://localhost:' . PORT . '/' . $url[1] . '/authsignup/view/');
-		(CB::my_assert($url[3])) ? Routeur::$url['function'] = $url[3] : print_r("redirection 404");
+		(CB::my_assert($url[3])) ? Routeur::$url['method'] = $url[3] : print_r("redirection 404");
 		for ($i = 4; $i <= count($url) - 1; $i++)
 			Routeur::$url['params'][] = $url[$i];
 	}
 
+	public function redirect($new_url)
+	{
+		$new_url = explode('/', $new_url);
+		Routeur::$url['controller'] = $new_url[0];
+		Routeur::$url['method'] = $new_url[1];
+		return ('http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/' . Routeur::$url['controller'] . '/' . Routeur::$url['method']);
+	}
 }
 
 ?>

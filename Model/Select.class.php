@@ -1,18 +1,24 @@
 <?php
-class Select{
+class Select
+{
 
-	public static function all($table){
-		$database = new Core\MysqlDb("mysql:dbname=camagru;host=localhost", $DB_USER, $DB_PASSWORD);
-		$data = $database->query("SELECT * FROM $table");
-		return $data;
-	}
-
-	public static function login($login)
+	public function		select_all($table)
 	{
-		$database = new Core\MysqlDb("mysql:dbname=camagru;host=localhost", $DB_USER, $DB_PASSWORD);
-		return $database->prepare("SELECT login, password FROM users WHERE login = ?", [$login]);
+		return (Dispatcher::$db->query("SELECT * FROM " . $table));
 	}
 
+	public function spe_select($value, $table, $condition = null)
+	{
+		$request = "SELECT " . $value . " FROM " . $table;
+		if ($condition)
+		{
+			$request .= " WHERE ";
+			foreach ($condition as $k => $v)
+				$request .= $k . ' = ' . $v . ' AND ';
+			$request = substr($request, 0, -5);
+		}
+		return (Dispatcher::$db->query($request));
+	}
 }
 
 ?>

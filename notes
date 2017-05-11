@@ -1,0 +1,3 @@
+$sel = $this->call_model('select')
+$data = $sel->select_all('user', 'nom=^p');
+foreach()

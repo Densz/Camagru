@@ -4,11 +4,21 @@ class Controller
 {
 	public static $cont;
 
+	public function header()
+	{
+		require_once('View/templates/header.html');
+	}
+
+	public function footer()
+	{
+		require_once('View/templates/footer.html');
+	}
+
 	public function init()
 	{
 		$name = Routeur::$url['controller'];
 		$func = $this->call_controller($name);
-		$func_name = Routeur::$url['function'];
+		$func_name = Routeur::$url['method'];
 		$func->$func_name();
 	}
 
@@ -26,9 +36,9 @@ class Controller
 		require_once('View/' . ucfirst($name) . '.php');
 	}
 
-	public function add_buff($name)
+	public function add_buff($name, $value)
 	{
-		Controller::$cont[$name] = ob_get_contents();
+		Controller::$cont[$name] = $value;
 	}
 
 	public function call_model($model_name)

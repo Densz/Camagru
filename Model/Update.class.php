@@ -1,8 +1,9 @@
 <?php
-class Update
+class Update extends Model
 {
-    static function accountConfirmed($login){
-		$database = new Core\MysqlDb("mysql:dbname=camagru;host=localhost", $DB_USER, $DB_PASSWORD);
-        $database->query("UPDATE users SET email_confirmed = 'yes' WHERE login = '$login'");
-	}
+
+
+  /*  static function accountConfirmed($login){
+        // $this->pdo->query("UPDATE users SET email_confirmed = 'yes' WHERE login = '$login'");
+	}*/
 }

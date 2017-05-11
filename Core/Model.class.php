@@ -1,14 +1,14 @@
 <?php
-namespace Core;
-use \PDO;
 
-class Mysqldb{
+class Model
+{
 	private $db_dsn;
 	private $db_user;
 	private $db_pass;
-	private $pdo;
+	protected  $pdo;
 
-	public function __construct($db_dsn, $db_user = 'root', $db_pass = 'root'){
+	public function init_connection($db_dsn, $db_user = 'root', $db_pass = 'root')
+	{
 		$this->db_dsn = 'mysql:db_name=';
 		$this->db_user = $db_user;
 		$this->db_pass = $db_pass;
@@ -17,7 +17,13 @@ class Mysqldb{
 		$this->pdo = null;
 	}
 
-	private function getPDO(){
+	public function hello()
+	{
+		var_dump("hello");
+	}
+
+	public function getPDO(){
+		// var_dump($this->db_user);
 		if ($this->pdo === null){
 			$pdo = new PDO($this->db_dsn, $this->db_user, $this->db_pass);
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -34,8 +40,8 @@ class Mysqldb{
 			strpos($statement, 'DELETE') === 0) {
 			return null;
 		}
-		$datas = $query->fetch();
-		return $datas;
+		$data = $query->fetch();
+		return $data;
 	}
 
 	public function prepare($statement, $attributes){
@@ -48,7 +54,8 @@ class Mysqldb{
 	    ) {
 	        return $res;
 	    }
-		$datas = $req->fetch();
-	    return $datas;
+		$req->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $req->fetch();
+	    return $data;
 	}
 }
