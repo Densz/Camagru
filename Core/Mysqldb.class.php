@@ -38,7 +38,7 @@ class Mysqldb{
 		return $datas;
 	}
 
-	public function prepare($statement, $attributes, $class_name = null, $one = false){
+	public function prepare($statement, $attributes){
 	    $req = $this->getPDO()->prepare($statement);
 	    $res = $req->execute($attributes);
 	    if(

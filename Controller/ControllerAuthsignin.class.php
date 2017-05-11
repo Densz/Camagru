@@ -8,10 +8,17 @@ class ControllerAuthsignin extends Controller
 
 	public function validEmail(){
 		Update::accountConfirmed(Routeur::$url['params'][0]);
-		// Update la db pour valider le compte
-		// Connecter l'utilisateur
-		// Rediriger la page sur la vue principale
+		$_SESSION['auth'] = Routeur::$url['params'][0];
+		header('Location: http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view/');
+	}
 
+	public function signIn()
+	{
+		if ($_POST['sign_in'] === 'Login')
+		{
+			$array = Select::login($_POST['login']);
+			
+		}
 	}
 }
 

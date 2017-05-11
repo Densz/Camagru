@@ -14,6 +14,11 @@ class ControllerAuthsignup extends Controller
 		}
 	}
 
+	/**
+	 * Checker a faire pour verifier si l'inscription peut se faire
+	 * @param  [type] $array [description]
+	 * @return [type]        [description]
+	 */
 	private function checker($array){
 		return true;
 	}
