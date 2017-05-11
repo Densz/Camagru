@@ -2,7 +2,7 @@
 class Select
 {
 
-	public function		select_all($table)
+	public function	select_all($table)
 	{
 		return (Dispatcher::$db->query("SELECT * FROM " . $table));
 	}
@@ -15,7 +15,8 @@ class Select
 			$request .= " WHERE ";
 			foreach ($condition as $k => $v)
 				$request .= $k . ' = ' . $v . ' AND ';
-			$request = substr($request, 0, -5);
+			if ($condition !== null)
+				$request = substr($request, 0, -5);
 		}
 		return (Dispatcher::$db->query($request));
 	}

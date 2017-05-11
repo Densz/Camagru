@@ -2,6 +2,10 @@
 
 class ControllerAuthsignup extends Controller
 {
+	public function view(){
+		
+	}
+
 	public function signUp(){
 		if ($_POST['signup'] === 'Submit' && $_POST['password'] === $_POST['password2']){
 			if ($this->checker($_POST)){
@@ -33,10 +37,5 @@ class ControllerAuthsignup extends Controller
 		$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 		mail($emailTo, $subject, $message, $headers);
 	}
-
-	public function view(){
-		$this->add_buff('first_var');
-	}
-
 }
 ?>

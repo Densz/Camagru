@@ -2,7 +2,6 @@
 
 class ControllerAuthsignin extends Controller
 {
-
 	public function validEmail()
 	{
 		Update::accountConfirmed(Routeur::$url['params'][0]);
@@ -13,25 +12,34 @@ class ControllerAuthsignin extends Controller
 	public function signIn()
 	{
 		$sel = $this->call_model('select');
-		$data = $sel->spe_select("login", "users", array("id"=>2));
-		$this->add_buff("my_post", $data);
-		/*if ($_POST['sign_in'] === 'Login')
+		if ($_POST['sign_in'] === 'Login')
 		{
-			//$array = Select::login($_POST['login']);
-			$array = null;
+			/**
+			 * Le model spe_select ne fait pas de Fetch_Assoc
+			 */
+			$array = $sel->spe_select("login, password", "users", array("login" => "'" . $_POST['login'] . "'"));
 			if (CB::my_assert($array))
 			{
 				if (hash('whirlpool', $_POST['password']) === $array['password'])
 				{
 					$_SESSION['auth'] = $_POST['login'];
-					header('Location: http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view/');
+					echo $_SESSION['auth'] . ", you are now loggued";
+					/**
+					 * Header location ne marche pas je ne sais pas pourquoi
+					 */
+					/*echo Routeur::redirect('Userindex/view');
+					header('Location: ' . Routeur::redirect('Userindex/view/'));*/
 				}
 				else
 					echo '<div class="alert alert-danger">Invalid password</div>';
 			}
 			else
 				echo '<div class="alert alert-danger">Invalid login</div>';
-		}*/
+		}
+	}
+
+	public function view(){
+
 	}
 }
 

@@ -8,12 +8,3 @@
 
 <hr>
 <p>Don't have an account? <a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignup/View/">Sign up</a></p>
-
-<?php
-
-	if (CB::my_assert($my_post))
-		print_r($my_post);
-	else
-		print_r('post isnt set');
-
-?>

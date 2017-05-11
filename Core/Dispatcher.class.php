@@ -15,7 +15,6 @@ class Dispatcher
 		$controller->init();
 		$controller->rend(Routeur::$url['controller']);
 		$controller->footer();
-		//require('View/templates/default.php');
 	}
 
 

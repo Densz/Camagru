@@ -17,13 +17,7 @@ class Model
 		$this->pdo = null;
 	}
 
-	public function hello()
-	{
-		var_dump("hello");
-	}
-
 	public function getPDO(){
-		// var_dump($this->db_user);
 		if ($this->pdo === null){
 			$pdo = new PDO($this->db_dsn, $this->db_user, $this->db_pass);
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

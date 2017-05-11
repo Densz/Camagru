@@ -1,9 +1,10 @@
 <?php
 
 require 'database.php';
-require '../Core/MysqlDb.class.php';
+require '../Core/Model.class.php';
 
-$database = new Core\MysqlDb("mysql:dbname=camagru;host=localhost", $DB_USER, $DB_PASSWORD);
+$database = new Model();
+$database->init_connection("mysql:dbname=camagru;host=localhost", $DB_USER, $DB_PASSWORD);
 $database->query("CREATE TABLE IF NOT EXISTS users
 (
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
