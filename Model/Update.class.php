@@ -1,5 +1,4 @@
-<?
-
+<?php
 class Update
 {
     static function accountConfirmed($login){
