@@ -1,6 +1,11 @@
 <?php $form = new Form(); ?>
-
-<form method="post" action="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir']; ?>/authsignup/signUp/">
+<?php
+	if (CB::my_assert($email_sent))
+		echo $email_sent;
+	if (CB::my_assert($wrong_password_confirmation))
+		echo $wrong_password_confirmation;
+?>
+<form method="post" action="<?= Routeur::redirect('authsignup/signUp') ?>">
     <?= $form->input('login', 'Login'); ?>
     <?= $form->input('email', 'Email address'); ?>
     <?= $form->input('password', 'Password', ['type' => 'password']); ?> 

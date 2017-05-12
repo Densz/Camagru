@@ -20,6 +20,7 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="index.php">CAMAGRU</a>
+			<?= $disconnect; ?>
 		</div>
 	</div>
 </nav>

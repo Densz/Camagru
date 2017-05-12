@@ -26,7 +26,8 @@ class Model
 		return $this->pdo;
 	}
 
-	public function query($statement){
+	public function query($statement)
+	{
 		$query = $this->getPDO()->query($statement);
 		if (strpos($statement, 'UPDATE') === 0 ||
 			strpos($statement, 'CREATE') === 0 ||

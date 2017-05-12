@@ -4,8 +4,10 @@
 		echo $wrong_pwd;
 	if (CB::my_assert($wrong_log))
 		echo $wrong_log;
+/*	if (CB::my_assert($alert_disconnected))
+		echo $alert_disconnected;*/
 ?>
-<form method="post" action="<?= Routeur::redirect("authsignin/signin"); ?>">
+<form method="post" action="<?= Routeur::redirect("Authsignin/signin"); ?>">
     <?= $form->input('login', 'Login'); ?>
     <?= $form->input('password', 'Password', ['type' => 'password']); ?> 
     <?= $form->submit('sign_in', 'Login', 'btn btn-primary'); ?>

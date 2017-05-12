@@ -12,12 +12,8 @@ class Dispatcher
 		Dispatcher::$db->init_connection($connection_data[0], $connection_data[1], $connection_data[2]);
 		$controller = new Controller("Dispatcher");
 		$controller->init();
-		$controller->header();
 		$controller->rend(Routeur::$url['controller']);
-		$controller->footer();
 	}
-
-
 
 }
 ?>

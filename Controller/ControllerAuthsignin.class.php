@@ -4,9 +4,12 @@ class ControllerAuthsignin extends Controller
 {
 	public function validEmail()
 	{
-		Update::accountConfirmed(Routeur::$url['params'][0]);
+		$upd = $this->call_model('update');
+		$set_value = array('email_confirmed' => "'yes'");
+		$cond = array('login' => "'" . Routeur::$url['params'][0] . "'");
+		$upd->update_value('users', $set_value, $cond);
 		$_SESSION['auth'] = Routeur::$url['params'][0];
-		header('Location: http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view/');
+		header('Location: ' . Routeur::redirect('Userindex/view'));
 	}
 
 	public function signIn()
@@ -28,6 +31,12 @@ class ControllerAuthsignin extends Controller
 			else
 				$this->add_buff('wrong_log', '<div class="alert alert-danger">Invalid login</div>');
 		}
+	}
+
+	public function signOut()
+	{
+		$_SESSION['auth'] = "";
+		$this->add_buff('alert_disconnected', '<div class="alert alert-success">You have been disconnected</div>');
 	}
 
 	public function view(){

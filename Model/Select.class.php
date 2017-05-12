@@ -1,7 +1,6 @@
 <?php
 class Select
 {
-
 	public function	all($table)
 	{
 		return (Dispatcher::$db->query("SELECT * FROM " . $table));

@@ -6,6 +6,8 @@ class Controller
 
 	public function header()
 	{
+		if (CB::my_assert($_SESSION['auth']))
+			$disconnect = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Authsignin/signOut">Disconnect</a>';
 		require_once('View/templates/header.php');
 	}
 
@@ -26,14 +28,16 @@ class Controller
 	{
 	   $name = 'Controller' . ucfirst($name);
 	   require_once('Controller/' . $name . '.class.php');
-	   return ($func = new $name());
+	   return (new $name());
 	}
 
 	public function rend($name)
 	{
 		if (isset(Controller::$cont))
 			extract(Controller::$cont, EXTR_OVERWRITE);
+		$this->header();
 		require_once('View/' . ucfirst($name) . '.php');
+		$this->footer();
 	}
 
 	public function add_buff($name, $value)

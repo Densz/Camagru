@@ -1,15 +1,17 @@
 <?php
-
-class Insert extends Model{
-
-	/*static function NewUser($login, $email, $password){
-		$database = new Core\MysqlDb("mysql:dbname=camagru;host=localhost", $DB_USER, $DB_PASSWORD);
-		$data = $database->prepare("INSERT INTO users VALUES (null, :login, :email, :password, 'no', 'no');", 
-			array(
-				'login'	=>	$login, 
-				'email'		=>	$email,
-				'password'	=>	$password
-				));
-	}*/
-
+class Insert
+{
+	public function insert_value($table, $values)
+	{
+		$request = "INSERT INTO " . $table . "(";
+		foreach ($values as $k => $v)
+			$request .= $k . ', ';
+		$request = substr($request, 0, -2);
+		$request .= ") VALUES (";
+		foreach ($values as $k => $v)
+			$request .= $v . ', ';
+		$request = substr($request, 0, -2);
+		$request .= ");";
+		return (Dispatcher::$db->query($request));
+	}
 }
