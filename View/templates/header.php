@@ -24,5 +24,5 @@
 		</div>
 	</div>
 </nav>
-<div class="container">
+<div class="container" style="background-color: blue;">
 	<div class="starter-template" style="padding-top: 100px;">
