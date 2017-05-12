@@ -6,12 +6,12 @@ class Controller
 
 	public function header()
 	{
-		require_once('View/templates/header.html');
+		require_once('View/templates/header.php');
 	}
 
 	public function footer()
 	{
-		require_once('View/templates/footer.html');
+		require_once('View/templates/footer.php');
 	}
 
 	public function init()

@@ -31,9 +31,11 @@ class Model
 		if (strpos($statement, 'UPDATE') === 0 ||
 			strpos($statement, 'CREATE') === 0 ||
 			strpos($statement, 'INSERT') === 0 ||
-			strpos($statement, 'DELETE') === 0) {
+			strpos($statement, 'DELETE') === 0)
+		{
 			return null;
 		}
+		$query->setFetchMode(PDO::FETCH_ASSOC);
 		$data = $query->fetch();
 		return $data;
 	}
@@ -41,11 +43,10 @@ class Model
 	public function prepare($statement, $attributes){
 	    $req = $this->getPDO()->prepare($statement);
 	    $res = $req->execute($attributes);
-	    if(
-	        strpos($statement, 'UPDATE') === 0 ||
+	    if(strpos($statement, 'UPDATE') === 0 ||
 	        strpos($statement, 'INSERT') === 0 ||
-	        strpos($statement, 'DELETE') === 0
-	    ) {
+	        strpos($statement, 'DELETE') === 0)
+	    {
 	        return $res;
 	    }
 		$req->setFetchMode(PDO::FETCH_ASSOC);

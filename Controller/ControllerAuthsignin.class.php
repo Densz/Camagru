@@ -14,27 +14,19 @@ class ControllerAuthsignin extends Controller
 		$sel = $this->call_model('select');
 		if ($_POST['sign_in'] === 'Login')
 		{
-			/**
-			 * Le model spe_select ne fait pas de Fetch_Assoc
-			 */
-			$array = $sel->spe_select("login, password", "users", array("login" => "'" . $_POST['login'] . "'"));
+			$array = $sel->query_select("login, password", "users", array("login" => "'" . $_POST['login'] . "'"));
 			if (CB::my_assert($array))
 			{
 				if (hash('whirlpool', $_POST['password']) === $array['password'])
 				{
 					$_SESSION['auth'] = $_POST['login'];
-					echo $_SESSION['auth'] . ", you are now loggued";
-					/**
-					 * Header location ne marche pas je ne sais pas pourquoi
-					 */
-					/*echo Routeur::redirect('Userindex/view');
-					header('Location: ' . Routeur::redirect('Userindex/view/'));*/
+					header('Location: ' . Routeur::redirect('Userindex/view'));
 				}
 				else
-					echo '<div class="alert alert-danger">Invalid password</div>';
+					$this->add_buff('wrong_pwd', '<div class="alert alert-danger">Invalid password</div>');
 			}
 			else
-				echo '<div class="alert alert-danger">Invalid login</div>';
+				$this->add_buff('wrong_log', '<div class="alert alert-danger">Invalid login</div>');
 		}
 	}
 
