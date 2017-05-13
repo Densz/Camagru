@@ -11,7 +11,9 @@ class ControllerAuthsignup extends Controller
 	{
 		if ($_POST['signup'] === 'Submit' && $_POST['password'] === $_POST['password2'])
 		{
-			if ($this->checker($_POST))
+			if (!preg_match('/[a-z0-9]+@[a-z0-9]+[.][a-z]+/', $_POST['email']))
+				$this->add_buff('invalid_email', '<div class="alert alert-danger">Invalid email</div>');
+			else if (!CB::my_assert($check = $this->checker($_POST)))
 			{
 				$insert = $this->call_model('insert');
 				$values = array(
@@ -26,6 +28,13 @@ class ControllerAuthsignup extends Controller
 				$this->sendEmail($_POST);
 				$this->add_buff('email_sent','<div class="alert alert-info">An email has been sent to you</div>');
 			}
+			else
+			{
+				if ($check['login'] === $_POST['login'])
+					$this->add_buff('already_taken', '<div class="alert alert-danger">Login already taken</div>');
+				else
+					$this->add_buff('already_taken', '<div class="alert alert-danger">Email already taken</div>');
+			}
 		}
 		else
 		{
@@ -33,9 +42,14 @@ class ControllerAuthsignup extends Controller
 		}
 	}
 
-	private function checker($array)
+	private function checker($POST)
 	{
-		return true;
+		$sel = $this->call_model('select');
+		$res = $sel->query_select_or("login, email", "users", array(
+																		"login" => "'" . $POST['login'] . "'",
+																		"email" => "'" . $POST['email'] . "'"
+																	));
+		return $res;
 	}
 
 	private function sendEmail($userinfo)

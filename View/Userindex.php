@@ -1,11 +1,10 @@
-<p><?= $no_access; ?></p>
-<div>
-	<div style="text-align: center; display: inline-block; background-color: red;">
-		<video id="video"></video>
+<div style="display: inline;">
+	<div style="text-align: center; display: block;">
+		<video id="video"></video><br>
 		<button id="startbutton">Prendre une photo</button>
 	</div>
-	<div style="text-align: center;display: inline-block; background-color: grey;">
-		<img src="http://placekitten.com/g/320/261" id="photo" alt="photo">
+	<div style="text-align: center; display: block;">
+		<img src="" id="photo" alt="photo">
 	</div>
 		<canvas id="canvas" style="display: none;"></canvas>
 </div>

@@ -17,10 +17,12 @@ class ControllerAuthsignin extends Controller
 		$sel = $this->call_model('select');
 		if ($_POST['sign_in'] === 'Login')
 		{
-			$array = $sel->query_select("login, password", "users", array("login" => "'" . $_POST['login'] . "'"));
+			$array = $sel->query_select("login, password, email_confirmed", "users", array('login' => "'" . $_POST['login'] . "'"));
 			if (CB::my_assert($array))
 			{
-				if (hash('whirlpool', $_POST['password']) === $array['password'])
+				if ($array['email_confirmed'] === 'no')
+					$this->add_buff('email_not_confirmed', '<div class="alert alert-danger">Please confirm your email address</div>');
+				else if (hash('whirlpool', $_POST['password']) === $array['password'])
 				{
 					$_SESSION['auth'] = $_POST['login'];
 					header('Location: ' . Routeur::redirect('Userindex/view'));
@@ -39,8 +41,14 @@ class ControllerAuthsignin extends Controller
 		$this->add_buff('alert_disconnected', '<div class="alert alert-success">You have been disconnected</div>');
 	}
 
-	public function view(){
+	public function noAccess()
+	{
+		$this->add_buff('no_access', '<div class="alert alert-danger">No access rights</div>');
+	}
 
+	public function view(){
+		if (CB::my_assert($_SESSION['auth']))
+			header('Location: ' . Routeur::redirect('Userindex/view'));
 	}
 }
 

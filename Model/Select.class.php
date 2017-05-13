@@ -19,6 +19,19 @@ class Select
 		return (Dispatcher::$db->query($request));
 	}
 
+	public function query_select_or($value, $table, $condition = null)
+	{
+		$request = "SELECT " . $value . " FROM " . $table;
+		if ($condition)
+		{
+			$request .= " WHERE ";
+			foreach ($condition as $k => $v)
+				$request .= $k . ' = ' . $v . ' OR ';
+			$request = substr($request, 0, -4);
+		}
+		return (Dispatcher::$db->query($request));
+	}
+
 /*	public function prepare_select($value, $table, $condition = null)
 	{
 		$request = "SELECT ? FROM ?";

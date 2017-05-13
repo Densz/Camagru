@@ -7,7 +7,7 @@ class Controller
 	public function header()
 	{
 		if (CB::my_assert($_SESSION['auth']))
-			$disconnect = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Authsignin/signOut">Disconnect</a>';
+			$disconnect = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Authsignin/signOut">X</a>';
 		require_once('View/templates/header.php');
 	}
 

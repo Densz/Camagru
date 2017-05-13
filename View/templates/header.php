@@ -19,7 +19,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.php">CAMAGRU</a>
+			<a class="navbar-brand" href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignin/View/"">CAMAGRU</a>
 			<?= $disconnect; ?>
 		</div>
 	</div>
