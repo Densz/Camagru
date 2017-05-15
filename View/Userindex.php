@@ -2,7 +2,7 @@
 
 <div style="display: inline;">
 	<div style="text-align: center; display: block;">
-		<video id="video"></video><br>
+		<video style="transform: scaleX(-1);" id="video"></video><br>
 		<button id="startbutton">Prendre une photo</button>
 		<button id="save">Sauvegarder une photo</button>
 		

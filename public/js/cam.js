@@ -53,12 +53,31 @@
 	photo.setAttribute('src', data);
   }
 
-  save.addEventListener('click', function(){
-		var	xhr =  new XMLHttpRequest();
-		var	sVar = encodeURIComponent(canvas.toDataURL('image/png'));
+  function request(callback)
+  {
+		var xhr = new XMLHttpRequest(),
+			sVar = encodeURIComponent(canvas.toDataURL('image/png'));
+
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
+				callback(xhr.responseText);
+		}
 		xhr.open("POST", "../test/handlingData.php", true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send("img=" + sVar);
+  }
+
+	function readData(sData)
+	{
+		if (sData == "OK")
+			alert("Tout s'est bien passé !");
+		else
+			alert("Shit appended !");
+	}
+
+
+  save.addEventListener('click', function(){
+		request(readData);
 	});
 
   	startbutton.addEventListener('click', function(ev){
