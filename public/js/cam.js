@@ -1,11 +1,12 @@
 (function() {
 
   var streaming = false,
-	  video        = document.querySelector('#video'),
-	  cover        = document.querySelector('#cover'),
-	  canvas       = document.querySelector('#canvas'),
-	  photo        = document.querySelector('#photo'),
-	  startbutton  = document.querySelector('#startbutton'),
+	  video       	= document.querySelector('#video'),
+	  cover       	= document.querySelector('#cover'),
+	  canvas      	= document.querySelector('#canvas'),
+	  photo       	= document.querySelector('#photo'),
+	  startbutton 	= document.querySelector('#startbutton'),
+	  save			= document.querySelector('#save'),
 	  width = 500,
 	  height = 0;
 
@@ -52,9 +53,21 @@
 	photo.setAttribute('src', data);
   }
 
-  startbutton.addEventListener('click', function(ev){
-	  takepicture();
-	ev.preventDefault();
+  save.addEventListener('click', function(){
+		var	xhr =  new XMLHttpRequest();
+		var	sVar = encodeURIComponent(canvas.toDataURL('image/png'));
+		xhr.open("POST", "../test/handlingData.php", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("img=" + sVar);
+	});
+
+  	startbutton.addEventListener('click', function(ev){
+		takepicture();
+		ev.preventDefault();
+  	}, false);
+
+  save.addEventListener('click', function(){
+		
   }, false);
 
 })();
