@@ -18,7 +18,7 @@ $database->query("CREATE TABLE IF NOT EXISTS users
 $database->query("CREATE TABLE IF NOT EXISTS posts
 (
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    image_url VARCHAR(238) NOT NULL,
+    image_path VARCHAR(238) NOT NULL,
 	login VARCHAR(32) NOT NULL,
     date DATETIME NOT NULL
 );");

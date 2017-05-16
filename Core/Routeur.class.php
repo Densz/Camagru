@@ -20,7 +20,7 @@ class Routeur
 		$new_url = explode('/', $new_url);
 		Routeur::$url['controller'] = $new_url[0];
 		Routeur::$url['method'] = $new_url[1];
-		return ('http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/' . Routeur::$url['controller'] . '/' . Routeur::$url['method']);
+		return ($url['dir'] . '/' . Routeur::$url['controller'] . '/' . Routeur::$url['method']);
 	}
 }
 

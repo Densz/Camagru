@@ -53,40 +53,26 @@
 	photo.setAttribute('src', data);
   }
 
-  function request(callback)
-  {
-		var xhr = new XMLHttpRequest(),
-			sVar = encodeURIComponent(canvas.toDataURL('image/png'));
 
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
-				callback(xhr.responseText);
-		}
-		xhr.open("POST", "../test/handlingData.php", true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send("img=" + sVar);
+  function request()
+  {
+    var head = /^data:image\/(png|jpeg);base64,/,
+        data = '',
+        xhr = new XMLHttpRequest();
+
+        data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
+	    xhr.open('POST', '../test/handlingData.php', true);
+  		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	    xhr.send('contents=' + data);
   }
 
-	function readData(sData)
-	{
-		if (sData == "OK")
-			alert("Tout s'est bien passé !");
-		else
-			alert("Shit appended !");
-	}
-
-
   save.addEventListener('click', function(){
-		request(readData);
+		request();
 	});
 
   	startbutton.addEventListener('click', function(ev){
 		takepicture();
 		ev.preventDefault();
   	}, false);
-
-  save.addEventListener('click', function(){
-		
-  }, false);
 
 })();
