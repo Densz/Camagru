@@ -16,13 +16,13 @@ class ControllerUserindex extends Controller
 		$fp = fopen('copies/' . $file . '.jpg', 'w');
 		fwrite($fp, $decodedData);
 		fclose($fp);
-/*		$ins = $this->call_model('insert');
-		$ins->insert_value('posts', array	(
-												'id'		=>		null,
-												'image_url'	=>		"'/copies/" . $file . ".jpg'",
+		$ins = $this->call_model('insert');
+		$values = array	(
+												'id'		=>		'null',
+												'image_path'	=>		"'/copies/" . $file . ".jpg'",
 												'login'		=>		"'" . $_SESSION['auth'] . "'",
 												'date'		=>		"'" . $file . "'"
-											)
-		);*/
+						);
+		$ins->insert_value('posts', $values);
 	}
 }

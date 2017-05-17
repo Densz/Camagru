@@ -6,7 +6,7 @@
 	  canvas      	= document.querySelector('#canvas'),
 	  photo       	= document.querySelector('#photo'),
 	  startbutton 	= document.querySelector('#startbutton'),
-	  save			= document.querySelector('#save'),
+	  saveButton	= document.querySelector('#save'),
 	  width = 500,
 	  height = 0;
 
@@ -51,28 +51,40 @@
 	canvas.getContext('2d').drawImage(video, 0, 0, width, height);
 	var data = canvas.toDataURL('image/png');
 	photo.setAttribute('src', data);
+	photo.style.display = 'inline';
+	saveButton.style.display = 'inline';
+	var alertMessage = document.getElementsByClassName('alert alert-success'),
+		container = document.getElementById('container');
+	alertMessage.style.display = 'none';
+
   }
 
 
-  function save()
-  {
-    var head = /^data:image\/(png|jpeg);base64,/,
-        data = '',
-        xhr = new XMLHttpRequest();
+	function savePicture()
+	{
+	var head = /^data:image\/(png|jpeg);base64,/,
+	    data = '',
+	    xhr = new XMLHttpRequest();
 
-        data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
+	    data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
 	    xhr.open('POST', 'http://localhost:8080/camagru/Userindex/save', true);
-  		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	    xhr.send('contents=' + data);
-  }
+	}
 
 	save.addEventListener('click', function(){
-		save();
+		savePicture();
+		saveButton.style.display = 'none';
+		photo.style.display = 'none';
+		var alert = document.createElement('div'),
+			container = document.getElementById('container');
+		alert.className = 'alert alert-success';
+		container.insertBefore(alert, container.firstChild);
+		alert.appendChild(document.createTextNode("Your picture has been saved"));
 	});
 
   	startbutton.addEventListener('click', function(ev){
 		takepicture();
 		ev.preventDefault();
   	}, false);
-
 })();
