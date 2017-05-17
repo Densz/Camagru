@@ -49,6 +49,18 @@
 	canvas.width = width;
 	canvas.height = height;
 	canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+
+	var addFilter = document.getElementById('addfilter');
+
+	addFilter.addEventListener('click', function(){
+		base_image = new Image();
+		var filter = document.querySelector('input[name="filter"]:checked').value;
+		base_image.src = '../public/filter/' + filter;
+		base_image.onload = function(){
+			canvas.getContext('2d').drawImage(base_image, 0, 0, 100, 100);
+		}
+	});
+
 	var data = canvas.toDataURL('image/png');
 	photo.setAttribute('src', data);
 	photo.style.display = 'inline';
@@ -58,7 +70,6 @@
 	if (alertMessage.length != 0)
 		container.removeChild(container.childNodes[0]);
   }
-
 
 	function savePicture()
 	{
