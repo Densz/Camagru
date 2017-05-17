@@ -54,9 +54,9 @@
 	photo.style.display = 'inline';
 	saveButton.style.display = 'inline';
 	var alertMessage = document.getElementsByClassName('alert alert-success'),
-		container = document.getElementById('container');
-	alertMessage.style.display = 'none';
-
+		container = document.getElementById('cam_container');
+	if (alertMessage.length != 0)
+		container.removeChild(container.childNodes[0]);
   }
 
 
@@ -77,7 +77,7 @@
 		saveButton.style.display = 'none';
 		photo.style.display = 'none';
 		var alert = document.createElement('div'),
-			container = document.getElementById('container');
+			container = document.getElementById('cam_container');
 		alert.className = 'alert alert-success';
 		container.insertBefore(alert, container.firstChild);
 		alert.appendChild(document.createTextNode("Your picture has been saved"));
