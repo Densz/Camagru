@@ -54,20 +54,20 @@
   }
 
 
-  function request()
+  function save()
   {
     var head = /^data:image\/(png|jpeg);base64,/,
         data = '',
         xhr = new XMLHttpRequest();
 
         data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
-	    xhr.open('POST', '../test/handlingData.php', true);
+	    xhr.open('POST', 'http://localhost:8080/camagru/Userindex/save', true);
   		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	    xhr.send('contents=' + data);
   }
 
-  save.addEventListener('click', function(){
-		request();
+	save.addEventListener('click', function(){
+		save();
 	});
 
   	startbutton.addEventListener('click', function(ev){

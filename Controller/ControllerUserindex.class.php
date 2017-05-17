@@ -8,12 +8,12 @@ class ControllerUserindex extends Controller
 			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
 	}
 
-	public static function save()
+	public function save()
 	{
 		$file = date('Y-m-d-H-i-s');
-		$encodedData = str_replace(' ', '+', Routeur::$url['params'][0]);
+		$encodedData = str_replace(' ', '+', $_POST['contents']);
 		$decodedData = base64_decode($encodedData);
-		$fp = fopen('../copies/' . $file . '.jpg', 'w');
+		$fp = fopen('copies/' . $file . '.jpg', 'w');
 		fwrite($fp, $decodedData);
 		fclose($fp);
 /*		$ins = $this->call_model('insert');
@@ -23,6 +23,6 @@ class ControllerUserindex extends Controller
 												'login'		=>		"'" . $_SESSION['auth'] . "'",
 												'date'		=>		"'" . $file . "'"
 											)
-		);
-*/	}
+		);*/
+	}
 }
