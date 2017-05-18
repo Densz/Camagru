@@ -19,8 +19,12 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignin/View/"">CAMAGRU</a>
-			<?= $disconnect; ?>
+			<a class="navbar-brand" href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignin/View/"">CAMAGRU	&nbsp;&nbsp;&nbsp; |</a>
+			<?= $thread; ?>
+			<?= $camjs ?>
+			<?= $camphp; ?>
+			<?= $gallery; ?>
+			<?= $disconnect ?>
 		</div>
 	</div>
 </nav>
