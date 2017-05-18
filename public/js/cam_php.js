@@ -77,10 +77,8 @@
 				{
 					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("}") + 1);
 					var jsonImg = JSON.parse(string);
-
 					var imagePath = '../'+jsonImg['image_path'].substring(1, jsonImg['image_path'].indexOf("'", 2));
 
-					console.log(imagePath);
 					base_image = new Image();
 					base_image.src = imagePath;
 					base_image.onload = function()

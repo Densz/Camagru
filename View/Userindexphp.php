@@ -7,9 +7,13 @@
 	</div>
 	<div id="visualize" style="display: block;">
 		<video style="transform: scaleX(-1);" id="video"></video><br>
+		<button id="startbutton">Prendre une photo</button><br><br><br>
 
-		<button id="startbutton">Prendre une photo</button>
-		<button id="save" style="display: none;">Sauvegarder une photo</button>
+		<form method="post" enctype="multipart/form-data">
+			<div style="display: inline-block"><input type="file" name="upload" id="upload"></div>
+			<div style="display: inline-block"><input type="submit" value="Upload Image" name="submit"></div>
+		</form>
+		<br><br><br>
 	</div>
 	<div style="text-align: center; display: block;">
 		<img src="" id="photo" style="display: none;">
