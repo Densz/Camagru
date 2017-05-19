@@ -61,15 +61,15 @@
 	function savePicture()
 	{
 		var head = /^data:image\/(png|jpeg);base64,/,
-		data = '',
-		filter = document.querySelector('input[name="filter"]:checked').value,
-		xhr = new XMLHttpRequest();
+			data = '',
+			filter = document.querySelector('input[name="filter"]:checked').value,
+			xhr = new XMLHttpRequest();
 
 		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
 		xhr.open('POST', 'http://localhost:8080/camagru/Userindexphp/save', true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('contents=' + data + '&filter=' + filter);
-		xhr.onload = function () 
+		xhr.onload = function ()
 		{
 			if (xhr.readyState === xhr.DONE) 
 			{
@@ -77,7 +77,7 @@
 				{
 					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("}") + 1);
 					var jsonImg = JSON.parse(string);
-					var imagePath = '../'+jsonImg['image_path'].substring(1, jsonImg['image_path'].indexOf("'", 2));
+					var imagePath = '../' + jsonImg['image_path'].substring(1, jsonImg['image_path'].indexOf("'", 2));
 
 					base_image = new Image();
 					base_image.src = imagePath;

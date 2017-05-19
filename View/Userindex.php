@@ -6,7 +6,7 @@
 		<div style="display: inline-block"><img height="50px" src="../public/filter/filter_42_2.png"><br /><input type="radio" name="filter" value="filter_42_2.png"></div>
 	</div>
 	<div id="visualize" style="display: block;">
-		<video style="transform: scaleX(-1);" id="video"></video><br>
+		<video id="video"></video><br>
 		<button id="startbutton">Prendre une photo</button>
 		<button id="save" style="display: none;">Sauvegarder une photo</button>
 		<button id="addfilter">add filter</button>

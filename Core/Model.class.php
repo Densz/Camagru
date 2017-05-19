@@ -37,7 +37,7 @@ class Model
 			return null;
 		}
 		$query->setFetchMode(PDO::FETCH_ASSOC);
-		$data = $query->fetch();
+		$data = $query->fetchAll();
 		return $data;
 	}
 
