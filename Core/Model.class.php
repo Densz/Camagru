@@ -26,7 +26,7 @@ class Model
 		return $this->pdo;
 	}
 
-	public function query($statement)
+	public function query($statement, $one = true)
 	{
 		$query = $this->getPDO()->query($statement);
 		if (strpos($statement, 'UPDATE') === 0 ||
@@ -37,7 +37,10 @@ class Model
 			return null;
 		}
 		$query->setFetchMode(PDO::FETCH_ASSOC);
-		$data = $query->fetchAll();
+		if (CB::my_assert($one))
+			$data = $query->fetch();
+		else
+			$data = $query->fetchAll();
 		return $data;
 	}
 

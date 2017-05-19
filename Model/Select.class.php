@@ -6,7 +6,7 @@ class Select
 		return (Dispatcher::$db->query("SELECT * FROM " . $table));
 	}
 
-	public function query_select($value, $table, $condition = null)
+	public function query_select($value, $table, $condition = null, $one = true)
 	{
 		$request = "SELECT " . $value . " FROM " . $table;
 		if ($condition)
@@ -16,7 +16,7 @@ class Select
 				$request .= $k . ' = ' . $v . ' AND ';
 			$request = substr($request, 0, -5);
 		}
-		return (Dispatcher::$db->query($request));
+		return (Dispatcher::$db->query($request, $one));
 	}
 
 	public function query_select_or($value, $table, $condition = null)
