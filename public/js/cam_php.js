@@ -66,18 +66,17 @@
 			xhr = new XMLHttpRequest();
 
 		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
-		xhr.open('POST', 'http://localhost:8080/camagru/Userindexphp/save', true);
+		xhr.open('POST', url() + 'Userindexphp/save', true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('contents=' + data + '&filter=' + filter);
 		xhr.onload = function ()
 		{
 			if (xhr.readyState === xhr.DONE)
 			{
-				if (xhr.status === 200)
+				if (xhr.status === 200 || xhr.status == 0)
 				{
 					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("}") + 1);
 					var jsonImg = JSON.parse(string);
-					console.log(jsonImg);
 					var imagePath = '../' + jsonImg['image_path'].substring(1, jsonImg['image_path'].indexOf("'", 2));
 
 					base_image = new Image();
@@ -91,5 +90,11 @@
 				}
 			}
 		};
+	}
+
+	function url(){
+		var url =  window.location.href;
+		url = url.split("/");
+		return(url[0] + '//' + url[2] + '/' + url[3] + '/');
 	}
 })();

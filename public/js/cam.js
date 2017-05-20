@@ -96,9 +96,16 @@
 		data = '',
 		xhr = new XMLHttpRequest();
 
-		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
-		xhr.open('POST', 'http://localhost:8080/camagru/Userindex/save', true);
+		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');	
+		xhr.open('POST', url() + 'Userindex/save', true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('contents=' + data);
 	}
+
+	function url(){
+		var url =  window.location.href;
+		url = url.split("/");
+		return(url[0] + '//' + url[2] + '/' + url[3] + '/');
+	}
+
 })();

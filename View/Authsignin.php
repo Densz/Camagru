@@ -19,4 +19,6 @@
 </form>
 
 <hr>
-<p>Don't have an account? <a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignup/View/">Sign up</a></p>
+<span>Don't have an account yet? <a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignup/View/">Sign up</a></span>
+<br>
+<a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/Resetpwd/View/" style="text-align: right;">Forgot password?</a>

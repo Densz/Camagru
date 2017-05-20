@@ -11,7 +11,7 @@
 		echo $invalid_email;
 ?>
 
-<form method="post" action="<?= Routeur::redirect('authsignup/signUp') ?>">
+<form method="post" action="<?= Routeur::redirect('authsignup/signUp'); ?>">
     <?= $form->input('login', 'Login'); ?>
     <?= $form->input('email', 'Email address'); ?>
     <?= $form->input('password', 'Password', ['type' => 'password']); ?> 

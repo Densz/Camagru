@@ -3,6 +3,18 @@
 class Controller
 {
 	public static $cont;
+	protected static $sel;
+	protected static $del;
+	protected static $ins;
+	protected static $up;
+
+	public function __construct()
+	{
+		self::$sel = $this->call_model('select');
+		self::$del = $this->call_model('delete');
+		self::$ins = $this->call_model('insert');
+		self::$up = $this->call_model('update');
+	}
 
 	public function header()
 	{
