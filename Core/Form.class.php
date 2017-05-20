@@ -2,16 +2,15 @@
 class Form
 {
     private $data;
-    public $surround = 'p';
 
     public function __construct($data = array())
     {
         $this->data = $data;
     }
 
-    protected function surround($html)
+    public function surround($html, $surround = 'p', $class = null)
     {
-        return "<{$this->surround}>{$html}</{$this->surround}>";
+        return "<{$surround} class=\"$class\";>{$html}</{$surround}>";
     } 
 
     public function input($name, $label, $options = [], $htmlclass = "form-control", $require = 'true')

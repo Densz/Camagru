@@ -44,7 +44,7 @@ class Model
 		return $data;
 	}
 
-	public function prepare($statement, $attributes){
+	public function prepare($statement, $attributes, $one = true){
 	    $req = $this->getPDO()->prepare($statement);
 	    $res = $req->execute($attributes);
 	    if(strpos($statement, 'UPDATE') === 0 ||
@@ -54,7 +54,10 @@ class Model
 	        return $res;
 	    }
 		$req->setFetchMode(PDO::FETCH_ASSOC);
-		$data = $req->fetch();
+		if (CB::my_assert($one))
+			$data = $req->fetch();
+		else
+			$data = $req->fetchAll();
 	    return $data;
 	}
 }

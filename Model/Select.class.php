@@ -1,12 +1,12 @@
 <?php
 class Select
 {
-	public function	all($table)
+	public function	all($table, $one = true)
 	{
-		return (Dispatcher::$db->query("SELECT * FROM " . $table));
+		return (Dispatcher::$db->query("SELECT * FROM " . $table, $one));
 	}
 
-	public function query_select($value, $table, $condition = null, $one = true)
+	public function query_select($value, $table, $condition = null, $one = true, $order = null)
 	{
 		$request = "SELECT " . $value . " FROM " . $table;
 		if ($condition)
@@ -16,6 +16,8 @@ class Select
 				$request .= $k . ' = ' . $v . ' AND ';
 			$request = substr($request, 0, -5);
 		}
+		if (CB::my_assert($order))
+			$request .= " ORDER BY " . $order . " DESC";
 		return (Dispatcher::$db->query($request, $one));
 	}
 

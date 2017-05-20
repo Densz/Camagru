@@ -9,10 +9,8 @@
 	  saveButton	= document.querySelector('#save'),
 	  addFilter 	= document.getElementById('addfilter');
 	  width = 500,
-	  scale = 'scaleX(' + -1 + ')',
 	  height = 0;
 
-	  console.log(scale);
 	navigator.getMedia = (navigator.getUserMedia ||
 						navigator.webkitGetUserMedia ||
 						navigator.mozGetUserMedia ||
@@ -44,10 +42,8 @@
 			height = video.videoHeight / (video.videoWidth/width);
 			video.setAttribute('width', width);
 			video.setAttribute('height', height);
-			video.setAttribute('style', "transform: " + scale);
 			canvas.setAttribute('width', width);
 			canvas.setAttribute('height', height);
-			canvas.setAttribute('style', "transform: " + scale);
 			streaming = true;
 		}
 	}, false);
@@ -72,7 +68,7 @@
 		base_image = new Image();
 		var filter = document.querySelector('input[name="filter"]:checked').value;
 
-		base_image.src = '../public/filter/' + filter;
+		base_image.src = '../public/resources/filter/' + filter;
 		base_image.onload = function(){
 			canvas.getContext('2d').drawImage(base_image, 0, 0, 100, 100);
 		}
@@ -102,7 +98,7 @@
 
 		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
 		xhr.open('POST', 'http://localhost:8080/camagru/Userindex/save', true);
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('contents=' + data);
 	}
 })();

@@ -14,8 +14,8 @@ class ControllerUserindexphp extends Controller
 		$encodedData = str_replace(' ', '+', $_POST['contents']);
 		$decodedData = base64_decode($encodedData);
 		$img_gd = imagecreatefromstring($decodedData);
-		$filter_gd = imagecreatefrompng('public/filter/' . $_POST['filter']);
-		$filter_size = getimagesize('public/filter/' . $_POST['filter']);
+		$filter_gd = imagecreatefrompng('public/resources/filter/' . $_POST['filter']);
+		$filter_size = getimagesize('public/resources/filter/' . $_POST['filter']);
 		$img_with_filter = $this->imagecopymerge_alpha($img_gd, $filter_gd, 1, 1, 1, 1, $filter_size[0] - 1, $filter_size[1] - 1, 100);
 		imagejpeg($img_with_filter, 'public/copies/' . $file . '.jpg');
 		$ins = $this->call_model('insert');

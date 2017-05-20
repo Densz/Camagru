@@ -26,10 +26,8 @@ $database->query("CREATE TABLE IF NOT EXISTS posts
 $database->query("CREATE TABLE IF NOT EXISTS likes
 (
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    image_url VARCHAR(238) NOT NULL,
-	login VARCHAR(32) NOT NULL,
-    img_like INT NOT NULL,
-    date DATETIME NOT NULL    
+    img_path VARCHAR(238) NOT NULL,
+	login VARCHAR(32) NOT NULL
 );");
 
 $database->query("CREATE TABLE IF NOT EXISTS comments

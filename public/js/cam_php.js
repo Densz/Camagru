@@ -6,7 +6,7 @@
 	  canvas       = document.querySelector('#canvas'),
 	  photo        = document.querySelector('#photo'),
 	  startbutton  = document.querySelector('#startbutton'),
-	  width = 320,
+	  width = 500,
 	  height = 0;
 
   navigator.getMedia = ( navigator.getUserMedia ||
@@ -71,12 +71,13 @@
 		xhr.send('contents=' + data + '&filter=' + filter);
 		xhr.onload = function ()
 		{
-			if (xhr.readyState === xhr.DONE) 
+			if (xhr.readyState === xhr.DONE)
 			{
 				if (xhr.status === 200)
 				{
 					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("}") + 1);
 					var jsonImg = JSON.parse(string);
+					console.log(jsonImg);
 					var imagePath = '../' + jsonImg['image_path'].substring(1, jsonImg['image_path'].indexOf("'", 2));
 
 					base_image = new Image();
