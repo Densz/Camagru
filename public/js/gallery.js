@@ -1,3 +1,4 @@
+
 var likeButton = document.querySelectorAll(".like"),
 	likeMsg = document.querySelectorAll(".countLikes"),
 	i = 0,

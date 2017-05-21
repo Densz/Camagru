@@ -7,9 +7,9 @@
 	</div>
 	<div id="visualize" style="display: block;">
 		<video id="video"></video><br>
-		<button id="startbutton">Prendre une photo</button>
-		<button id="save" style="display: none;">Sauvegarder une photo</button>
-		<button id="addfilter">add filter</button>
+		<button id="startbutton">Take picture</button>
+		<button id="save" style="display: none;">Save picture</button>
+		<button id="addfilter">Add filter</button>
 	</div>
 	<div style="text-align: center; display: block;">
 		<img src="" id="photo" style="display: none;">
