@@ -12,7 +12,23 @@ class ControllerUsergallery extends Controller
 
 	}
 
-	public function five_imgs($begin, $form)
+	private static function displayCom($img_path)
+	{
+		$condition = array(
+								'img_path'		=>		"'{$img_path}'"
+							);
+		$req = self::$sel->query_select('*', 'comments', $condition, false, 'date');
+		echo '<br><div class="com_container" style="text-align:left;">';
+		if (CB::my_assert($req))
+		{
+			foreach ($req as $v) {
+				echo "<p><b>{$v['login']}:</b>&nbsp;{$v['img_comment']}</p>";
+			}
+		}
+		echo '</div>';
+	}
+
+	public static function five_imgs($begin, $form)
 	{
 		$finish = $begin + 5;
 		$condition = array (
@@ -26,7 +42,7 @@ class ControllerUsergallery extends Controller
 			echo '<div class="img-thumbnail" style="margin-bottom: 20px;">';
 			echo 'Posted by ';
 			echo $form->surround(self::$posts[$begin]['login'], 'a', 'text-left');
-			echo $form->img('../' . self::$posts[$begin]['image_path']);
+			echo $form->img('../' . self::$posts[$begin]['image_path'], 'image');
 			foreach ($likes as $v) {
 				if ($v['img_path'] === self::$posts[$begin]['image_path'])
 				{
@@ -44,7 +60,9 @@ class ControllerUsergallery extends Controller
 			$output = $req['countLikes'] . " like" . ($req['countLikes'] > 1 ? "s" : "");
 			echo $form->surround($output, 'a', 'countLikes');
 			echo $form->input('comment', 'Comment this photo', null, 'form-control', false);
+			echo '<button class="test">Comment</button>';
 			echo '<br>';
+			self::displayCom(self::$posts[$begin]['image_path']);
 			echo '</div>';
 			$begin++;
 		}
@@ -83,8 +101,25 @@ class ControllerUsergallery extends Controller
 				array_push($ret, $v['login']);
 			}
 			header('Content-type: text/plain');
+			// A afficher proprement dans une pop-up
 			print_r($ret);
 		}
+	}
+
+	public function comment()
+	{
+		if (CB::my_assert($_POST['comment']))
+		{
+			$values = array(
+								'id'			=>		'null',
+								'img_path'		=>		"'" . $_POST['img_path'] . "'",
+								'login'			=>		"'" . $_SESSION['auth'] . "'",
+								'img_comment'	=>		"'" . $_POST['comment'] . "'",
+								'date'			=>		"'" . date('Y-m-d-H-i-s') . "'"
+							);
+			self::$ins->insert_value('comments', $values);
+		}
+		echo json_encode(array('user' => "{$_SESSION['auth']}"));
 	}
 }
 

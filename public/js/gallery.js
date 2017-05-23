@@ -1,17 +1,19 @@
 
 var likeButton = document.querySelectorAll(".like"),
 	likeMsg = document.querySelectorAll(".countLikes"),
+	comButton = document.querySelectorAll(".test"),
+	currImg = document.querySelectorAll(".image"),
 	i = 0,
 	length = likeButton.length;
-
-
 
 for (i; i < length; i++) {
 	if (document.addEventListener) {
 		var xhr = new XMLHttpRequest();
 
-		likeMsg[i].addEventListener("click", getUser, false);
+		likeMsg[i].addEventListener("click", getUser);
 		likeMsg[i].params = [xhr, likeButton[i]];
+		comButton[i].addEventListener("click", comment);
+		comButton[i].params = [xhr, currImg[i], comButton[i]];
 		likeButton[i].addEventListener("click", function() {
 		if (this.src.indexOf("empty") !== -1) {
 			like(this, xhr);
@@ -23,6 +25,7 @@ for (i; i < length; i++) {
 	else {
 		likeButton[i].attachEvent("onclick", function(){});
 		likeMsg[i].attachEvent("onclick", function(){});
+		comButton[i].attachEvent("onclick", function(){});
 	}
 };
 
@@ -69,5 +72,42 @@ function getUser(evt)
 				alert(string);
 			}
 		}
+	}
+}
+
+function comment(evt)
+{
+	var xhr = evt.target.params[0],
+		currImg = evt.target.params[1],
+		button = evt.target.params[2],
+		tmp_path = currImg.src.split("/"),
+		imgPath = "public/copies/" + tmp_path[tmp_path.length - 1],
+		commentHTML = document.createElement('p'),
+		com_contain = button.nextSibling.nextSibling.nextSibling,
+		commenText = button.previousSibling.lastChild.value;
+
+	if (commenText !== "")
+	{
+		xhr.open('POST', url() + 'Usergallery/comment', true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("comment=" + commenText + "&img_path=" + imgPath);
+
+		xhr.onload = function ()
+		{
+			if (xhr.readyState === xhr.DONE)
+			{
+				if (xhr.status === 200 || xhr.status == 0)
+				{
+					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("}") + 1);
+					var json = JSON.parse(string);
+					var tmp = json['user'] + ': ';
+					var user = tmp.bold();
+
+					com_contain.insertBefore(commentHTML, com_contain.firstChild);
+					commentHTML.innerHTML = user + commenText;
+					button.previousSibling.lastChild.value = "";
+				}
+			}
+		};
 	}
 }

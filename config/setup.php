@@ -33,7 +33,7 @@ $database->query("CREATE TABLE IF NOT EXISTS likes
 $database->query("CREATE TABLE IF NOT EXISTS comments
 (
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    image_url VARCHAR(238) NOT NULL,
+    img_path VARCHAR(238) NOT NULL,
 	login VARCHAR(32) NOT NULL,
     img_comment LONGTEXT NOT NULL,
     date DATETIME NOT NULL    
