@@ -8,6 +8,24 @@ class ControllerUserindexphp extends Controller
 			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
 	}
 
+	public function upload()
+	{
+		var_dump($_POST);
+		if ($_POST['submit'] === 'Upload Image')
+		{
+			$valid_ext = array('jpg', 'jpeg', 'png', 'gif');
+			$file_extension = strtolower(substr(strrchr($_FILES['upload']['name'], '.'), 1));
+			if ($_FILES['error'] === UPLOAD_ERR_FORM_SIZE)
+				die("The file is too big");
+			else if (!in_array($file_extension, $valid_ext))
+				die("Bad file type");
+			$res = move_uploaded_file($_FILES['upload']['tmp_name'], 'public/copies/' . date('Y-m-d-H-i-s') . '.' . $file_extension);
+			if ($res)
+				echo "It works !";
+
+		}
+	}
+
 	public function save()
 	{
 		$file = date('Y-m-d-H-i-s');

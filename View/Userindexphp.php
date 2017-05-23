@@ -9,10 +9,22 @@
 		<video id="video"></video><br>
 		<button id="startbutton">Prendre une photo</button><br><br><br>
 
-		<form method="post" enctype="multipart/form-data">
-			<div style="display: inline-block"><input type="file" name="upload" id="upload"></div>
-			<div style="display: inline-block"><input type="submit" value="Upload Image" name="submit"></div>
+
+
+		<form method="post" enctype="multipart/form-data" action="<?= Routeur::redirect('Userindexphp/upload'); ?>">
+
+			<div style="display: inline-block">
+				<input type="hidden" name="MAX_FILE_SIZE" value="1048576">
+				<input type="file" name="upload" id="upload" required='true'>
+			</div>
+			<div style="display: inline-block">
+				<input type="submit" value="Upload Image" name="submit">
+			</div>
 		</form>
+
+
+
+
 		<br><br><br>
 	</div>
 	<div style="text-align: center; display: block;">

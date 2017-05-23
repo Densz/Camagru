@@ -6,6 +6,7 @@
 	  canvas       = document.querySelector('#canvas'),
 	  photo        = document.querySelector('#photo'),
 	  startbutton  = document.querySelector('#startbutton'),
+
 	  width = 500,
 	  height = 0;
 
@@ -55,10 +56,10 @@
 	canvas.getContext('2d').drawImage(video, 0, 0, width, height);
 	var data = canvas.toDataURL('image/png');
 	photo.setAttribute('src', data);
-	savePicture();
+	savePicture('save');
   }
 
-	function savePicture()
+	function savePicture(method)
 	{
 		var head = /^data:image\/(png|jpeg);base64,/,
 			data = '',
@@ -66,7 +67,7 @@
 			xhr = new XMLHttpRequest();
 
 		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
-		xhr.open('POST', url() + 'Userindexphp/save', true);
+		xhr.open('POST', url() + 'Userindexphp/' + method, true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('contents=' + data + '&filter=' + filter);
 		xhr.onload = function ()
