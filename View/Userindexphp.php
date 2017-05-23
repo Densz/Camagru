@@ -1,6 +1,7 @@
 <?php $form = new Form($_POST); ?>
 
 <div id="cam_container" style="text-align: center;">
+	<form method="post" enctype="multipart/form-data" action="<?= Routeur::redirect('Userindexphp/upload'); ?>">
 	<div style="display: inline">
 		<div style="display: inline-block"><img height="50px" src="../public/resources/filter/filter_42.png"><br /><input type="radio" name="filter" value="filter_42.png" checked></div>
 		<div style="display: inline-block"><img height="50px" src="../public/resources/filter/filter_42_2.png"><br /><input type="radio" name="filter" value="filter_42_2.png"></div>
@@ -11,7 +12,6 @@
 
 
 
-		<form method="post" enctype="multipart/form-data" action="<?= Routeur::redirect('Userindexphp/upload'); ?>">
 
 			<div style="display: inline-block">
 				<input type="hidden" name="MAX_FILE_SIZE" value="1048576">

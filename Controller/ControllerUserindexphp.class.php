@@ -10,7 +10,6 @@ class ControllerUserindexphp extends Controller
 
 	public function upload()
 	{
-		var_dump($_POST);
 		if ($_POST['submit'] === 'Upload Image')
 		{
 			$valid_ext = array('jpg', 'jpeg', 'png', 'gif');
@@ -19,10 +18,48 @@ class ControllerUserindexphp extends Controller
 				die("The file is too big");
 			else if (!in_array($file_extension, $valid_ext))
 				die("Bad file type");
-			$res = move_uploaded_file($_FILES['upload']['tmp_name'], 'public/copies/' . date('Y-m-d-H-i-s') . '.' . $file_extension);
+			$date_of_file = date('Y-m-d-H-i-s');
+			$file_name = 'public/copies/' . $date_of_file . '.' . $file_extension;
+			$res = move_uploaded_file($_FILES['upload']['tmp_name'], $file_name);
 			if ($res)
 				echo "It works !";
 
+			
+
+			$img_gd = imagecreatefromjpeg($file_name);
+			$filter_gd = imagecreatefrompng('public/resources/filter/' . $_POST['filter']);
+			$filter_size = getimagesize('public/resources/filter/' . $_POST['filter']);
+			$img_with_filter = $this->imagecopymerge_alpha($img_gd, $filter_gd, 1, 1, 1, 1, $filter_size[0] - 1, $filter_size[1] - 1, 100);
+			imagejpeg($img_with_filter, $file_name);
+			$ins = $this->call_model('insert');
+			$values = array	(
+								'id'		=>		'null',
+								'image_path'=>		"'" . $file_name . "'",
+								'login'		=>		"'" . $_SESSION['auth'] . "'",
+								'date'		=>		"'" . $date_of_file . "'"
+							);
+			echo "test";
+			$ins->insert_value('posts', $values);
+			?>
+			<script>
+			window.onload = function () {
+				var canvas = document.querySelector('#canvas');
+				var video = document.querySelector('#video');
+				var width = 500;
+				var height = 500;
+
+				base_image = new Image();
+				base_image.src = '<?= '../' . $file_name; ?>';
+				console.log(base_image.src);
+				base_image.onload = function()
+				{
+					canvas.width = width;
+					canvas.height = height;
+					canvas.getContext('2d').drawImage(base_image, 0, 0, width, height);
+				}
+			}
+			</script>
+			<?php
 		}
 	}
 
