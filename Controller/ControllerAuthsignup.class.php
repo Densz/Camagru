@@ -54,11 +54,10 @@ class ControllerAuthsignup extends Controller
 
 	private function sendEmail($userinfo)
 	{
-		$url = explode('MyWebSite/', getcwd());
-		$emailTo = $userinfo['email'];
+		$emailTo = htmlspecialchars($userinfo['email']);
 		$emailFrom = 'tasoeur@camagru.com';
 		$subject = "Camagru - Confirm Your Account";
-		$message = "To create your account, confirm by clicking on the link below <br/> <a href='http://localhost:" . PORT . "/" . $url[1] . "/Authsignin/validEmail/" . $_POST['login'] . "'>Confirm account</a>";
+		$message = "To create your account, confirm by clicking on the link below <br/> <a href='http://localhost:" . PORT . "/" . Routeur::$url['dir'] . "/Authsignin/validEmail/" . $_POST['login'] . "'>Confirm account</a>";
 		$headers = "From: " . $emailFrom . "\r\n";
 		$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 		mail($emailTo, $subject, $message, $headers);

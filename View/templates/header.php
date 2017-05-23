@@ -19,11 +19,10 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignin/View/"">CAMAGRU	&nbsp;&nbsp;&nbsp; |</a>
-			<?= $thread; ?>
-			<?= $camjs ?>
-			<?= $camphp; ?>
-			<?= $gallery; ?>
-			<?= $disconnect ?>
+			<?php if (isset($camjs))echo $camjs; ?>
+			<?php if (isset($camphp))echo $camphp; ?>
+			<?php if (isset($gallery))echo $gallery; ?>
+			<?php if (isset($disconnect))echo $disconnect; ?>
 		</div>
 	</div>
 </nav>
