@@ -35,8 +35,8 @@ class ControllerUsergallery extends Controller
 							);
 		$req = self::$sel->query_select('id', 'posts', $condition);
 		$extra = " WHERE id < " . $req['id'] . " ORDER BY id DESC LIMIT 5";
-		$req2 = self::$sel->query_select('id, image_path', 'posts', null, false, null, $extra);
-		var_dump($req2);
+		$req2 = self::$sel->query_select('image_path', 'posts', null, false, null, $extra);
+		echo json_encode($req2);
 	}
 
 	public static function five_imgs($begin, $form)
@@ -128,7 +128,7 @@ class ControllerUsergallery extends Controller
 								'img_path'		=>		'?',
 								'login'			=>		'?',
 								'img_comment'	=>		'?',
-								'date'			=>		"'" . date('Y-m-d-H-i-u') . "'"
+								'date'			=>		"'" . date('Y-m-d-H-i-s') . "'"
 							);
 			$attributes = array(
 									"'" . $_POST['img_path'] . "'",

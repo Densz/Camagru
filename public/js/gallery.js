@@ -130,6 +130,30 @@ window.onscroll = function() {
 		xhr.open('POST', url() + 'Usergallery/infiniteScroll', true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('img_path=' + "public/copies/" + imgPath[imgPath.length - 1]);
+
+		xhr.onload = function ()
+		{
+			if (xhr.readyState === xhr.DONE)
+			{
+				if (xhr.status === 200 || xhr.status === 0)
+				{
+					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("]") + 1),
+						json = JSON.parse(string),
+						container = document.getElementById('gallery_container'),
+						img_tag = document.querySelector(".image");
+						i = 0;
+
+					while (i < json.length)
+					{
+						img_tag.src = '../' + json[i].image_path;
+						container.appendChild(img_tag);
+						i++;
+					}
+					console.log(json.length);
+					console.log(json[0].image_path);
+				}
+			}
+		}
 	}
 };
 

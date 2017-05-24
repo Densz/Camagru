@@ -10,7 +10,7 @@ class ControllerUserindex extends Controller
 
 	public function save()
 	{
-		$file = date('Y-m-d-H-i-u');
+		$file = uniqid(date('Y-m-d-H-i-s'));
 		$encodedData = str_replace(' ', '+', $_POST['contents']);
 		$decodedData = base64_decode($encodedData);
 		$fp = fopen('public/copies/' . $file . '.jpg', 'w');

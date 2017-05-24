@@ -32,14 +32,10 @@ class ControllerUserindexphp extends Controller
 				die("The file is too big");
 			else if (!in_array($file_extension, $valid_ext))
 				die("Bad file type");
-			$date_of_file = date('Y-m-d-H-i-u');
-			$file_name = 'public/copies/' . $date_of_file . '.' . $file_extension;
+			$date_of_file = date('Y-m-d-H-i-s');
+			$file = uniqid(date('Y-m-d-H-i-s'));
+			$file_name = 'public/copies/' . $file . '.' . $file_extension;
 			$res = move_uploaded_file($_FILES['upload']['tmp_name'], $file_name);
-			if ($res)
-				echo "It works !";
-
-			
-
 			$img_gd = imagecreatefromjpeg($file_name);
 			$filter_gd = imagecreatefrompng('public/resources/filter/' . $_POST['filter']);
 			$filter_size = getimagesize('public/resources/filter/' . $_POST['filter']);
@@ -52,7 +48,6 @@ class ControllerUserindexphp extends Controller
 								'login'		=>		"'" . $_SESSION['auth'] . "'",
 								'date'		=>		"'" . $date_of_file . "'"
 							);
-			echo "test";
 			$ins->insert_value('posts', $values);
 			?>
 			<script>
@@ -79,7 +74,8 @@ class ControllerUserindexphp extends Controller
 
 	public function save()
 	{
-		$file = date('Y-m-d-H-i-u');
+		$file = uniqid(date('Y-m-d-H-i-s'));
+		$date = date('Y-m-d-H-i-s');
 		$encodedData = str_replace(' ', '+', $_POST['contents']);
 		$decodedData = base64_decode($encodedData);
 		$img_gd = imagecreatefromstring($decodedData);
@@ -92,7 +88,7 @@ class ControllerUserindexphp extends Controller
 												'id'		=>		'null',
 												'image_path'=>		"'public/copies/" . $file . ".jpg'",
 												'login'		=>		"'" . $_SESSION['auth'] . "'",
-												'date'		=>		"'" . $file . "'"
+												'date'		=>		"'" . $date . "'"
 						);
 		$ins->insert_value('posts', $values);
 		header('Content-type: application/json');
