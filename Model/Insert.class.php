@@ -12,7 +12,6 @@ class Insert
 			$request .= $v . ', ';
 		$request = substr($request, 0, -2);
 		$request .= ");";
-		echo $request;
 		return ((isset($attributes) ? Dispatcher::$db->prepare($request, $attributes, false) : Dispatcher::$db->query($request)));
 	}
 }

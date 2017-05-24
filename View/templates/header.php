@@ -11,7 +11,6 @@
 
 	<!-- Bootstrap core CSS -->
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -19,6 +18,7 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignin/View/"">CAMAGRU	&nbsp;&nbsp;&nbsp; |</a>
+			<?php if (isset($profile))echo $profile; ?>
 			<?php if (isset($camjs))echo $camjs; ?>
 			<?php if (isset($camphp))echo $camphp; ?>
 			<?php if (isset($gallery))echo $gallery; ?>
