@@ -111,3 +111,25 @@ function comment(evt)
 		};
 	}
 }
+
+window.onscroll = function() {
+	var posY = document.body.scrollTop,
+		winSize = window.innerHeight,
+		pageSize = document.documentElement.scrollHeight,
+		imgs = document.querySelectorAll('.image'),
+		lastImg = imgs[imgs.length - 1];
+
+	console.log('Position relative en Y: ' + posY);
+	console.log('Taille de la fenetre: ' + winSize);
+	console.log('Taille totale de la fenetre: ' + pageSize);
+	if (posY + winSize > pageSize - 100)
+	{
+		var xhr = new XMLHttpRequest(),
+			imgPath = lastImg.src.split("/");
+
+		xhr.open('POST', url() + 'Usergallery/infiniteScroll', true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send('img_path=' + "public/copies/" + imgPath[imgPath.length - 1]);
+	}
+};
+

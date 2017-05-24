@@ -28,6 +28,17 @@ class ControllerUsergallery extends Controller
 		echo '</div>';
 	}
 
+	public function infiniteScroll()
+	{
+		$condition = array(
+								'image_path'	=>	"'" . $_POST['img_path'] . "'"
+							);
+		$req = self::$sel->query_select('id', 'posts', $condition);
+		$extra = " WHERE id < " . $req['id'] . " ORDER BY id DESC LIMIT 5";
+		$req2 = self::$sel->query_select('id, image_path', 'posts', null, false, null, $extra);
+		var_dump($req2);
+	}
+
 	public static function five_imgs($begin, $form)
 	{
 		$finish = $begin + 5;
@@ -65,7 +76,7 @@ class ControllerUsergallery extends Controller
 			echo '<button class="test">Comment</button>';
 			echo '<br>';
 			self::displayCom(self::$posts[$begin]['image_path']);
-			echo '</div>';
+			echo '</div><br>';
 			$begin++;
 		}
 	}
@@ -117,7 +128,7 @@ class ControllerUsergallery extends Controller
 								'img_path'		=>		'?',
 								'login'			=>		'?',
 								'img_comment'	=>		'?',
-								'date'			=>		"'" . date('Y-m-d-H-i-s') . "'"
+								'date'			=>		"'" . date('Y-m-d-H-i-u') . "'"
 							);
 			$attributes = array(
 									"'" . $_POST['img_path'] . "'",

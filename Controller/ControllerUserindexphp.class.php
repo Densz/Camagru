@@ -32,7 +32,7 @@ class ControllerUserindexphp extends Controller
 				die("The file is too big");
 			else if (!in_array($file_extension, $valid_ext))
 				die("Bad file type");
-			$date_of_file = date('Y-m-d-H-i-s');
+			$date_of_file = date('Y-m-d-H-i-u');
 			$file_name = 'public/copies/' . $date_of_file . '.' . $file_extension;
 			$res = move_uploaded_file($_FILES['upload']['tmp_name'], $file_name);
 			if ($res)
@@ -79,7 +79,7 @@ class ControllerUserindexphp extends Controller
 
 	public function save()
 	{
-		$file = date('Y-m-d-H-i-s');
+		$file = date('Y-m-d-H-i-u');
 		$encodedData = str_replace(' ', '+', $_POST['contents']);
 		$decodedData = base64_decode($encodedData);
 		$img_gd = imagecreatefromstring($decodedData);
