@@ -6,10 +6,24 @@ class ControllerUserindexphp extends Controller
 	{
 		if (!CB::my_assert($_SESSION['auth']))
 			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
+		else
+		{
+			$previews = null;
+			$condition = array(
+									'login'			=>		"'" . $_SESSION['auth'] . "'"
+								);
+			$extra = " ORDER BY date DESC LIMIT 3";
+			$req = self::$sel->query_select("image_path", "posts", $condition, false, null, $extra);
+			foreach ($req as $v) {
+				$previews .= '<img src="../' . $v['image_path'] . '" class="img_preview" style="width: 200px;"><br>';
+			}
+			$this->add_buff('previews', $previews);
+		}
 	}
 
 	public function upload()
 	{
+
 		if ($_POST['submit'] === 'Upload Image')
 		{
 			$valid_ext = array('jpg', 'jpeg', 'png', 'gif');

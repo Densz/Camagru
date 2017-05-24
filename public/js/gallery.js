@@ -15,11 +15,11 @@ for (i; i < length; i++) {
 		comButton[i].addEventListener("click", comment);
 		comButton[i].params = [xhr, currImg[i], comButton[i]];
 		likeButton[i].addEventListener("click", function() {
-		if (this.src.indexOf("empty") !== -1) {
-			like(this, xhr);
-		} else {
-			unlike(this, xhr);
-		}
+			if (this.src.indexOf("empty") !== -1) {
+				like(this, xhr);
+			} else {
+				unlike(this, xhr);
+			}
 		});
 	}
 	else {

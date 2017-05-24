@@ -45,10 +45,15 @@ class ControllerAuthsignup extends Controller
 	private function checker($POST)
 	{
 		$sel = $this->call_model('select');
-		$res = $sel->query_select_or("login, email", "users", array(
-																		"login" => "'" . $POST['login'] . "'",
-																		"email" => "'" . $POST['email'] . "'"
-																	));
+		$condition = array(
+								"login" => "?",
+								"email" => "?"
+							);
+		$attributes = array(
+							"'" . $_POST['login'] . "'",
+							"'" . $_POST['email'] . "'"
+							);
+		$res = $sel->query_select_or("login, email", "users", $condition, $attributes);
 		return $res;
 	}
 

@@ -58,12 +58,30 @@
 	savePicture();
   }
 
+  	function putPreview(imgPath)
+  	{
+  		var imgPreview = document.querySelectorAll('.img_preview'),
+  			parentDiv = document.getElementById('side_container'),
+  			newImg = document.createElement('img');
+
+  		if (imgPreview.length == 3)
+  		{
+  			parentDiv.removeChild(imgPreview[2]);
+  			imgPreview.length -= 1;
+  		}
+  		newImg.src = imgPath;
+  		newImg.style.width = '200px';
+  		newImg.className = 'img_preview';
+  		parentDiv.insertBefore(newImg, imgPreview[0]);
+  	}
+
 	function savePicture()
 	{
 		var head = /^data:image\/(png|jpeg);base64,/,
 			data = '',
 			filter = document.querySelector('input[name="filter"]:checked').value,
-			xhr = new XMLHttpRequest();
+			xhr = new XMLHttpRequest(),
+			ret = null;
 
 		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
 		xhr.open('POST', url() + 'Userindexphp/save', true);
@@ -87,6 +105,7 @@
 						canvas.height = height;
 						canvas.getContext('2d').drawImage(base_image, 0, 0, width, height);
 					}
+					putPreview(imagePath);
 				}
 			}
 		};

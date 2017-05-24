@@ -15,7 +15,7 @@ class ControllerAuthsignin extends Controller
 	public function signIn()
 	{
 		$sel = $this->call_model('select');
-		if ($_POST['sign_in'] === 'Login')
+		if (isset($_POST['sign_in']) && $_POST['sign_in'] === 'Login')
 		{
 			$array = $sel->query_select("login, password, email_confirmed", "users", array('login' => "'" . $_POST['login'] . "'"));
 			if (CB::my_assert($array))

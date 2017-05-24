@@ -36,7 +36,7 @@ class ControllerUsergallery extends Controller
 							);
 		$likes = self::$sel->query_select('img_path', 'likes', $condition, false);
 		$value = "Count(id) AS 'countLikes'";
-		while ($begin < $finish && CB::my_assert(self::$posts[$begin]))
+		while ($begin < $finish && isset(self::$posts[$begin]))
 		{
 			$bool = false;
 			echo '<div class="img-thumbnail" style="margin-bottom: 20px;">';
@@ -65,6 +65,10 @@ class ControllerUsergallery extends Controller
 			self::displayCom(self::$posts[$begin]['image_path']);
 			echo '</div>';
 			$begin++;
+		}
+		if (empty(self::$posts[$begin]))
+		{
+			echo '<h1>You didn\'t take any picture yet</h1>';
 		}
 	}
 
@@ -118,6 +122,27 @@ class ControllerUsergallery extends Controller
 								'date'			=>		"'" . date('Y-m-d-H-i-s') . "'"
 							);
 			self::$ins->insert_value('comments', $values);
+			$condition = array(
+									'image_path'	=>		"'" . $_POST['img_path'] . "'"
+								);
+			$req = self::$sel->query_select('login', 'posts', $condition);
+
+			if ($req['login'] !== $_SESSION['auth'])
+			{
+				$condition = array(
+										'login'		=>	"'" . $req['login'] . "'"
+									);
+				$q2 = self::$sel->query_select('email', 'users',  $condition);
+				$emailTo = htmlspecialchars($q2['email']);
+				$emailFrom = 'tatante@camagru.com';
+				$subject = "Camagru - " . $_SESSION['auth'] . " commented your photo";
+				$img_link = "http://localhost:" . PORT . "/" . Routeur::$url['dir'] . "/" . $_POST['img_path'];
+				/*A mettre le href vers le profil, filter l'image en question*/
+				$message = "Hi " . ucfirst($req['login']) . "<br/> Awesome, " . $_SESSION['auth'] . " just comments your photo !<br/> <a href='#'>Click here to see the comment</a><br/><label>Comment:</label><br/><p>" . $_POST['comment'] . "</p>";
+				$headers = "From: " . $emailFrom . "\r\n";
+				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+				mail($emailTo, $subject, $message, $headers);
+			}
 		}
 		echo json_encode(array('user' => "{$_SESSION['auth']}"));
 	}

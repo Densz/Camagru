@@ -18,7 +18,7 @@ class Controller
 
 	public function header()
 	{
-		if (CB::my_assert($_SESSION['auth']))
+		if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
 		{
 			$disconnect = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Authsignin/signOut">SIGN OUT</a>';
 			$camjs = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view">Cam JS</a>';

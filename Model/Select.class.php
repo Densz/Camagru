@@ -6,7 +6,8 @@ class Select
 		return (Dispatcher::$db->query("SELECT * FROM " . $table, $one));
 	}
 
-	public function query_select($value, $table, $condition = null, $one = true, $order = null)
+	// Une fois que ca marche essayer de mettre attributes jsute apres condition
+	public function query_select($value, $table, $condition = null, $one = true, $order = null, $extra = null, $attributes = null)
 	{
 		$request = "SELECT " . $value . " FROM " . $table;
 		if ($condition)
@@ -18,10 +19,12 @@ class Select
 		}
 		if (CB::my_assert($order))
 			$request .= " ORDER BY " . $order . " DESC";
-		return (Dispatcher::$db->query($request, $one));
+		if (CB::my_assert($extra))
+			$request .= $extra;
+		return ((isset($attributes) ? Dispatcher::$db->prepare($request, $attributes, $one) : Dispatcher::$db->query($request, $one)));
 	}
 
-	public function query_select_or($value, $table, $condition = null)
+	public function query_select_or($value, $table, $condition = null, $attributes = null, $one = true)
 	{
 		$request = "SELECT " . $value . " FROM " . $table;
 		if ($condition)
@@ -31,27 +34,8 @@ class Select
 				$request .= $k . ' = ' . $v . ' OR ';
 			$request = substr($request, 0, -4);
 		}
-		return (Dispatcher::$db->query($request));
+		return ((isset($attributes) ? Dispatcher::$db->prepare($request, $attributes, $one) : Dispatcher::$db->query($request, $one)));
 	}
-
-/*	public function prepare_select($value, $table, $condition = null)
-	{
-		$request = "SELECT ? FROM ?";
-		$attributes = '[$value, $table,';
-		if ($condition)
-		{
-			$request .= " WHERE ";
-			foreach ($condition as $k => $v)
-			{
-				$request .= '? = ? AND ';
-				$attributes .=
-			}
-			$request = substr($request, 0, -5);
-		}
-		$attributes = substr($attributes, 0, -1);
-		$attributes .= ']';
-		return (Dispatcher::$db->prepare($request, [$value, $table, $condition]));
-	}*/
 }
 
 ?>
