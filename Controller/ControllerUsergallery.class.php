@@ -36,6 +36,8 @@ class ControllerUsergallery extends Controller
 							);
 		$likes = self::$sel->query_select('img_path', 'likes', $condition, false);
 		$value = "Count(id) AS 'countLikes'";
+		if (empty(self::$posts[$begin]))
+			echo '<h1>You didn\'t take any picture yet</h1>';
 		while ($begin < $finish && isset(self::$posts[$begin]))
 		{
 			$bool = false;
@@ -65,10 +67,6 @@ class ControllerUsergallery extends Controller
 			self::displayCom(self::$posts[$begin]['image_path']);
 			echo '</div>';
 			$begin++;
-		}
-		if (empty(self::$posts[$begin]))
-		{
-			echo '<h1>You didn\'t take any picture yet</h1>';
 		}
 	}
 
@@ -116,12 +114,17 @@ class ControllerUsergallery extends Controller
 		{
 			$values = array(
 								'id'			=>		'null',
-								'img_path'		=>		"'" . $_POST['img_path'] . "'",
-								'login'			=>		"'" . $_SESSION['auth'] . "'",
-								'img_comment'	=>		"'" . $_POST['comment'] . "'",
+								'img_path'		=>		'?',
+								'login'			=>		'?',
+								'img_comment'	=>		'?',
 								'date'			=>		"'" . date('Y-m-d-H-i-s') . "'"
 							);
-			self::$ins->insert_value('comments', $values);
+			$attributes = array(
+									"'" . $_POST['img_path'] . "'",
+									"'" . $_SESSION['auth'] . "'",
+									"'" . $_POST['comment'] . "'"
+								);
+			self::$ins->insert_value('comments', $values, $attributes);
 			$condition = array(
 									'image_path'	=>		"'" . $_POST['img_path'] . "'"
 								);
