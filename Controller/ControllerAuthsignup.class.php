@@ -18,13 +18,20 @@ class ControllerAuthsignup extends Controller
 				$insert = $this->call_model('insert');
 				$values = array(
 									'id' 				=>	'null',
-									'login' 			=>	"'" . $_POST['login'] . "'", 
-									'email'				=>	"'" . $_POST['email'] . "'", 
-									'password'			=>	"'" . hash('whirlpool', $_POST['password']) . "'",
+									'login' 			=>	'?',
+									'email'				=>	'?',
+									'password'			=>	'?',
 									'email_confirmed' 	=>	"'no'",
 									'admin'				=>	"'no'"
 								);
-				$insert->insert_value('users', $values);
+				$password = hash('whirlpool', $_POST['password']);
+				echo $password;
+				$attributes = array(
+										"'" . $_POST['login'] . "'", 
+										"'" . $_POST['email'] . "'", 
+										"'" . $password . "'"
+									);
+				$insert->insert_value('users', $values, $attributes);
 				$this->sendEmail($_POST);
 				$this->add_buff('email_sent','<div class="alert alert-info">An email has been sent to you</div>');
 			}

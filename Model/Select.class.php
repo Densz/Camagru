@@ -6,7 +6,7 @@ class Select
 		return (Dispatcher::$db->query("SELECT * FROM " . $table, $one));
 	}
 
-	// Une fois que ca marche essayer de mettre attributes jsute apres condition
+	// Une fois que ca marche essayer de mettre attributes juste apres condition
 	public function query_select($value, $table, $condition = null, $one = true, $order = null, $extra = null, $attributes = null)
 	{
 		$request = "SELECT " . $value . " FROM " . $table;

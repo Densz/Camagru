@@ -10,7 +10,7 @@ $database->query("CREATE TABLE IF NOT EXISTS users
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	login VARCHAR(32) NOT NULL,
 	email VARCHAR(128) NOT NULL,
-	password VARCHAR(128) NOT NULL,
+	password VARCHAR(256) NOT NULL,
 	email_confirmed ENUM('yes', 'no') DEFAULT 'no' NOT NULL,
 	admin ENUM('yes','no') DEFAULT 'no' NOT NULL
 );");
