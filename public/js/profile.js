@@ -2,7 +2,6 @@ var image = document.querySelectorAll(".images"),
 	btn_cross = document.querySelectorAll(".cross"),
 	i = 0,
 	length = image.length;
-console.log(image);
 
 for (i; i < length; i++) {
 	if (document.addEventListener) {
