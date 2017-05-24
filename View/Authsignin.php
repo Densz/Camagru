@@ -1,15 +1,15 @@
 <?php $form = new Form($_POST); ?>
 <h3>Sign in</h3><br>
 <?php
-	if (CB::my_assert($wrong_pwd))
+	if (isset($wrong_pwd))
 		echo $wrong_pwd;
-	if (CB::my_assert($wrong_log))
+	if (isset($wrong_log))
 		echo $wrong_log;
-	if (CB::my_assert($no_access))
+	if (isset($no_access))
 		echo $no_access;
-	if (CB::my_assert($alert_disconnected))
+	if (isset($alert_disconnected))
 		echo $alert_disconnected;
-	if (CB::my_assert($email_not_confirmed))
+	if (isset($email_not_confirmed))
 		echo $email_not_confirmed;
 ?>
 <form method="post" action="<?= Routeur::redirect("Authsignin/signin"); ?>">

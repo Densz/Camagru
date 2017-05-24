@@ -21,16 +21,16 @@ class ControllerResetpwd extends Controller
 				$emailTo = htmlspecialchars($_POST['email']);
 				$emailFrom = 'tamere@camagru.com';
 				$subject = "Camagru - Reset your password";
-				$message = "
-Hi " . ucfirst($req['login']) . "
+				$message = '
+Hi ' . ucfirst($req['login']) . '
 
 To reset your password, click on the link below:
 
-" . Routeur::redirect('Changepwd/view') . "/" . $req['password'] . "
+http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Changepwd/view/' . $req['password'] . '/' . $req['id'] . '
 
 Kind regards,
 Team Camagru
-";
+';
 				$headers = "From: " . $emailFrom . "\r\n";
 				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 				mail($emailTo, $subject, $message);

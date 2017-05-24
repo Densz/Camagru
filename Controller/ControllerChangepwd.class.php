@@ -15,15 +15,21 @@ class ControllerChangepwd extends Controller
 	{
 		if($_POST['password'] === $_POST['password2'])
 		{
-			$condition = array(
-									'password'		=>		"'" . Routeur::$url['params'][0] . "'"
+			$conditions = array(
+									'password'		=>		"'" . Routeur::$url['params'][0] . "'",
+									'id'			=>		"'" . intval(Routeur::$url['params'][1]) . "'"
 								);
-			$set = array(
-									'password'		=>		"'" . hash('whirlpool', $_POST['password']) . "'"
-						);
-			self::$up->update_value('users', $set, $condition);
-			$this->add_buff('password_changed', '<div class="alert alert-success">Your password has been changed</div>');
-
+			$req = self::$sel->query_select('*', 'users', $conditions);
+			if (CB::my_assert($req))
+			{
+				$set = array(
+										'password'		=>		"'" . hash('whirlpool', $_POST['password']) . "'"
+							);
+				self::$up->update_value('users', $set, $conditions);
+				$this->add_buff('password_changed', '<div class="alert alert-success">Your password has been changed</div>');
+			}
+			else
+				$this->add_buff('wrong_link', '<div class="alert alert-danger">Url address not valid</div>');
 		}
 		else
 			$this->add_buff('invalid_password_confirmation', '<div class="alert alert-danger">Invalid password confirmation</div>');
