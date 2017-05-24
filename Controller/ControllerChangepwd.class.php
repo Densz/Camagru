@@ -10,16 +10,22 @@ class ControllerChangepwd extends Controller
 	{
 
 	}
-/*
-*	A FINIR !!!!
-*/
+
 	public function updatePwd()
 	{
-		$req = self::$sel->query_select('*', 'users', null, false);
-		foreach ($req as $v)
+		if($_POST['password'] === $_POST['password2'])
 		{
-			if (hash('whirlpool', $v) === htmlspecialchars($_POST['email']))
-				self::up->update_value('users', )
+			$condition = array(
+									'password'		=>		"'" . Routeur::$url['params'][0] . "'"
+								);
+			$set = array(
+									'password'		=>		"'" . hash('whirlpool', $_POST['password']) . "'"
+						);
+			self::$up->update_value('users', $set, $condition);
+			$this->add_buff('password_changed', '<div class="alert alert-success">Your password has been changed</div>');
+
 		}
+		else
+			$this->add_buff('invalid_password_confirmation', '<div class="alert alert-danger">Invalid password confirmation</div>');
 	}
 }
