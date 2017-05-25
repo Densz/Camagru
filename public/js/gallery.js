@@ -119,10 +119,7 @@ window.onscroll = function() {
 		imgs = document.querySelectorAll('.image'),
 		lastImg = imgs[imgs.length - 1];
 
-	console.log('Position relative en Y: ' + posY);
-	console.log('Taille de la fenetre: ' + winSize);
-	console.log('Taille totale de la fenetre: ' + pageSize);
-	if (posY + winSize > pageSize - 100)
+	if (posY + winSize > pageSize - 50)
 	{
 		var xhr = new XMLHttpRequest(),
 			imgPath = lastImg.src.split("/");
@@ -140,17 +137,17 @@ window.onscroll = function() {
 					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("]") + 1),
 						json = JSON.parse(string),
 						container = document.getElementById('gallery_container'),
-						img_tag = document.querySelector(".image");
+						br = document.createElement("br"),
+						imgDiv = document.querySelector(".img-thumbnail"),
+						cloneDiv = imgDiv.cloneNode(true),
 						i = 0;
-
-					while (i < json.length)
-					{
-						img_tag.src = '../' + json[i].image_path;
-						container.appendChild(img_tag);
-						i++;
-					}
-					console.log(json.length);
-					console.log(json[0].image_path);
+						
+						if (json[0].image_path !== null)
+						{
+							cloneDiv.childNodes[2].firstChild.src = '../' + json[0].image_path;
+							container.appendChild(cloneDiv);
+							container.appendChild(br);
+						}
 				}
 			}
 		}

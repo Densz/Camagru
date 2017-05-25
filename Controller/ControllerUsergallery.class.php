@@ -34,7 +34,7 @@ class ControllerUsergallery extends Controller
 								'image_path'	=>	"'" . $_POST['img_path'] . "'"
 							);
 		$req = self::$sel->query_select('id', 'posts', $condition);
-		$extra = " WHERE id < " . $req['id'] . " ORDER BY id DESC LIMIT 5";
+		$extra = " WHERE id < " . $req['id'] . " ORDER BY id DESC LIMIT 1";
 		$req2 = self::$sel->query_select('image_path', 'posts', null, false, null, $extra);
 		echo json_encode($req2);
 	}
