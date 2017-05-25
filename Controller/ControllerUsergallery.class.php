@@ -37,6 +37,11 @@ class ControllerUsergallery extends Controller
 		$id = self::$sel->query_select('id', 'posts', $condition);
 		$extra = " WHERE id < " . $id['id'] . " ORDER BY id DESC LIMIT 1";
 		$info = self::$sel->query_select('image_path, login AS owner', 'posts', null, true, null, $extra);
+		if (!isset($info['image_path']))
+		{
+			echo 'null';
+			return ;
+		}
 
 		//Get like
 		$conditions = array(

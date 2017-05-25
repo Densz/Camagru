@@ -1,4 +1,3 @@
-
 var likeButton = document.querySelectorAll(".like"),
 	likeMsg = document.querySelectorAll(".countLikes"),
 	comButton = document.querySelectorAll(".test"),
@@ -22,37 +21,12 @@ for (i; i < length; i++) {
 			}
 		});
 	}
-	else {
-		likeButton[i].attachEvent("onclick", function(){});
-		likeMsg[i].attachEvent("onclick", function(){});
-		comButton[i].attachEvent("onclick", function(){});
-	}
 };
 
 function url(){
 	var url =  window.location.href;
 	url = url.split("/");
 	return(url[0] + '//' + url[2] + '/' + url[3] + '/');
-}
-
-function like(likeClicked, xhr)
-{
-	xhr.open('POST', url() + 'Usergallery/like', true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	likeClicked.src = "../public/resources/colored_heart.png";
-	var countLikes = parseInt(likeClicked.nextSibling.nextSibling.innerHTML) + 1;
-	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
-	xhr.send('image_path=' + likeClicked.id);
-}
-
-function unlike(likeClicked, xhr)
-{
-	xhr.open('POST', url() + 'Usergallery/unlike', true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	likeClicked.src = "../public/resources/empty_heart.png";
-	var countLikes = parseInt(likeClicked.nextSibling.nextSibling.innerHTML) - 1;
-	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
-	xhr.send('image_path=' + likeClicked.id);
 }
 
 function getUser(evt)
@@ -113,6 +87,7 @@ function comment(evt)
 }
 
 window.onscroll = function() {
+	comButton = document.querySelectorAll(".test");
 	var posY = document.body.scrollTop,
 		winSize = window.innerHeight,
 		pageSize = document.documentElement.scrollHeight,
@@ -135,17 +110,21 @@ window.onscroll = function() {
 				if (xhr.status === 200 || xhr.status === 0)
 				{
 					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("|")),
-						json = JSON.parse(string),
+						json,
 						container = document.getElementById('gallery_container'),
 						br = document.createElement("br"),
 						com_div = document.createElement("div"),
 						imgDiv = document.querySelector(".img-thumbnail"),
 						cloneDiv = imgDiv.cloneNode(true),
 						i = 0;
-
+					if (string.indexOf('null') === 0 || string.indexOf('<!DOCTYPE') === 0)
+						return ;
+					json = JSON.parse(string);
 					cloneDiv.removeChild(cloneDiv.lastChild);
-					if (json.image_path !== null)
+
+					if (json.image_path)
 					{
+						//Create div
 						cloneDiv.childNodes[1].innerHTML = json.owner;
 						cloneDiv.childNodes[2].firstChild.src = '../' + json.image_path;
 						if (json.liked === 'yes')
@@ -161,6 +140,23 @@ window.onscroll = function() {
 							com_div.childNodes[i].innerHTML = '<b>' + json.comments[i].login + ': </b>' + ' ' + json.comments[i].img_comment;
 							i++;
 						}
+
+						//Add event listener
+						if (document.addEventListener)
+						{
+							cloneDiv.childNodes[7].addEventListener("click", comment);
+							cloneDiv.childNodes[7].params = [xhr, cloneDiv.childNodes[2].firstChild, cloneDiv.childNodes[7]];
+							cloneDiv.childNodes[5].addEventListener("click", getUser);
+							cloneDiv.childNodes[5].params = [xhr, cloneDiv.childNodes[3]];
+							cloneDiv.childNodes[3].addEventListener("click", function() {
+								if (this.src.indexOf("empty") !== -1) {
+									like(this, xhr);
+								} else {
+									unlike(this, xhr);
+								}
+							});
+						}
+						//Put div on page
 						cloneDiv.appendChild(com_div);
 						container.appendChild(cloneDiv);
 						container.appendChild(br);
@@ -171,3 +167,22 @@ window.onscroll = function() {
 	}
 };
 
+function like(likeClicked, xhr)
+{
+	xhr.open('POST', url() + 'Usergallery/like', true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	likeClicked.src = "../public/resources/colored_heart.png";
+	var countLikes = parseInt(likeClicked.nextSibling.nextSibling.innerHTML) + 1;
+	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
+	xhr.send('image_path=' + likeClicked.id);
+}
+
+function unlike(likeClicked, xhr)
+{
+	xhr.open('POST', url() + 'Usergallery/unlike', true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	likeClicked.src = "../public/resources/empty_heart.png";
+	var countLikes = parseInt(likeClicked.nextSibling.nextSibling.innerHTML) - 1;
+	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
+	xhr.send('image_path=' + likeClicked.id);
+}
