@@ -33,10 +33,23 @@ class ControllerUsergallery extends Controller
 		$condition = array(
 								'image_path'	=>	"'" . $_POST['img_path'] . "'"
 							);
-		$req = self::$sel->query_select('id', 'posts', $condition);
-		$extra = " WHERE id < " . $req['id'] . " ORDER BY id DESC LIMIT 1";
-		$req2 = self::$sel->query_select('image_path', 'posts', null, false, null, $extra);
-		echo json_encode($req2);
+		$id = self::$sel->query_select('id', 'posts', $condition);
+		$extra = " WHERE id < " . $id['id'] . " ORDER BY id DESC LIMIT 1";
+		$image = self::$sel->query_select('image_path', 'posts', null, false, null, $extra);
+
+
+
+		$conditions = array(
+								'img_path'	=>	"'" . $_POST['img_path'] . "'",
+								'login'		=>	"'" . $_SESSION['auth'] . "'"
+							);
+		$liked_by_user = self::$sel->query_select('id', 'likes', $conditions);
+		print_r($liked_by_user);
+
+
+
+		echo json_encode($image);
+		echo '<br/>';
 	}
 
 	public static function five_imgs($begin, $form)

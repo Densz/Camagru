@@ -128,7 +128,7 @@ window.onscroll = function() {
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('img_path=' + "public/copies/" + imgPath[imgPath.length - 1]);
 
-		xhr.onload = function ()
+		xhr.onload = function()
 		{
 			if (xhr.readyState === xhr.DONE)
 			{
@@ -141,7 +141,7 @@ window.onscroll = function() {
 						imgDiv = document.querySelector(".img-thumbnail"),
 						cloneDiv = imgDiv.cloneNode(true),
 						i = 0;
-						
+
 						if (json[0].image_path !== null)
 						{
 							cloneDiv.childNodes[2].firstChild.src = '../' + json[0].image_path;
