@@ -134,20 +134,37 @@ window.onscroll = function() {
 			{
 				if (xhr.status === 200 || xhr.status === 0)
 				{
-					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("]") + 1),
+					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("|")),
 						json = JSON.parse(string),
 						container = document.getElementById('gallery_container'),
 						br = document.createElement("br"),
+						com_div = document.createElement("div"),
 						imgDiv = document.querySelector(".img-thumbnail"),
 						cloneDiv = imgDiv.cloneNode(true),
 						i = 0;
 
-						if (json[0].image_path !== null)
+					cloneDiv.removeChild(cloneDiv.lastChild);
+					if (json.image_path !== null)
+					{
+						cloneDiv.childNodes[1].innerHTML = json.owner;
+						cloneDiv.childNodes[2].firstChild.src = '../' + json.image_path;
+						if (json.liked === 'yes')
+							cloneDiv.childNodes[3].src = '../public/resources/colored_heart.png';
+						else
+							cloneDiv.childNodes[3].src = '../public/resources/empty_heart.png';
+						cloneDiv.childNodes[3].id = json.image_path;
+						cloneDiv.childNodes[5].innerHTML = json.countLikes + ' like' + (json.countLikes > 1 ? 's' : '');
+						com_div.className = "com_container";
+						while (json.comments[i])
 						{
-							cloneDiv.childNodes[2].firstChild.src = '../' + json[0].image_path;
-							container.appendChild(cloneDiv);
-							container.appendChild(br);
+							com_div.appendChild(document.createElement('p'));
+							com_div.childNodes[i].innerHTML = '<b>' + json.comments[i].login + ': </b>' + ' ' + json.comments[i].img_comment;
+							i++;
 						}
+						cloneDiv.appendChild(com_div);
+						container.appendChild(cloneDiv);
+						container.appendChild(br);
+					}
 				}
 			}
 		}

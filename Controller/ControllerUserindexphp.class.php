@@ -59,7 +59,6 @@ class ControllerUserindexphp extends Controller
 
 				base_image = new Image();
 				base_image.src = '<?= '../' . $file_name; ?>';
-				console.log(base_image.src);
 				base_image.onload = function()
 				{
 					canvas.width = width;

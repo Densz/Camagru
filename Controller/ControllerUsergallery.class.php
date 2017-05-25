@@ -18,7 +18,7 @@ class ControllerUsergallery extends Controller
 								'img_path'		=>		"'{$img_path}'"
 							);
 		$req = self::$sel->query_select('*', 'comments', $condition, false, 'date');
-		echo '<br><div class="com_container" style="text-align:left;">';
+		echo '<br><div class="com_container">';
 		if (CB::my_assert($req))
 		{
 			foreach ($req as $v) {
@@ -30,26 +30,39 @@ class ControllerUsergallery extends Controller
 
 	public function infiniteScroll()
 	{
+		//Get image path
 		$condition = array(
 								'image_path'	=>	"'" . $_POST['img_path'] . "'"
-							);
+					);
 		$id = self::$sel->query_select('id', 'posts', $condition);
 		$extra = " WHERE id < " . $id['id'] . " ORDER BY id DESC LIMIT 1";
-		$image = self::$sel->query_select('image_path', 'posts', null, false, null, $extra);
+		$info = self::$sel->query_select('image_path, login AS owner', 'posts', null, true, null, $extra);
 
-
-
+		//Get like
 		$conditions = array(
-								'img_path'	=>	"'" . $_POST['img_path'] . "'",
+								'img_path'	=>	"'" . $info['image_path'] . "'",
 								'login'		=>	"'" . $_SESSION['auth'] . "'"
 							);
 		$liked_by_user = self::$sel->query_select('id', 'likes', $conditions);
-		print_r($liked_by_user);
+		if (isset($liked_by_user) && !empty($liked_by_user))
+			$info['liked'] = 'yes';
+		else
+			$info['liked'] = 'no';
 
+		//Get Count(Like)
+		$condition = array(
+								'img_path'	=>	"'" . $info['image_path'] . "'"
+							);
+		$value = "Count(id) AS 'countLikes'";
+		$count = self::$sel->query_select($value, 'likes', $condition);
+		$info['countLikes'] = $count['countLikes'];
 
+		//Get Comments
+		$comments = self::$sel->query_select('login, img_comment', 'comments', $condition, false, 'id');
+		$info['comments'] = $comments;
 
-		echo json_encode($image);
-		echo '<br/>';
+		echo json_encode($info);
+		echo "|";
 	}
 
 	public static function five_imgs($begin, $form)
@@ -144,9 +157,9 @@ class ControllerUsergallery extends Controller
 								'date'			=>		"'" . date('Y-m-d-H-i-s') . "'"
 							);
 			$attributes = array(
-									"'" . $_POST['img_path'] . "'",
-									"'" . $_SESSION['auth'] . "'",
-									"'" . $_POST['comment'] . "'"
+									$_POST['img_path'],
+									$_SESSION['auth'],
+									$_POST['comment']
 								);
 			self::$ins->insert_value('comments', $values, $attributes);
 			$condition = array(
