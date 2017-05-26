@@ -40,7 +40,21 @@ class ControllerUserindexphp extends Controller
 			$img_gd = $this->resize_image($file_name, 500, $newheight, false);
 			$filter_gd = imagecreatefrompng('public/resources/filter/' . $_POST['filter']);
 			$filter_size = getimagesize('public/resources/filter/' . $_POST['filter']);
-			$img_with_filter = $this->imagecopymerge_alpha($img_gd, $filter_gd, 1, 1, 1, 1, $filter_size[0] - 1, $filter_size[1] - 1, 100);
+
+
+// A finir avec des ratio proportionnels
+// A finir aussi pour les resize des filtres de la caméra
+// creer une sous fonction dans le controleur serait cool
+$nWidth = 100;
+$nHeight = 100;
+$newImg = imagecreatetruecolor($nWidth, $nHeight);
+imagealphablending($newImg, false);
+imagesavealpha($newImg,true);
+$transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
+imagefilledrectangle($newImg, 0, 0, $nWidth, $nHeight, $transparent);
+imagecopyresampled($newImg, $filter_gd, 0, 0, 0, 0, $nWidth, $nHeight, $filter_size[0], $filter_size[1]);
+
+			$img_with_filter = $this->imagecopymerge_alpha($img_gd, $newImg, 1, 1, 1, 1, $nWidth - 1, $nHeight - 1, 100);
 			imagejpeg($img_with_filter, $file_name);
 			$ins = $this->call_model('insert');
 			$values = array	(
@@ -52,7 +66,7 @@ class ControllerUserindexphp extends Controller
 			$ins->insert_value('posts', $values);
 			?>
 			<script>
-		  	function putPreview(imgPath)
+			function putPreview(imgPath)
 			{
 				var imgPreview = document.querySelectorAll('.img_preview'),
 					parentDiv = document.getElementById('side_container'),
@@ -166,5 +180,5 @@ class ControllerUserindexphp extends Controller
 		imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h); 
 		imagecopymerge($dst_im, $cut, $dst_x, $dst_y, 0, 0, $src_w, $src_h, $pct);
 		return $dst_im;
-	} 
+	}
 }
