@@ -1,5 +1,7 @@
 <?php $form = new Form($_POST); ?>
 
+<?php if(isset($fileErr)) { echo $fileErr; } ?>
+
 <div id="cam_container" style="text-align: center; display: inline-block; width: 800px;">
 	<form method="post" enctype="multipart/form-data" action="<?= Routeur::redirect('Userindexphp/upload'); ?>">
 	<div style="display: inline">
@@ -10,7 +12,7 @@
 		<video id="video"></video><br>
 		<button id="startbutton">Take picture</button><br><br><br>
 			<div style="display: inline-block">
-				<input type="hidden" name="MAX_FILE_SIZE" value="1048576">
+				<input type="hidden" name="MAX_FILE_SIZE" value="2097152">
 				<input type="file" name="upload" id="upload" required='true'>
 			</div>
 			<div style="display: inline-block">
@@ -21,7 +23,7 @@
 	<div style="text-align: center; display: block;">
 		<img src="" id="photo" style="display: none;">
 	</div>
-		<canvas id="canvas" style="border:1px solid black;"></canvas>
+		<canvas id="canvas"></canvas>
 	</div>
 </div>
 <div id="side_container" style="display: inline-block; width: 200px; height: 445px; vertical-align: top;">

@@ -43,8 +43,8 @@
 	  height = video.videoHeight / (video.videoWidth/width);
 	  video.setAttribute('width', width);
 	  video.setAttribute('height', height);
-//	  canvas.setAttribute('width', width);
-//	  canvas.setAttribute('height', height);
+	 /* canvas.setAttribute('width', width);
+	  canvas.setAttribute('height', height);*/
 	  streaming = true;
 	}
   }, false);
@@ -81,7 +81,7 @@
 			data = '',
 			filter = document.querySelector('input[name="filter"]:checked').value,
 			xhr = new XMLHttpRequest(),
-			ret = null;
+			ret = null;	
 
 		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
 		xhr.open('POST', url() + 'Userindexphp/save', true);
