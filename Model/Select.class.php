@@ -21,6 +21,7 @@ class Select
 			$request .= " ORDER BY " . $order . " DESC";
 		if (CB::my_assert($extra))
 			$request .= $extra;
+		print_r($request);
 		return ((isset($attributes) ? Dispatcher::$db->prepare($request, $attributes, $one) : Dispatcher::$db->query($request, $one)));
 	}
 

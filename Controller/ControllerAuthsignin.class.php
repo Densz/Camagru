@@ -8,7 +8,8 @@ class ControllerAuthsignin extends Controller
 		$set_value = array('email_confirmed' => "'yes'");
 		$cond = array('login' => "'" . Routeur::$url['params'][0] . "'");
 		$upd->update_value('users', $set_value, $cond);
-		$_SESSION['auth'] = Routeur::$url['params'][0];
+		
+		$_SESSION['auth'] = htmlspecialchars(Routeur::$url['params'][0]);
 		header('Location: ' . Routeur::redirect('Userindex/view'));
 	}
 
