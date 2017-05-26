@@ -10,6 +10,7 @@ class ControllerUserindex extends Controller
 
 	public function save()
 	{
+		$date_of_file = date('Y-m-d-H-i-s');
 		$file = uniqid(date('Y-m-d-H-i-s'));
 		$encodedData = str_replace(' ', '+', $_POST['contents']);
 		$decodedData = base64_decode($encodedData);
@@ -21,7 +22,7 @@ class ControllerUserindex extends Controller
 												'id'		=>		'null',
 												'image_path'	=>		"'public/copies/" . $file . ".jpg'",
 												'login'		=>		"'" . $_SESSION['auth'] . "'",
-												'date'		=>		"'" . $file . "'"
+												'date'		=>		"'" . $date_of_file . "'"
 						);
 		$ins->insert_value('posts', $values);
 	}

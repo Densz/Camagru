@@ -7,7 +7,9 @@
 	  photo       	= document.querySelector('#photo'),
 	  startbutton 	= document.querySelector('#startbutton'),
 	  saveButton	= document.querySelector('#save'),
-	  addFilter 	= document.getElementById('addfilter');
+	  addFilter 	= document.querySelector('#addfilter'),
+	  gS_check		= document.querySelector('#greyScale_checkBox'),
+	  gS_checked	= false;
 	  width = 500,
 	  height = 0;
 
@@ -51,6 +53,7 @@
 	save.addEventListener('click', function(){
 		savePicture();
 		saveButton.style.display = 'none';
+
 		photo.style.display = 'none';
 		var alert = document.createElement('div'),
 			container = document.getElementById('cam_container');
@@ -65,12 +68,36 @@
 	}, false);
 
 	addFilter.addEventListener('click', function(){
-		base_image = new Image();
-		var filter = document.querySelector('input[name="filter"]:checked').value;
+		if (document.querySelector('input[name="filter"]:checked')) {
+			var base_image = new Image(),
+			filter = document.querySelector('input[name="filter"]:checked').value;
 
-		base_image.src = '../public/resources/filter/' + filter;
-		base_image.onload = function(){
-			canvas.getContext('2d').drawImage(base_image, 0, 0, 100, 100);
+			base_image.src = '../public/resources/filter/' + filter;
+			base_image.onload = function(){
+				canvas.getContext('2d').drawImage(base_image, 0, 0, 100, 100);
+			}
+		}
+		else
+		{
+			var alert = document.createElement('div'),
+				container = document.getElementById('cam_container');
+
+			alert.className = 'alert alert-danger';
+			container.insertBefore(alert, container.firstChild);
+			alert.appendChild(document.createTextNode("Chose a filter before adding one !"));
+		}
+	});
+
+	gS_check.addEventListener('click', function() {
+		if (gS_checked === false)
+		{
+			gS_check.nextSibling.innerHTML = " Grey scale on";
+			gS_checked = true;
+		}
+		else
+		{
+			gS_check.nextSibling.innerHTML = " Grey scale off";
+			gS_checked = false;
 		}
 	});
 
@@ -78,16 +105,35 @@
 	 *  Functions
 	 */
 
+	function greyScale() {
+		var imgPixels = canvas.getContext('2d').getImageData(0, 0, width, height);
+		for(var y = 0; y < imgPixels.height; y++){
+			for(var x = 0; x < imgPixels.width; x++){
+				var i = (y * 4) * imgPixels.width + x * 4;
+				var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+				imgPixels.data[i] = avg;
+				imgPixels.data[i + 1] = avg;
+				imgPixels.data[i + 2] = avg;
+			}
+		}
+		canvas.getContext('2d').putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+	}
+
 	function takePicture() {
-	canvas.width = width;
-	canvas.height = height;
-	canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-	var data = canvas.toDataURL('image/png');
-	saveButton.style.display = 'inline';
-	var alertMessage = document.getElementsByClassName('alert alert-success'),
-		container = document.getElementById('cam_container');
-	if (alertMessage.length != 0)
-		container.removeChild(container.childNodes[0]);
+		canvas.width = width;
+		canvas.height = height;
+		canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+		if (gS_check.checked === true)
+			greyScale();
+		var data = canvas.toDataURL('image/png');
+		saveButton.style.display = 'inline';
+		var alertMessage_ok = document.getElementsByClassName('alert alert-success'),
+			alertMessage_fail = document.getElementsByClassName('alert alert-danger'),
+			container = document.getElementById('cam_container');
+		if (alertMessage_ok.length != 0)
+			container.removeChild(container.childNodes[0]);
+		if (alertMessage_fail.length != 0)
+			container.removeChild(container.childNodes[0]);
 	}
 
 	function savePicture()
@@ -96,7 +142,7 @@
 		data = '',
 		xhr = new XMLHttpRequest();
 
-		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');	
+		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
 		xhr.open('POST', url() + 'Userindex/save', true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('contents=' + data);

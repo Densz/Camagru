@@ -7,6 +7,7 @@
 	</div>
 	<div id="visualize" style="display: block;">
 		<video id="video"></video><br>
+		<input type="checkbox" id="greyScale_checkBox" name="greyScale"><span> Grey scale off</span><br>
 		<button id="startbutton">Take picture</button>
 		<button id="save" style="display: none;">Save picture</button>
 		<button id="addfilter">Add filter</button>

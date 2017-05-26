@@ -8,7 +8,7 @@
 	</div>
 	<div id="visualize" style="display: block;">
 		<video id="video"></video><br>
-		<button id="startbutton">Prendre une photo</button><br><br><br>
+		<button id="startbutton">Take picture</button><br><br><br>
 			<div style="display: inline-block">
 				<input type="hidden" name="MAX_FILE_SIZE" value="1048576">
 				<input type="file" name="upload" id="upload" required='true'>
