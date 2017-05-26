@@ -27,9 +27,9 @@ class ControllerAuthsignup extends Controller
 				$password = hash('whirlpool', $_POST['password']);
 				echo $password;
 				$attributes = array(
-										"'" . $_POST['login'] . "'", 
-										"'" . $_POST['email'] . "'", 
-										"'" . $password . "'"
+										$_POST['login'], 
+										$_POST['email'], 
+										$password
 									);
 				$insert->insert_value('users', $values, $attributes);
 				$this->sendEmail($_POST);
@@ -57,8 +57,8 @@ class ControllerAuthsignup extends Controller
 								"email" => "?"
 							);
 		$attributes = array(
-							"'" . $_POST['login'] . "'",
-							"'" . $_POST['email'] . "'"
+							$_POST['login'],
+							$_POST['email']
 							);
 		$res = $sel->query_select_or("login, email", "users", $condition, $attributes);
 		return $res;

@@ -55,7 +55,7 @@ class ControllerUserindexphp extends Controller
 				var canvas = document.querySelector('#canvas');
 				var video = document.querySelector('#video');
 				var width = 500;
-				var height = 500;
+				var height = 375;
 
 				base_image = new Image();
 				base_image.src = '<?= '../' . $file_name; ?>';

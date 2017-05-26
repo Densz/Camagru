@@ -24,7 +24,7 @@ class Controller
 			$camjs = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view">Cam JS</a>';
 			$camphp = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindexphp/view">Cam PHP</a>';
 			$gallery = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Usergallery/view">Gallery</a>';
-			$profile = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userprofile/view">My profile</a>';
+			$profile = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userprofile/view/' . $_SESSION['auth'] . '">My profile</a>';
 		}
 		require_once('View/templates/header.php');
 	}

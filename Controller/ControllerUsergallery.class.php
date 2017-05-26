@@ -85,7 +85,7 @@ class ControllerUsergallery extends Controller
 			$bool = false;
 			echo '<div class="img-thumbnail" style="margin-bottom: 20px;">';
 			echo 'Posted by ';
-			echo $form->surround(self::$posts[$begin]['login'], 'a', 'text-left');
+			echo $form->surround(self::$posts[$begin]['login'], 'a', 'userLink');
 			echo $form->img('../' . self::$posts[$begin]['image_path'], 'image');
 			foreach ($likes as $v) {
 				if ($v['img_path'] === self::$posts[$begin]['image_path'])

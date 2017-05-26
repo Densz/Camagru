@@ -2,6 +2,7 @@ var likeButton = document.querySelectorAll(".like"),
 	likeMsg = document.querySelectorAll(".countLikes"),
 	comButton = document.querySelectorAll(".test"),
 	currImg = document.querySelectorAll(".image"),
+	userLink = document.querySelectorAll(".userLink");
 	i = 0,
 	length = likeButton.length;
 
@@ -9,6 +10,7 @@ for (i; i < length; i++) {
 	if (document.addEventListener) {
 		var xhr = new XMLHttpRequest();
 
+		userLink[i].href = url() + "Userprofile/view/" + userLink[i].innerHTML;
 		likeMsg[i].addEventListener("click", getUser);
 		likeMsg[i].params = [xhr, likeButton[i]];
 		comButton[i].addEventListener("click", comment);
@@ -88,12 +90,11 @@ function comment(evt)
 
 window.onscroll = function() {
 	comButton = document.querySelectorAll(".test");
-	var posY = document.body.scrollTop,
+	var posY = window.pageYOffset,
 		winSize = window.innerHeight,
 		pageSize = document.documentElement.scrollHeight,
 		imgs = document.querySelectorAll('.image'),
 		lastImg = imgs[imgs.length - 1];
-
 	if (posY + winSize > pageSize - 50)
 	{
 		var xhr = new XMLHttpRequest(),
