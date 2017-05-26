@@ -4,7 +4,8 @@
 	error_reporting(E_ALL);
 
 	require('caller.php');
-	define('PORT', '8080');
+	define('PORT', '');
 	session_start();
-	$dispatcher = new Dispatcher(array($DB_DSN, $DB_USER, $DB_PASSWORD));
+	date_default_timezone_set('Europe/Paris');
+	$dispatcher = new Dispatcher(array$(DB_DSN, $DB_USER, $DB_PASSWORD));
 ?>

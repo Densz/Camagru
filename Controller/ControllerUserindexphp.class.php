@@ -2,6 +2,9 @@
 
 class ControllerUserindexphp extends Controller
 {
+	public $pngHeight;
+	public $pngWidth = 100;
+
 	public function view()
 	{
 		if (!CB::my_assert($_SESSION['auth']))
@@ -40,21 +43,8 @@ class ControllerUserindexphp extends Controller
 			$img_gd = $this->resize_image($file_name, 500, $newheight, false);
 			$filter_gd = imagecreatefrompng('public/resources/filter/' . $_POST['filter']);
 			$filter_size = getimagesize('public/resources/filter/' . $_POST['filter']);
-
-
-// A finir avec des ratio proportionnels
-// A finir aussi pour les resize des filtres de la caméra
-// creer une sous fonction dans le controleur serait cool
-$nWidth = 100;
-$nHeight = 100;
-$newImg = imagecreatetruecolor($nWidth, $nHeight);
-imagealphablending($newImg, false);
-imagesavealpha($newImg,true);
-$transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
-imagefilledrectangle($newImg, 0, 0, $nWidth, $nHeight, $transparent);
-imagecopyresampled($newImg, $filter_gd, 0, 0, 0, 0, $nWidth, $nHeight, $filter_size[0], $filter_size[1]);
-
-			$img_with_filter = $this->imagecopymerge_alpha($img_gd, $newImg, 1, 1, 1, 1, $nWidth - 1, $nHeight - 1, 100);
+			$newImg = $this->resizepng($filter_gd, $filter_size[0], $filter_size[1]);
+			$img_with_filter = $this->imagecopymerge_alpha($img_gd, $newImg, 1, 1, 1, 1, $this->pngWidth - 1, $this->pngHeight - 1, 100);
 			imagejpeg($img_with_filter, $file_name);
 			$ins = $this->call_model('insert');
 			$values = array	(
@@ -160,7 +150,8 @@ imagecopyresampled($newImg, $filter_gd, 0, 0, 0, 0, $nWidth, $nHeight, $filter_s
 		$img_gd = imagecreatefromstring($decodedData);
 		$filter_gd = imagecreatefrompng('public/resources/filter/' . $_POST['filter']);
 		$filter_size = getimagesize('public/resources/filter/' . $_POST['filter']);
-		$img_with_filter = $this->imagecopymerge_alpha($img_gd, $filter_gd, 1, 1, 1, 1, $filter_size[0] - 1, $filter_size[1] - 1, 100);
+		$newImg = $this->resizepng($filter_gd, $filter_size[0], $filter_size[1]);
+		$img_with_filter = $this->imagecopymerge_alpha($img_gd, $newImg, 1, 1, 1, 1, $this->pngWidth - 1, $this->pngHeight - 1, 100);
 		imagejpeg($img_with_filter, 'public/copies/' . $file . '.jpg');
 		$ins = $this->call_model('insert');
 		$values = array	(
@@ -180,5 +171,17 @@ imagecopyresampled($newImg, $filter_gd, 0, 0, 0, 0, $nWidth, $nHeight, $filter_s
 		imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h); 
 		imagecopymerge($dst_im, $cut, $dst_x, $dst_y, 0, 0, $src_w, $src_h, $pct);
 		return $dst_im;
+	}
+
+	private function resizepng($oldpng, $oldwidth, $oldheight)
+	{
+		$this->pngHeight = ($this->pngWidth * $oldheight) / $oldwidth;
+		$newImg = imagecreatetruecolor($this->pngWidth, $this->pngHeight);
+		imagealphablending($newImg, false);
+		imagesavealpha($newImg,true);
+		$transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
+		imagefilledrectangle($newImg, 0, 0, $this->pngWidth, $this->pngHeight, $transparent);
+		imagecopyresampled($newImg, $oldpng, 0, 0, 0, 0, $this->pngWidth, $this->pngHeight, $oldwidth, $oldheight);
+		return $newImg;
 	}
 }
