@@ -1,4 +1,34 @@
-.com_container
-{
+.com_container {
 	text-align: left;
+}
+
+img.images {
+	height: 200px;
+}
+
+img.cross {
+	width: 20px;
+	height: 20px;
+	margin-top: 4px;
+	margin-left: -25px;
+	position: absolute;
+	display: none;
+	cursor: pointer;
+	z-index: 2000;
+}
+
+div.div_image {
+	height: 200px;
+	width: 300px;
+	display: inline-block;
+	margin: 5px;
+}
+
+div.img-thumbnail {
+	margin-bottom: 20px;
+	width: 510px;
+}
+
+p.comment {
+	word-wrap: break-word;
 }

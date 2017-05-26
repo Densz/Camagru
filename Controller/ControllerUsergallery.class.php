@@ -22,7 +22,7 @@ class ControllerUsergallery extends Controller
 		if (CB::my_assert($req))
 		{
 			foreach ($req as $v) {
-				echo "<p><b>{$v['login']}:</b>&nbsp;{$v['img_comment']}</p>";
+				echo "<p class='comment'><b>{$v['login']}:</b>&nbsp;{$v['img_comment']}</p>";
 			}
 		}
 		echo '</div>';
@@ -83,7 +83,7 @@ class ControllerUsergallery extends Controller
 		while ($begin < $finish && isset(self::$posts[$begin]))
 		{
 			$bool = false;
-			echo '<div class="img-thumbnail" style="margin-bottom: 20px;">';
+			echo '<div class="img-thumbnail">';
 			echo 'Posted by ';
 			echo $form->surround(self::$posts[$begin]['login'], 'a', 'userLink');
 			echo $form->img('../' . self::$posts[$begin]['image_path'], 'image');

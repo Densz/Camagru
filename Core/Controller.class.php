@@ -10,6 +10,10 @@ class Controller
 
 	public function __construct()
 	{
+		/**
+		 * a appele dans les sous controleurs
+		 * @var [type]
+		 */
 		self::$sel = $this->call_model('select');
 		self::$del = $this->call_model('delete');
 		self::$ins = $this->call_model('insert');

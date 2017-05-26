@@ -2,13 +2,11 @@
 
 class ControllerUserprofile extends Controller
 {
-	function view()
+	public function view()
 	{
 		if (isset(Routeur::$url['params'][0]))
 		{
 			$username = ucfirst(Routeur::$url['params'][0]);
-			var_dump($username);
-			var_dump(ucfirst($_SESSION['auth']));
 			if ($username !== ucfirst($_SESSION['auth']))
 				$this->add_buff('username', $username . "'s ");
 			else	
@@ -23,8 +21,12 @@ class ControllerUserprofile extends Controller
 		$req = self::$sel->query_select('*', 'posts', $condition, false, 'date');
 		$img = "";
 		foreach ($req as $v) {
-			$img .= '<img type="image" width="300px" height="200px" class="images" src="../../' . $v['image_path'] . '">
-					<img type="image" width="20px" height="20px" class="cross" src="../../public/resources/delete.png" style="display:none; margin-bottom: 20px; margin-left: -25px; position: absolute;">';
+			$img .= '
+						<div class="div_image">
+							<img class="images" src="../../' . $v['image_path'] . '">
+							<img class="cross" src="../../public/resources/delete.png">
+						</div>
+					';
 		}
 		$this->add_buff('images', $img);
 		$value = "COUNT('id') AS 'nbLike'";
@@ -33,7 +35,7 @@ class ControllerUserprofile extends Controller
 		$this->add_buff('nbLikes', $req['nbLike']);
 	}
 
-	function delete()
+	public function delete()
 	{
 		if (isset($_POST['img_path']) && !empty($_POST['img_path']))
 		{

@@ -7,13 +7,13 @@ for (i; i < length; i++) {
 	if (document.addEventListener) {
 
 		image[i].addEventListener("mouseover", function(){
-			this.nextSibling.nextSibling.style.display = "";
+			this.nextSibling.nextSibling.style.display = "inherit";
 		});
 		image[i].addEventListener("mouseout", function(){
 			this.nextSibling.nextSibling.style.display = "none";
 		});
 		btn_cross[i].addEventListener("mouseover", function(){
-			this.style.display = "";
+			this.style.display = "inherit";
 		});
 		btn_cross[i].addEventListener("mouseout", function(){
 			this.style.display = "none";
@@ -40,7 +40,7 @@ function deletePhoto(){
 	/*
 	*	Supprimer directement l'image au lieu d'un display none
 	 */
-	this.previousSibling.previousSibling.style.display = "none";
+	this.parentNode.style.display = "none";
 	this.style.display = "none";
 }
 
