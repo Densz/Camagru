@@ -52,8 +52,14 @@ class Controller
 	public function call_controller($name)
 	{
 	   $name = 'Controller' . ucfirst($name);
-	   require_once('Controller/' . $name . '.class.php');
-	   return (new $name());
+		if (file_exists('Controller/' . $name . '.class.php'))
+			require_once('Controller/' . $name . '.class.php');
+		else
+		{
+			Routeur::redirect('Page404/view');
+			return ;
+		}
+		return (new $name());
 	}
 
 	public function rend($name)

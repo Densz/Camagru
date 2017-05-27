@@ -29,9 +29,10 @@ class ControllerUserindexphp extends Controller
 			{
 				while (($entry = readdir($handle)) !== false) {
 					if ($i > 1)	{
+						$i == 2 ? $required = 'checked="checked"' : $required = "";
 						$filters .= '<div class="div_filters"><img class="filters" src="../public/resources/filter/'. $entry . '">
 						<br />
-						<input type="radio" name="filter" value="' . $entry . '"></div>';
+						<input type="radio" name="filter" value="' . $entry . '" ' . $required .'></div>';
 					}
 					$i++;
 				}

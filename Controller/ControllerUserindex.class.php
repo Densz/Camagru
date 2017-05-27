@@ -6,6 +6,23 @@ class ControllerUserindex extends Controller
 	{
 		if (!CB::my_assert($_SESSION['auth']))
 			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
+		else
+		{
+			$filters = "";
+			$i = 0;
+			if ($handle = opendir("public/resources/filter"))
+			{
+				while (($entry = readdir($handle)) !== false) {
+					if ($i > 1)	{
+						$i == 2 ? $required = 'checked="checked"' : $required = "";
+						$filters .= '<div class="div_filters"><img class="filters" src="../public/resources/filter/' . $entry . '"><br />
+						<input type="radio" name="filter" value="' . $entry . '" ' . $required .'></div>';
+					}
+					$i++;
+				}
+				$this->add_buff('filters', $filters);
+			}
+		}
 	}
 
 	public function save()
