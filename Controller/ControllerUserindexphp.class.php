@@ -7,7 +7,7 @@ class ControllerUserindexphp extends Controller
 
 	public function view()
 	{
-		if (!CB::my_assert($_SESSION['auth']))
+		if (empty($_SESSION['auth']))
 			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
 		else
 		{
@@ -18,7 +18,7 @@ class ControllerUserindexphp extends Controller
 			$extra = " ORDER BY date DESC LIMIT 3";
 			$req = self::$sel->query_select("image_path", "posts", $condition, false, null, $extra);
 			foreach ($req as $v) {
-				$previews .= '<img src="../' . $v['image_path'] . '" class="img_preview" style="width: 200px;"><br>';
+				$previews .= '<img class="img_preview" src="../' . $v['image_path'] . '"><br>';
 			}
 			$this->add_buff('previews', $previews);
 		}
@@ -68,7 +68,6 @@ class ControllerUserindexphp extends Controller
 					imgPreview.length -= 1;
 				}
 				newImg.src = imgPath;
-				newImg.style.width = '200px';
 				newImg.className = 'img_preview';
 				parentDiv.insertBefore(newImg, imgPreview[0]);
 			}

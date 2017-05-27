@@ -26,7 +26,7 @@
 		<canvas id="canvas"></canvas>
 	</div>
 </div>
-<div id="side_container" style="display: inline-block; width: 200px; height: 445px; vertical-align: top;">
+<div id="side_container" style="display: inline-block; width: 200px; vertical-align: top;">
 	<h3 style="text-align: center;">Preview</h3>
 	<?php if(isset($previews)) { echo $previews; } ?>
 </div>

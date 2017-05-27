@@ -32,3 +32,8 @@ div.img-thumbnail {
 p.comment {
 	word-wrap: break-word;
 }
+
+img.img_preview {
+	width: 100%;
+	margin-top: 10px;
+}

@@ -43,7 +43,10 @@ class Controller
 		$name = Routeur::$url['controller'];
 		$func = $this->call_controller($name);
 		$func_name = Routeur::$url['method'];
-		$func->$func_name();
+		if (method_exists($func, $func_name) == true)
+			$func->$func_name();
+		else
+			Routeur::redirect('Page404/view');
 	}
 
 	public function call_controller($name)

@@ -16,8 +16,8 @@
 
   navigator.getMedia(
 	{
-	  video: true,
-	  audio: false
+		video: true,
+		audio: false
 	},
 	function(stream) {
 	  if (navigator.mozGetUserMedia) {
@@ -31,49 +31,48 @@
 	function(err) {
 	  console.log("An error occured! " + err);
 	}
-  );
+	);
 
-  startbutton.addEventListener('click', function(ev){
-	  takepicture();
+	startbutton.addEventListener('click', function(ev){
+		takepicture();
 	ev.preventDefault();
-  }, false);
+	}, false);
 
-  video.addEventListener('canplay', function(ev){
-	if (!streaming) {
-	  height = video.videoHeight / (video.videoWidth/width);
-	  video.setAttribute('width', width);
-	  video.setAttribute('height', height);
-	 /* canvas.setAttribute('width', width);
-	  canvas.setAttribute('height', height);*/
-	  streaming = true;
-	}
-  }, false);
+	video.addEventListener('canplay', function(ev){
+		if (!streaming) {
+			height = video.videoHeight / (video.videoWidth/width);
+			video.setAttribute('width', width);
+			video.setAttribute('height', height);
+			/* canvas.setAttribute('width', width);
+			canvas.setAttribute('height', height);*/
+			streaming = true;
+		}
+	}, false);
 
-  function takepicture() {
+	function takepicture() {
 	canvas.width = width;
 	canvas.height = height;
 	canvas.getContext('2d').drawImage(video, 0, 0, width, height);
 	var data = canvas.toDataURL('image/png');
 	photo.setAttribute('src', data);
 	savePicture();
-  }
+	}
 
-  	function putPreview(imgPath)
-  	{
-  		var imgPreview = document.querySelectorAll('.img_preview'),
-  			parentDiv = document.getElementById('side_container'),
-  			newImg = document.createElement('img');
+	function putPreview(imgPath)
+	{
+		var imgPreview = document.querySelectorAll('.img_preview'),
+			parentDiv = document.getElementById('side_container'),
+			newImg = document.createElement('img');
 
-  		if (imgPreview.length == 3)
-  		{
-  			parentDiv.removeChild(imgPreview[2]);
-  			imgPreview.length -= 1;
-  		}
-  		newImg.src = imgPath;
-  		newImg.style.width = '200px';
-  		newImg.className = 'img_preview';
-  		parentDiv.insertBefore(newImg, imgPreview[0]);
-  	}
+		if (imgPreview.length == 3)
+		{
+			parentDiv.removeChild(imgPreview[2]);
+			imgPreview.length -= 1;
+		}
+		newImg.src = imgPath;
+		newImg.className = 'img_preview';
+		parentDiv.insertBefore(newImg, imgPreview[0]);
+	}
 
 	function savePicture()
 	{
