@@ -37,3 +37,18 @@ img.img_preview {
 	width: 100%;
 	margin-top: 10px;
 }
+
+img.filters {
+	height: 50px;
+}
+
+div#filters {
+	width: 610px;
+	height: 70px;
+	overflow: overlay;
+	margin: 15px auto;
+}
+
+div.div_filters {
+	display: inline-block;
+}

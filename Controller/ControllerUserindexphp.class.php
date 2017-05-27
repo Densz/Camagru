@@ -21,7 +21,42 @@ class ControllerUserindexphp extends Controller
 				$previews .= '<img class="img_preview" src="../' . $v['image_path'] . '"><br>';
 			}
 			$this->add_buff('previews', $previews);
+
+
+			$filters = "";
+			$i = 0;
+			if ($handle = opendir("public/resources/filter"))
+			{
+				while (($entry = readdir($handle)) !== false) {
+					if ($i > 1)	{
+						$filters .= '<div class="div_filters"><img class="filters" src="../public/resources/filter/'. $entry . '">
+						<br />
+						<input type="radio" name="filter" value="' . $entry . '"></div>';
+					}
+					$i++;
+				}
+				$this->add_buff('filters', $filters);
+			}
 		}
+	}
+
+	public function uploadFilter(){
+		if ($_POST['submit'] === 'Upload_filter')
+		{
+			$valid_ext = array('png');
+			$file_extension = strtolower(substr(strrchr($_FILES['upload_filter']['name'], '.'), 1));
+			if (isset($_FILES['upload_filter']['error']))
+				if ($this->UploadError($_FILES['upload_filter']['error'], $file_extension, $valid_ext) == true)
+				{
+					$this->view();
+					return ;
+				}
+			$date_of_file = date('Y-m-d-H-i-s');
+			$file = uniqid(date('Y-m-d-H-i-s'));
+			$file_name = 'public/resources/filter/' . $file . '.png';
+			$res = move_uploaded_file($_FILES['upload_filter']['tmp_name'], $file_name);
+		}
+		$this->view();
 	}
 
 	public function upload()
@@ -32,7 +67,7 @@ class ControllerUserindexphp extends Controller
 			$valid_ext = array('jpg', 'jpeg');
 			$file_extension = strtolower(substr(strrchr($_FILES['upload']['name'], '.'), 1));
 			if (isset($_FILES['upload']['error']))
-				if ($this->UploadError($_FILES, $file_extension, $valid_ext) == true)
+				if ($this->UploadError($_FILES['upload']['error'], $file_extension, $valid_ext) == true)
 					return ;
 			$date_of_file = date('Y-m-d-H-i-s');
 			$file = uniqid(date('Y-m-d-H-i-s'));
@@ -94,14 +129,11 @@ class ControllerUserindexphp extends Controller
 	}
 
 	private function UploadError($FILES, $file_extension, $valid_ext){
-		if ($FILES['upload']['error'] === UPLOAD_ERR_FORM_SIZE || $FILES['upload']['error'] === UPLOAD_ERR_INI_SIZE)
-		{
+		if ($FILES === UPLOAD_ERR_FORM_SIZE || $FILES === UPLOAD_ERR_INI_SIZE) {
 			$this->add_buff('fileErr','<div class="alert alert-danger">File size too big, limit 2Mo</div>');
 			return true;
-		}
-		else if (!in_array($file_extension, $valid_ext))
-		{
-			$this->add_buff('fileErr','<div class="alert alert-danger">Bad type file : jpeg</div>');
+		} else if (!in_array($file_extension, $valid_ext)) {
+			$this->add_buff('fileErr','<div class="alert alert-danger">Bad type file, please upload a ' . $valid_ext[0] . ' file.</div>');
 			return true;
 		}
 		return false;
@@ -111,8 +143,7 @@ class ControllerUserindexphp extends Controller
 	private function resize_image($file, $w, $h, $crop=FALSE) {
 		list($width, $height) = getimagesize($file);
 		$ratio = $width / $height;
-		if ($crop)
-		{
+		if ($crop) {
 			if ($width > $height) {
 				$width = ceil($width-($width*abs($ratio-$w/$h)));
 			} else {
@@ -120,16 +151,11 @@ class ControllerUserindexphp extends Controller
 			}
 			$newwidth = $w;
 			$newheight = $h;
-		} 
-		else
-		{
-			if ($w/$h > $ratio)
-			{
+		} else {
+			if ($w/$h > $ratio) {
 				$newwidth = $h*$ratio;
 				$newheight = $h;
-			}
-			else 
-			{
+			} else {
 				$newheight = $w/$ratio;
 				$newwidth = $w;
 			}
