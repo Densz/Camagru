@@ -6,10 +6,9 @@ class ControllerUsergallery extends Controller
 
 	public function view()
 	{
-		if (!CB::my_assert($_SESSION['auth']))
+		if (!isset($_SESSION['auth']) && empty($_SESSION['auth']))
 			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
 		self::$posts = self::$sel->query_select('*', 'posts', null, false, 'image_path');
-
 	}
 
 	private static function displayCom($img_path)
@@ -19,7 +18,7 @@ class ControllerUsergallery extends Controller
 							);
 		$req = self::$sel->query_select('*', 'comments', $condition, false, 'date');
 		echo '<br><div class="com_container">';
-		if (CB::my_assert($req))
+		if (isset($req) && !empty($req))
 		{
 			foreach ($req as $v) {
 				echo "<p class='comment'><b>{$v['login']}:</b>&nbsp;{$v['img_comment']}</p>";
@@ -113,7 +112,7 @@ class ControllerUsergallery extends Controller
 	}
 
 	public function like(){
-		if (CB::my_assert($_POST['image_path'])){
+		if (isset($_POST['image_path']) && !empty($_POST['image_path'])) {
 			$values = array (	'id'			=>		'null', 
 								'img_path'		=> 		"'" . $_POST['image_path'] . "'",
 								'login'			=>		"'" . $_SESSION['auth'] . "'"
@@ -123,7 +122,8 @@ class ControllerUsergallery extends Controller
 	}
 
 	public function unlike(){
-		if (CB::my_assert($_POST['image_path'])){
+		if (isset($_POST['image_path']) && !empty($_POST['image_path']))
+		{
 			$condition = array (
 									'img_path' 	=>		"'" . $_POST['image_path'] . "'",
 									'login'		=>		"'" . $_SESSION['auth'] . "'"
@@ -134,7 +134,7 @@ class ControllerUsergallery extends Controller
 
 	public function showLikers()
 	{
-		if (CB::my_assert($_POST['image_path']))
+		if (isset($_POST['image_path']) && !empty($_POST['image_path']))
 		{
 			$condition = array  (
 									'img_path' 	=>		"'" . $_POST['image_path'] . "'"
@@ -152,7 +152,7 @@ class ControllerUsergallery extends Controller
 
 	public function comment()
 	{
-		if (CB::my_assert($_POST['comment']))
+		if (isset($_POST['comment']) && !empty($_POST['comment']))
 		{
 			$values = array(
 								'id'			=>		'null',

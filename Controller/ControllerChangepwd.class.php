@@ -20,7 +20,7 @@ class ControllerChangepwd extends Controller
 									'id'			=>		"'" . intval(Routeur::$url['params'][1]) . "'"
 								);
 			$req = self::$sel->query_select('*', 'users', $conditions);
-			if (CB::my_assert($req))
+			if (isset($req) && !empty($req))
 			{
 				$set = array(
 										'password'		=>		"'" . hash('whirlpool', $_POST['password']) . "'"

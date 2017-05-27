@@ -4,7 +4,7 @@ class ControllerUserindex extends Controller
 {
 	public function view()
 	{
-		if (!CB::my_assert($_SESSION['auth']))
+		if (!isset($_SESSION['auth']) && empty($_SESSION['auth']))
 			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
 		else
 		{
@@ -36,10 +36,10 @@ class ControllerUserindex extends Controller
 		fclose($fp);
 		$ins = $this->call_model('insert');
 		$values = array	(
-												'id'		=>		'null',
+												'id'			=>		'null',
 												'image_path'	=>		"'public/copies/" . $file . ".jpg'",
-												'login'		=>		"'" . $_SESSION['auth'] . "'",
-												'date'		=>		"'" . $date_of_file . "'"
+												'login'			=>		"'" . $_SESSION['auth'] . "'",
+												'date'			=>		"'" . $date_of_file . "'"
 						);
 		$ins->insert_value('posts', $values);
 	}

@@ -29,7 +29,7 @@ class Form
     public function img($src, $className = null, $alt = null)
     {
         $img = '<img src="' . $src . '" class="' . $className . '"';
-        if (CB::my_assert($alt))
+        if (isset($alt) && !empty($alt))
             $img .= 'alt="' . $alt . '"';
         $img .= '>';
         return $this->surround($img);

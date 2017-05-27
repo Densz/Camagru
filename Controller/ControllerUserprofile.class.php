@@ -8,17 +8,18 @@ class ControllerUserprofile extends Controller
 		{
 			$username = ucfirst(Routeur::$url['params'][0]);
 			if ($username !== ucfirst($_SESSION['auth']))
-				$this->add_buff('username', $username . "'s ");
+				$this->add_buff('username', '~ ' . $username . ' ~');
 			else	
-				$this->add_buff('username', 'Your ');
+				$this->add_buff('username', 'Your profile page');
 		}
 		else
-			die('redirection 404');
+			Routeur::redirect(Page404/view);
 
 		$condition = array(
-								'login' => "'" . $username . "'"
-						);
-		$req = self::$sel->query_select('*', 'posts', $condition, false, 'date');
+								'login' => '?'
+							);
+		$attributes = array($username);
+		$req = self::$sel->query_select('*', 'posts', $condition, false, 'date', null, $attributes);
 		$img = "";
 		foreach ($req as $v) {
 			$img .= '

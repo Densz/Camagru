@@ -18,8 +18,10 @@ class ControllerAuthsignin extends Controller
 		$sel = $this->call_model('select');
 		if (isset($_POST['sign_in']) && $_POST['sign_in'] === 'Login')
 		{
-			$array = $sel->query_select("login, password, email_confirmed", "users", array('login' => "'" . $_POST['login'] . "'"));
-			if (CB::my_assert($array))
+			$condition = array('login' => '?');
+			$attributes = array($_POST['login']);
+			$array = $sel->query_select("login, password, email_confirmed", "users", $condition, true, null, null, $attributes);
+			if (isset($array) && !empty($array))
 			{
 				if ($array['email_confirmed'] === 'no')
 					$this->add_buff('email_not_confirmed', '<div class="alert alert-danger">Please confirm your email address</div>');
@@ -48,7 +50,7 @@ class ControllerAuthsignin extends Controller
 	}
 
 	public function view(){
-		if (CB::my_assert($_SESSION['auth']))
+		if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
 			header('Location: ' . Routeur::redirect('Userindex/view'));
 	}
 }

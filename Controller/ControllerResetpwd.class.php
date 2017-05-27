@@ -10,13 +10,12 @@ class ControllerResetpwd extends Controller
 
 	public function sendEmail()
 	{
-		if (CB::my_assert($_POST['email']))
+		if (isset($_POST['email']) && !empty($_POST['email']))
 		{
-			$condition = array(
-									'email' => "'" . $_POST['email'] . "'" 
-								);
-			$req = self::$sel->query_select('*', 'users', $condition, true);
-			if (CB::my_assert($req))
+			$condition = array('email' => '?');
+			$attribute = array($_POST['email']);
+			$req = self::$sel->query_select('*', 'users', $condition, true, null, null, $attribute);
+			if (isset($req) && !empty($req))
 			{
 				$emailTo = htmlspecialchars($_POST['email']);
 				$emailFrom = 'tamere@camagru.com';

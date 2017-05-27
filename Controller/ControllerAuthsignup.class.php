@@ -13,7 +13,7 @@ class ControllerAuthsignup extends Controller
 		{
 			if (!preg_match('/[a-z0-9]+@[a-z0-9]+[.][a-z]+/', $_POST['email']))
 				$this->add_buff('invalid_email', '<div class="alert alert-danger">Invalid email</div>');
-			else if (!CB::my_assert($check = $this->checker($_POST)))
+			else if (!isset($check = $this->checker($_POST)) && empty($check = $this->checker($_POST)))
 			{
 				$insert = $this->call_model('insert');
 				$values = array(

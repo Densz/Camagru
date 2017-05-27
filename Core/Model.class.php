@@ -37,7 +37,7 @@ class Model
 			return null;
 		}
 		$query->setFetchMode(PDO::FETCH_ASSOC);
-		if (CB::my_assert($one))
+		if (isset($one) && !empty($one))
 			$data = $query->fetch();
 		else
 			$data = $query->fetchAll();
@@ -54,7 +54,7 @@ class Model
 	        return $res;
 	    }
 		$req->setFetchMode(PDO::FETCH_ASSOC);
-		if (CB::my_assert($one))
+		if (isset($one) && !empty($one))
 			$data = $req->fetch();
 		else
 			$data = $req->fetchAll();

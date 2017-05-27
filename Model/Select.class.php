@@ -17,9 +17,9 @@ class Select
 				$request .= $k . ' = ' . $v . ' AND ';
 			$request = substr($request, 0, -5);
 		}
-		if (CB::my_assert($order))
+		if (isset($order) && !empty($order))
 			$request .= " ORDER BY " . $order . " DESC";
-		if (CB::my_assert($extra))
+		if (isset($extra) && !empty($extra))
 			$request .= $extra;
 		return ((isset($attributes) ? Dispatcher::$db->prepare($request, $attributes, $one) : Dispatcher::$db->query($request, $one)));
 	}

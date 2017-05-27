@@ -4,7 +4,7 @@ class Delete
 	public function delete_value($table, $condition = null)
 	{
 		$request = "DELETE FROM " . $table . " WHERE ";
-		if (CB::my_assert($condition))
+		if (isset($condition) && !empty($condition))	
 		{
 			foreach ($condition as $k => $v)
 				$request .= $k . ' = ' . $v . ' AND ';
