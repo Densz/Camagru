@@ -52,7 +52,6 @@ class ControllerAuthsignup extends Controller
 
 	private function checker($posts)
 	{
-		var_dump($posts);
 		$sel = $this->call_model('select');
 		$condition = array(
 								"login" => "?",

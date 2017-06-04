@@ -6,8 +6,6 @@ class ControllerUsergallery extends Controller
 
 	public function view()
 	{
-		if (!isset($_SESSION['auth']) || empty($_SESSION['auth']))
-			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
 		self::$posts = self::$sel->query_select('*', 'posts', null, false, 'image_path');
 	}
 
@@ -86,27 +84,34 @@ class ControllerUsergallery extends Controller
 			echo 'Posted by ';
 			echo $form->surround(self::$posts[$begin]['login'], 'a', 'userLink');
 			echo $form->img('../' . self::$posts[$begin]['image_path'], 'image');
-			foreach ($likes as $v) {
-				if ($v['img_path'] === self::$posts[$begin]['image_path'])
-				{
-					echo '<img class="like" src="../public/resources/colored_heart.png" id="' . self::$posts[$begin]['image_path'] . '" />';
-					$bool = true;
+			if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
+			{
+				foreach ($likes as $v) {
+					if ($v['img_path'] === self::$posts[$begin]['image_path'])
+					{
+						echo '<img class="like" src="../public/resources/colored_heart.png" id="' . self::$posts[$begin]['image_path'] . '" />';
+						$bool = true;
+					}
 				}
+				if ($bool === false)
+					echo '<img class="like" src="../public/resources/empty_heart.png" id="' . self::$posts[$begin]['image_path'] . '" />';
+				echo '<br>';
 			}
-			if ($bool === false)
-				echo '<img class="like" src="../public/resources/empty_heart.png" id="' . self::$posts[$begin]['image_path'] . '" />';
-			echo '<br>';
 			$condition = array (
 									'img_path' => "'" . self::$posts[$begin]['image_path'] . "'"
 								);
 			$req = self::$sel->query_select($value, 'likes', $condition);
 			$output = $req['countLikes'] . " like" . ($req['countLikes'] > 1 ? "s" : "");
 			echo $form->surround($output, 'a', 'countLikes');
-			echo $form->input('comment', 'Comment this photo', null, 'form-control', false);
-			echo '<button class="test">Comment</button>';
-			echo '<br>';
-			self::displayCom(self::$posts[$begin]['image_path']);
-			echo '</div><br>';
+			if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
+			{
+				echo $form->input('comment', 'Comment this photo', null, 'form-control', false);
+				echo '<button class="test">Comment</button>';
+				echo '<br>';
+				self::displayCom(self::$posts[$begin]['image_path']);
+				echo '</div>';
+			}
+			echo '<br><br>';
 			$begin++;
 		}
 	}
@@ -144,9 +149,7 @@ class ControllerUsergallery extends Controller
 			header('Content-type: text/plain');
 			foreach ($userWhoLiked as $v) {
 				echo $v['login'] . ',';
-				// array_push($ret, $v['login']);
 			}
-			// A afficher proprement dans une pop-up
 		}
 	}
 
@@ -182,8 +185,8 @@ class ControllerUsergallery extends Controller
 				$emailFrom = 'tatante@camagru.com';
 				$subject = "Camagru - " . $_SESSION['auth'] . " commented your photo";
 				$img_link = "http://localhost:" . PORT . "/" . Routeur::$url['dir'] . "/" . $_POST['img_path'];
-				/*A mettre le href vers le profil, filter l'image en question*/
-				$message = "Hi " . ucfirst($req['login']) . "<br/> Awesome, " . $_SESSION['auth'] . " just comments your photo !<br/> <a href='#'>Click here to see the comment</a><br/><label>Comment:</label><br/><p>" . $_POST['comment'] . "</p>";
+				$profile_link = "http://localhost:" . PORT . "/" . Routeur::$url['dir'] . "/Userprofile/view/" . $req['login'];
+				$message = "Hi " . ucfirst($req['login']) . "<br/> Awesome, " . $_SESSION['auth'] . " just comments your photo !<br/> <a href='$profile_link'>Click here to see the comment</a><br/><label>Comment:</label><br/><p>" . $_POST['comment'] . "</p>";
 				$headers = "From: " . $emailFrom . "\r\n";
 				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 				mail($emailTo, $subject, $message, $headers);

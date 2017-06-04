@@ -4,8 +4,6 @@ class ControllerUserprofile extends Controller
 {
 	public function view()
 	{
-		if (empty($_SESSION['auth']))
-			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
 		if (isset(Routeur::$url['params'][0]) && !empty(Routeur::$url['params'][0]))
 		{
 			$username = ucfirst(Routeur::$url['params'][0]);
