@@ -9,9 +9,16 @@
 	  saveButton	= document.querySelector('#save'),
 	  addFilter 	= document.querySelector('#addfilter'),
 	  gS_check		= document.querySelector('#greyScale_checkBox'),
-	  gS_checked	= false;
-	  width = 500,
-	  height = 0;
+	  how2Use		= document.querySelector('#howToUse'),
+	  helpBox		= document.querySelector('#helpBox'),
+	  close			= document.querySelector('#close'),
+	  gS_checked	= false,
+	  width 		= 500,
+	  height 		= 0,
+	  mousePos 		= {
+	  	x: 0,
+	  	y: 0
+	  };
 
 	navigator.getMedia = (navigator.getUserMedia ||
 						navigator.webkitGetUserMedia ||
@@ -38,6 +45,29 @@
 	/**
 	 *  Event listener
 	 */
+
+	how2Use.addEventListener('click', function() {
+		helpBox.style.display = "inline-block";
+	})
+
+	close.addEventListener('click', function(){
+		helpBox.style.display = "none";
+	})
+
+	window.onclick = function(event) {
+		if (event.target != helpBox && event.target != how2Use)
+			helpBox.style.display = "none";
+	}
+
+	video.addEventListener('click', function(e) {
+		mousePos.x = e.offsetX - 50;
+		mousePos.y = e.offsetY - 50;
+	})
+
+	canvas.addEventListener('click', function(e) {
+		mousePos.x = e.offsetX - 50;
+		mousePos.y = e.offsetY - 50;
+	})
 
 	video.addEventListener('canplay', function(ev){
 		if (!streaming) {
@@ -74,7 +104,7 @@
 
 			base_image.src = '../public/resources/filter/' + filter;
 			base_image.onload = function(){
-				canvas.getContext('2d').drawImage(base_image, 0, 0, 100, 100);
+				canvas.getContext('2d').drawImage(base_image, mousePos.x, mousePos.y, 100, 100);
 			}
 		}
 		else

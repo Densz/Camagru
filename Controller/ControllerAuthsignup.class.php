@@ -11,9 +11,10 @@ class ControllerAuthsignup extends Controller
 	{
 		if ($_POST['signup'] === 'Submit' && $_POST['password'] === $_POST['password2'])
 		{
+			$check = $this->checker($_POST);
 			if (!preg_match('/[a-z0-9]+@[a-z0-9]+[.][a-z]+/', $_POST['email']))
 				$this->add_buff('invalid_email', '<div class="alert alert-danger">Invalid email</div>');
-			else if (!isset($check = $this->checker($_POST)) && empty($check = $this->checker($_POST)))
+			else if ($check === false)
 			{
 				$insert = $this->call_model('insert');
 				$values = array(
@@ -49,16 +50,17 @@ class ControllerAuthsignup extends Controller
 		}
 	}
 
-	private function checker($POST)
+	private function checker($posts)
 	{
+		var_dump($posts);
 		$sel = $this->call_model('select');
 		$condition = array(
 								"login" => "?",
 								"email" => "?"
 							);
 		$attributes = array(
-							$_POST['login'],
-							$_POST['email']
+							$posts['login'],
+							$posts['email']
 							);
 		$res = $sel->query_select_or("login, email", "users", $condition, $attributes);
 		return $res;

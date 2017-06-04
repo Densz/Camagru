@@ -44,8 +44,19 @@ function getUser(evt)
 		{
 			if (xhr.status === 200 || xhr.status === 0)
 			{
-				var string = xhr.responseText.substring(0, xhr.responseText.indexOf("<"));
-				alert(string);
+				var string = xhr.responseText.substring(0, xhr.responseText.indexOf('<')).split(',');
+				var popUp = document.querySelector('#likersBox');
+				string.splice(string.length - 1, 1);
+				string.forEach(function(item) {
+					var link = document.createElement("a"),
+						br = document.createElement("br");
+
+					link.innerHTML = item;
+					link.href = url() + 'Userprofile/view/' + link.innerHTML;
+					popUp.appendChild(link);
+					popUp.appendChild(br);
+				}, string)
+				popUp.style.display = "inline-block";
 			}
 		}
 	}

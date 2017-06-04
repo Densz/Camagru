@@ -9,10 +9,18 @@ class Routeur
 		$uri = $_SERVER['REQUEST_URI'];
 		$url = explode('/', $uri);
 		Routeur::$url['dir'] = $url[1];
-		(isset($url[2])) ? Routeur::$url['controller'] = $url[2] : (isset($_SESSION['auth']) ? $this->redirect("Userindex/view") : $this->redirect("Page404/view"));
-		(isset($url[3])) ? Routeur::$url['method'] = $url[3] : $this->redirect("Page404/view");
-		for ($i = 4; $i <= count($url) - 1; $i++)
-			Routeur::$url['params'][] = $url[$i];
+		if (empty($url[2]))
+		{
+			header('Location: ' . ((isset($_SESSION['auth']) && !empty($_SESSION['auth'])) ? $this->redirect("Userindex/view") : $this->redirect("Authsignin/signIn")));
+		}
+		else
+		{
+			(isset($url[2])) ? Routeur::$url['controller'] = $url[2] : (isset($_SESSION['auth']) ? $this->redirect("Userindex/view") : $this->redirect("Page404/view"));
+			(isset($url[3])) ? Routeur::$url['method'] = $url[3] : $this->redirect("Page404/view");
+			for ($i = 4; $i <= count($url) - 1; $i++)
+				Routeur::$url['params'][] = $url[$i];
+		}
+		
 	}
 
 	public static function redirect($new_url)

@@ -6,7 +6,7 @@ class ControllerUsergallery extends Controller
 
 	public function view()
 	{
-		if (!isset($_SESSION['auth']) && empty($_SESSION['auth']))
+		if (!isset($_SESSION['auth']) || empty($_SESSION['auth']))
 			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
 		self::$posts = self::$sel->query_select('*', 'posts', null, false, 'image_path');
 	}
@@ -141,12 +141,12 @@ class ControllerUsergallery extends Controller
 								);
 			$userWhoLiked = self::$sel->query_select('login', 'likes', $condition, false);
 			$ret = array ();
-			foreach ($userWhoLiked as $v) {
-				array_push($ret, $v['login']);
-			}
 			header('Content-type: text/plain');
+			foreach ($userWhoLiked as $v) {
+				echo $v['login'] . ',';
+				// array_push($ret, $v['login']);
+			}
 			// A afficher proprement dans une pop-up
-			print_r($ret);
 		}
 	}
 

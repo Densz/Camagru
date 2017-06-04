@@ -4,7 +4,9 @@ class ControllerUserprofile extends Controller
 {
 	public function view()
 	{
-		if (isset(Routeur::$url['params'][0]))
+		if (empty($_SESSION['auth']))
+			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
+		if (isset(Routeur::$url['params'][0]) && !empty(Routeur::$url['params'][0]))
 		{
 			$username = ucfirst(Routeur::$url['params'][0]);
 			if ($username !== ucfirst($_SESSION['auth']))
@@ -13,7 +15,7 @@ class ControllerUserprofile extends Controller
 				$this->add_buff('username', 'Your profile page');
 		}
 		else
-			Routeur::redirect(Page404/view);
+			header('Location: ' . Routeur::redirect("Page404/view"));
 
 		$condition = array(
 								'login' => '?'
