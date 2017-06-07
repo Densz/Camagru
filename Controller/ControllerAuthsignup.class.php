@@ -12,8 +12,12 @@ class ControllerAuthsignup extends Controller
 		if ($_POST['signup'] === 'Submit' && $_POST['password'] === $_POST['password2'])
 		{
 			$check = $this->checker($_POST);
-			if (!preg_match('/[a-z0-9]+@[a-z0-9]+[.][a-z]+/', $_POST['email']))
-				$this->add_buff('invalid_email', '<div class="alert alert-danger">Invalid email</div>');
+			if (!preg_match('/^\w{3,9}$/', $_POST['login']))
+				$this->add_buff('invalid', '<div class="alert alert-danger">Please enter login between 3 and 9 characters</div>');
+			else if (!preg_match('/[a-z0-9]+@[a-z0-9]+[.][a-z]+/', $_POST['email']))
+				$this->add_buff('invalid', '<div class="alert alert-danger">Invalid email</div>');
+			else if (!preg_match('/^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', $_POST['password']))
+				$this->add_buff('invalid', '<div class="alert alert-danger">Password conditions:<br>- Inclusion of one or more numerical digits<br>- The use of both upper-case and lower-case letters<br>- Min lenght: 6 characters</div>');
 			else if ($check === false)
 			{
 				$insert = $this->call_model('insert');
@@ -26,7 +30,6 @@ class ControllerAuthsignup extends Controller
 									'admin'				=>	"'no'"
 								);
 				$password = hash('whirlpool', $_POST['password']);
-				echo $password;
 				$attributes = array(
 										$_POST['login'], 
 										$_POST['email'], 

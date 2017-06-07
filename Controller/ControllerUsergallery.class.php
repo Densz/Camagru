@@ -41,7 +41,8 @@ class ControllerUsergallery extends Controller
 		}
 
 		//Get like
-		$conditions = array(
+		if (isset($_SESSION['auth']) && !empty($_SESSION['auth'])) {
+			$conditions = array(
 								'img_path'	=>	"'" . $info['image_path'] . "'",
 								'login'		=>	"'" . $_SESSION['auth'] . "'"
 							);
@@ -50,6 +51,9 @@ class ControllerUsergallery extends Controller
 			$info['liked'] = 'yes';
 		else
 			$info['liked'] = 'no';
+		} else {
+			$info['liked'] = 'no';
+		}
 
 		//Get Count(Like)
 		$condition = array(
@@ -70,10 +74,13 @@ class ControllerUsergallery extends Controller
 	public static function five_imgs($begin, $form)
 	{
 		$finish = $begin + 5;
-		$condition = array (
-								'login' => "'" . $_SESSION['auth'] . "'"
-							);
-		$likes = self::$sel->query_select('img_path', 'likes', $condition, false);
+		if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
+		{
+			$condition = array (
+									'login' => "'" . $_SESSION['auth'] . "'"
+								);
+			$likes = self::$sel->query_select('img_path', 'likes', $condition, false);
+		}
 		$value = "Count(id) AS 'countLikes'";
 		if (empty(self::$posts[$begin]))
 			echo '<h1>You didn\'t take any picture yet</h1>';
@@ -97,6 +104,8 @@ class ControllerUsergallery extends Controller
 					echo '<img class="like" src="../public/resources/empty_heart.png" id="' . self::$posts[$begin]['image_path'] . '" />';
 				echo '<br>';
 			}
+			else
+				echo '<img class="like" style="display: none;"><br>';
 			$condition = array (
 									'img_path' => "'" . self::$posts[$begin]['image_path'] . "'"
 								);
@@ -107,10 +116,12 @@ class ControllerUsergallery extends Controller
 			{
 				echo $form->input('comment', 'Comment this photo', null, 'form-control', false);
 				echo '<button class="test">Comment</button>';
-				echo '<br>';
-				self::displayCom(self::$posts[$begin]['image_path']);
-				echo '</div>';
+			} else {
+				echo '<button class="test" style="display: none;">Comment</button>';
 			}
+			echo '<br>';
+			self::displayCom(self::$posts[$begin]['image_path']);
+			echo '</div>';
 			echo '<br><br>';
 			$begin++;
 		}
@@ -186,7 +197,7 @@ class ControllerUsergallery extends Controller
 				$subject = "Camagru - " . $_SESSION['auth'] . " commented your photo";
 				$img_link = "http://localhost:" . PORT . "/" . Routeur::$url['dir'] . "/" . $_POST['img_path'];
 				$profile_link = "http://localhost:" . PORT . "/" . Routeur::$url['dir'] . "/Userprofile/view/" . $req['login'];
-				$message = "Hi " . ucfirst($req['login']) . "<br/> Awesome, " . $_SESSION['auth'] . " just comments your photo !<br/> <a href='$profile_link'>Click here to see the comment</a><br/><label>Comment:</label><br/><p>" . $_POST['comment'] . "</p>";
+				$message = "Hi " . ucfirst($req['login']) . "<br/> Awesome, " . $_SESSION['auth'] . " just comments your photo !<br/> <a href='$profile_link'>Click here to see his profile page</a><br/><label>Comment:</label><br/><p>" . $_POST['comment'] . "</p>";
 				$headers = "From: " . $emailFrom . "\r\n";
 				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 				mail($emailTo, $subject, $message, $headers);

@@ -7,8 +7,8 @@
 		echo $wrong_password_confirmation;
 	if (isset($already_taken))
 		echo $already_taken;
-	if (isset($invalid_email))
-		echo $invalid_email;
+	if (isset($invalid))
+		echo $invalid;
 ?>
 
 <form method="post" action="<?= Routeur::redirect('authsignup/signUp'); ?>">

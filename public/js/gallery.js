@@ -156,8 +156,10 @@ window.onscroll = function() {
 						//Add event listener
 						if (document.addEventListener)
 						{
-							cloneDiv.childNodes[7].addEventListener("click", comment);
-							cloneDiv.childNodes[7].params = [xhr, cloneDiv.childNodes[2].firstChild, cloneDiv.childNodes[7]];
+							if (typeof cloneDiv.childNodes[7] !== 'undefined') {
+								cloneDiv.childNodes[7].addEventListener("click", comment);
+								cloneDiv.childNodes[7].params = [xhr, cloneDiv.childNodes[2].firstChild, cloneDiv.childNodes[7]];
+							}
 							cloneDiv.childNodes[5].addEventListener("click", getUser);
 							cloneDiv.childNodes[5].params = [xhr, cloneDiv.childNodes[3]];
 							cloneDiv.childNodes[3].addEventListener("click", function() {

@@ -6,11 +6,17 @@ class ControllerUserprofile extends Controller
 	{
 		if (isset(Routeur::$url['params'][0]) && !empty(Routeur::$url['params'][0]))
 		{
-			$username = ucfirst(Routeur::$url['params'][0]);
-			if ($username !== ucfirst($_SESSION['auth']))
-				$this->add_buff('username', '~ ' . $username . ' ~');
-			else	
-				$this->add_buff('username', 'Your profile page');
+
+			if ($this->checkLoginExists(Routeur::$url['params'][0]) === true)
+			{
+				$username = ucfirst(Routeur::$url['params'][0]);
+				if ($username !== ucfirst($_SESSION['auth']))
+					$this->add_buff('username', '~ ' . $username . ' ~');
+				else	
+					$this->add_buff('username', 'Your profile page');
+			}
+			else
+				header('Location: ' . Routeur::redirect("Page404/view"));				
 		}
 		else
 			header('Location: ' . Routeur::redirect("Page404/view"));
@@ -34,6 +40,18 @@ class ControllerUserprofile extends Controller
 		$extra = " INNER JOIN posts ON likes.img_path = posts.image_path WHERE posts.login = '" . Routeur::$url['params'][0] . "'";
 		$req = self::$sel->query_select($value, 'likes', null, true, null, $extra);
 		$this->add_buff('nbLikes', $req['nbLike']);
+	}
+
+	private function checkLoginExists($login)
+	{
+		$condition = array(
+								'login' => "'" . $login . "'"
+							);
+		$req = self::$sel->query_select('login', 'users', $condition);
+		if ($req !== false)
+			return true;
+		else
+			return false;
 	}
 
 	public function delete()

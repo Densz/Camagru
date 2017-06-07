@@ -3,7 +3,12 @@
 <div style="text-align: center;">
 	<h3><?= $username; ?></h3><br>
 	<div class="total_like">
-		<p><?= $nbLikes; ?> people love<?php if ($nbLikes === 1) { echo 's'; } ?> your photos !</p>
+		<p>
+			<?php if ($_SESSION['auth'] === Routeur::$url['params'][0]) { ?>
+				<?= $nbLikes; ?> people love<?php if ($nbLikes === 1) { echo 's'; } ?> your photos !
+			<?php } ?>
+
+		</p>
 	</div>
 	<?= $images; ?>
 </div>
