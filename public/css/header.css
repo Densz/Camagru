@@ -1,32 +1,50 @@
-a
-{
-	text-decoration: none;
-
-}
-
-a:visited
-{
-	color: gray;
-}
-
-a.navbar-brand:hover { color: white; }
-
-body
-{
+body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.header
-{
-	height: 40px;
-	padding-top: 20px;
-	background-color: #24292E;
-	margin-right: auto;
-	margin-left: auto;
+.bar {
+	width: 100%;
+    background-color: #333;
+	height: 42px;
+	margin: 0;
+	display: flex;
+	position: fixed;
 }
 
-.container-header
-{
-	width: 980px;
+.inner-bar {
+	min-width: 330px;
+	width: 50%;
+	margin: auto;
+	display: flex;
+}
+
+.logo-bar {
+	justify-content: flex-start;
+	flex: 1 1 auto;
+	display: flex;
+}
+
+.icones-bar {
+	justify-content: flex-end;
+	flex: 3 1 auto;
+	display: flex;
+}
+
+.navbar-brand {
+	color: white;
+	flex: 1 1 auto;
+	height: 32px;
+	margin-top: 10px;
+	text-align: center;
+	font-size: 2vw;
+	font-family: 'Lobster', cursive;
+}
+
+.navbar-brand:hover {
+	border-bottom: 3px solid #df4723;
+}
+
+.img-bar {
+	height: 20px;
 }

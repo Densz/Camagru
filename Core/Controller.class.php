@@ -22,13 +22,15 @@ class Controller
 
 	public function header()
 	{
+		$logo = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Authsignin/view">Camagru</a>';
 		if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
 		{
-			$disconnect = '<div class="header-block"><a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Authsignin/signOut">SIGN OUT</a></div>';
-			$camjs = '<div class="header-block"><a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view">Cam JS</a></div>';
-			$camphp = '<div class="header-block"><a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindexphp/view">Cam PHP</a></div>';
-			$gallery = '<div class="header-block"><a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Usergallery/view">Gallery</a></div>';
-			$profile = '<div class="header-block"><a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userprofile/view/' . $_SESSION['auth'] . '">My profile</a></div>';
+			$disconnect = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Authsignin/signOut"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/door.png"></a>';
+			$camjs = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/camagru_jaune.png"></a>';
+			$camphp = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindexphp/view"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/camagru_blue.png"></a>';
+			$cam = "<ul><li>$camjs</li><li>$camphp</li></ul>";
+			$gallery = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Usergallery/view"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/gallery.png"></a>';
+			$profile = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userprofile/view/' . $_SESSION['auth'] . '"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/profile.png"></a>';
 		}
 		require_once('View/templates/header.php');
 	}
