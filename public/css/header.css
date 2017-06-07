@@ -37,7 +37,7 @@ body {
 	height: 32px;
 	margin-top: 10px;
 	text-align: center;
-	font-size: 2vw;
+	font-size: 20px;
 	font-family: 'Lobster', cursive;
 }
 
@@ -47,4 +47,24 @@ body {
 
 .img-bar {
 	height: 20px;
+}
+
+.nav-list .navbar-brand .img-bar {
+	position: absolute;
+    margin-top: -30px;
+    margin-left: -10px;
+}
+
+.nav-list { 
+	display: none;
+	padding-top: 40px;
+	background-color: #333;
+}
+
+.nav-list:hover {
+	box-shadow: inset 0 -3px 0 #df4723;
+}
+
+#cam:hover .nav-list {
+	display: inherit;
 }

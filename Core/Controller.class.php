@@ -26,9 +26,13 @@ class Controller
 		if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
 		{
 			$disconnect = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Authsignin/signOut"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/door.png"></a>';
-			$camjs = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/camagru_jaune.png"></a>';
-			$camphp = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindexphp/view"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/camagru_blue.png"></a>';
-			$cam = "<ul><li>$camjs</li><li>$camphp</li></ul>";
+			$camjs = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/logo_js.png"></a>';
+			$camphp = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindexphp/view"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/logo_php.png"></a>';
+			$cam = '
+			<div class="navbar-brand" id="cam"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/favicon.png">
+					<div class="nav-list">' . $camjs . '</div>
+					<div class="nav-list">' . $camphp .  '</div>
+			</div>';
 			$gallery = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Usergallery/view"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/gallery.png"></a>';
 			$profile = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userprofile/view/' . $_SESSION['auth'] . '"><img class="img-bar" src="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/public/resources/profile.png"></a>';
 		}
