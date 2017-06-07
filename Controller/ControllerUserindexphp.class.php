@@ -18,7 +18,7 @@ class ControllerUserindexphp extends Controller
 			$extra = " ORDER BY date DESC LIMIT 3";
 			$req = self::$sel->query_select("image_path", "posts", $condition, false, null, $extra);
 			foreach ($req as $v) {
-				$previews .= '<img class="img_preview" src="../' . $v['image_path'] . '"><br>';
+				$previews .= '<img class="img_preview" src="../' . $v['image_path'] . '">&nbsp;';
 			}
 			$this->add_buff('previews', $previews);
 

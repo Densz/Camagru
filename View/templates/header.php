@@ -28,4 +28,4 @@
 	</div>
 </div>
 <div class="container">
-	<div class="starter-template" style="padding-top: 100px;">
+	<div class="starter-template">

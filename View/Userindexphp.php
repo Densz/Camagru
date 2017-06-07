@@ -2,7 +2,7 @@
 
 <?php if(isset($fileErr)) { echo $fileErr; } ?>
 
-<div id="cam_container" style="text-align: center; display: inline-block; width: 800px;">
+<div id="cam_container" style="text-align: center;">
 	<h3>1. Select or Upload your filter</h3>
 	<form method="post" enctype="multipart/form-data" action="<?= Routeur::redirect('Userindexphp/uploadFilter'); ?>">
 		<div style="display: inline-block">
@@ -32,11 +32,10 @@
 	<div style="text-align: center; display: block;">
 		<img src="" id="photo" style="display: none;">
 	</div>
-		<canvas id="canvas"></canvas>
-	</div>
+	<canvas id="canvas"></canvas>
 </div>
-<div id="side_container" style="display: inline-block; width: 200px; vertical-align: top;">
-	<h3>3. Admire</h3>
+<h3>3. Admire</h3>
+<div id="side_container">
 	<?php if(isset($previews)) { echo $previews; } ?>
 </div>
 <script src="../public/js/cam_php.js"></script>

@@ -38,22 +38,40 @@ p.comment {
 	word-wrap: break-word;
 }
 
-img.img_preview {
-	width: 100%;
-	margin-top: 10px;
-}
-
 img.filters {
 	height: 50px;
 }
 
 div#filters {
 	width: 610px;
-	height: 70px;
+	height: 74px;
 	overflow: overlay;
 	margin: 15px auto;
 }
 
 div.div_filters {
 	display: inline-block;
+}
+
+#gallery_container {
+	text-align: center;
+	margin: auto;
+}
+
+.img-thumbnail {
+    border: 1px solid #909090;
+    padding: 12px 10px 10px 10px;
+    border-radius: 2%;
+    margin: auto;
+}
+
+#side_container {
+	display: inline-block;
+	width: 100%;
+	max-width: 860px;
+}
+
+img.img_preview {
+	width: 30%;
+    justify-content: space-between;
 }

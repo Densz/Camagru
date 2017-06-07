@@ -68,3 +68,16 @@ body {
 #cam:hover .nav-list {
 	display: inherit;
 }
+
+.starter-template {
+    padding-top: 50px;
+    margin: auto;
+    width: 60%;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
