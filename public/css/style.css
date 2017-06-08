@@ -85,7 +85,7 @@ div.div_image {
 
 div.img-thumbnail {
 	margin-bottom: 20px;
-	width: 50%;
+	width: 100%;
 	max-width: 500px;
 }
 
@@ -264,4 +264,9 @@ div#helpBox {
     left: 50%;
     top: 30%;
     transform: translate(-50%, -50%);
+}
+
+.gallery-container {
+	width: 80%;
+	margin: auto;
 }
