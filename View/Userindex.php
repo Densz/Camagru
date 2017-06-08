@@ -1,5 +1,5 @@
 <?php $form = new Form($_POST); ?>
-
+<h2>Js Cam</h2><br>
 <div id="helpBox" style="background: red; position: fixed; margin-top: 200px; padding-right: 20px; display: none; z-index: 1;">
 	<span id="close" style="color: #aaaaaa; float: right; font-size: 28px; font-weight: bold;">&times;</span>
 	<h3 style="text-align: center;">Few helps</h3>
@@ -17,11 +17,15 @@
 		<?php if (isset($filters)) { echo $filters; } ?>
 	</div>
 	<div id="visualize" style="display: block;">
-		<video id="video"></video><br>
-		<input type="checkbox" id="greyScale_checkBox" name="greyScale"><span> Grey scale off</span><br>
-		<button id="startbutton">Take picture</button>
-		<button id="save" style="display: none;">Save picture</button>
-		<button id="addfilter">Add filter</button>
+		<div><video id="video"></video></div>
+		<div id="ck-button">
+		   <label><input type="checkbox" id="greyScale_checkBox" name="greyscale" value="1"><span>Greyscale off</span></label>
+		</div>
+		<div style="margin-bottom: 10px;">
+			<button id="startbutton" class="btn btn-primary">Take picture</button>
+			<button id="save" class="btn btn-primary" style="display: none;">Save picture</button>
+			<button id="addfilter" class="btn btn-primary">Add filter</button>
+		</div>
 	</div>
 	<div style="text-align: center; display: block;">
 		<img src="" id="photo" style="display: none;">

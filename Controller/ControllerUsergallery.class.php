@@ -115,9 +115,9 @@ class ControllerUsergallery extends Controller
 			if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
 			{
 				echo $form->input('comment', 'Comment this photo', null, 'form-control', false);
-				echo '<button class="test">Comment</button>';
+				echo '<button class="btn btn-primary">Comment</button>';
 			} else {
-				echo '<button class="test" style="display: none;">Comment</button>';
+				echo '<button class="btn btn-primary style="display: none;">Comment</button>';
 			}
 			echo '<br>';
 			self::displayCom(self::$posts[$begin]['image_path']);

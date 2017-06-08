@@ -1,7 +1,7 @@
 <?php $form = new Form($_POST); ?>
 
 <?php if(isset($fileErr)) { echo $fileErr; } ?>
-
+<h2>Php Cam</h2><br>
 <div id="cam_container" style="text-align: center;">
 	<h3>1. Select or Upload your filter</h3>
 	<form method="post" enctype="multipart/form-data" action="<?= Routeur::redirect('Userindexphp/uploadFilter'); ?>">
@@ -20,7 +20,7 @@
 	<h3>2. Cheese</h3>
 	<div id="visualize" style="display: block; margin-top: 20px;">
 		<video id="video"></video><br>
-		<button id="startbutton">Take picture</button><br>
+		<button id="startbutton" class="btn btn-primary">Take picture</button><br>
 			<div style="display: inline-block">
 				<input type="hidden" name="MAX_FILE_SIZE" value="2097152">
 				<input type="file" name="upload" id="upload" required='true'>

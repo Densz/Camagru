@@ -1,4 +1,5 @@
 <?php $form = new Form(); ?>
+<div class="sign-pages">
 <h3>Sign up</h3><br>
 <?php
 	if (isset($email_sent))
@@ -21,3 +22,4 @@
 
 <hr>
 <p>Already have an account? <a href='http://localhost:<?= PORT ?>/<?= Routeur::$url['dir']; ?>/authsignin/SignIn/'>Sign in</a></p>
+</div>

@@ -1,4 +1,5 @@
 <?php $form = new Form($_POST); ?>
+<div class="sign-pages">
 <h3>Sign in</h3><br>
 <?php
 	if (isset($wrong_pwd))
@@ -22,3 +23,4 @@
 <span>Don't have an account yet? <a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignup/View/">Sign up</a></span>
 <br>
 <a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/Resetpwd/View/" style="text-align: right;">Forgot password?</a>
+<div>

@@ -1,6 +1,6 @@
 var likeButton = document.querySelectorAll(".like"),
 	likeMsg = document.querySelectorAll(".countLikes"),
-	comButton = document.querySelectorAll(".test"),
+	comButton = document.querySelectorAll(".btn"),
 	currImg = document.querySelectorAll(".image"),
 	userLink = document.querySelectorAll(".userLink");
 	i = 0,

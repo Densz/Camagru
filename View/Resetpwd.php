@@ -1,5 +1,5 @@
 <?php $form = new Form(); ?>
-
+<div class="sign-pages">
 <h3>Reset your password</h3><br>
 
 <?php if (isset($email_sent)) echo $email_sent; ?>
@@ -9,3 +9,4 @@
 	<?= $form->input('email', 'Email address'); ?>
 	<?= $form->submit('signup', 'Submit', 'btn btn-primary'); ?>
 </form>
+</div>
