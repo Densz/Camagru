@@ -195,16 +195,12 @@ div label input {
 	border: 1px solid black;
 	margin-top: 10px;
 	max-width: 500px;
-	max-height: 375px;
 	width: 100%;
-	height: 100%;
 }
 
 img.image {
 	max-width: 500px;
-	max-height: 375px;
 	width: 100%;
-	height: 100%;
 }
 
 .sign-pages {
@@ -269,4 +265,8 @@ div#helpBox {
 .gallery-container {
 	width: 80%;
 	margin: auto;
+}
+
+#footer {
+	display: none;
 }

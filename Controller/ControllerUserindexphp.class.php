@@ -134,7 +134,7 @@ class ControllerUserindexphp extends Controller
 			$this->add_buff('fileErr','<div class="alert alert-danger">File size too big, limit 2Mo</div>');
 			return true;
 		} else if (!in_array($file_extension, $valid_ext)) {
-			$this->add_buff('fileErr','<div class="alert alert-danger">Bad type file, please upload a ' . $valid_ext[0] . ' file.</div>');
+			$this->add_buff('fileErr','<div class="alert alert-danger">Wrong file extension, please upload a ' . $valid_ext[0] . ' file.</div>');
 			return true;
 		}
 		return false;
