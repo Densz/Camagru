@@ -122,10 +122,13 @@
 		if (gS_checked === false)
 		{
 			gS_check.nextSibling.innerHTML = " Grey scale on";
+			console.log("test" + video.style);
+			video.setAttribute("class", "greyscale");
 			gS_checked = true;
 		}
 		else
 		{
+			video.setAttribute("class", "");
 			gS_check.nextSibling.innerHTML = " Grey scale off";
 			gS_checked = false;
 		}

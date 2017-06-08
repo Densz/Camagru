@@ -2,9 +2,13 @@ var likeButton = document.querySelectorAll(".like"),
 	likeMsg = document.querySelectorAll(".countLikes"),
 	comButton = document.querySelectorAll(".btn"),
 	currImg = document.querySelectorAll(".image"),
-	userLink = document.querySelectorAll(".userLink");
+	popUp = document.querySelector('#likersBox'),
+	userLink = document.querySelectorAll(".userLink"),
+	divInside = document.querySelector(".insideBox"),
+	close = document.querySelector("#close"),
 	i = 0,
 	length = likeButton.length;
+
 
 for (i; i < length; i++) {
 	if (document.addEventListener) {
@@ -45,21 +49,40 @@ function getUser(evt)
 			if (xhr.status === 200 || xhr.status === 0)
 			{
 				var string = xhr.responseText.substring(0, xhr.responseText.indexOf('<')).split(',');
-				var popUp = document.querySelector('#likersBox');
 				string.splice(string.length - 1, 1);
-				string.forEach(function(item) {
-					var link = document.createElement("a"),
-						br = document.createElement("br");
+				if (string.length > 0) {
+					string.forEach(function(item) {
+						var link = document.createElement("a"),
+							br = document.createElement("br");
 
-					link.innerHTML = item;
-					link.href = url() + 'Userprofile/view/' + link.innerHTML;
-					popUp.appendChild(link);
-					popUp.appendChild(br);
-				}, string)
-				popUp.style.display = "inline-block";
+						link.innerHTML = item;
+						link.href = url() + 'Userprofile/view/' + link.innerHTML;
+						divInside.appendChild(link);
+						divInside.appendChild(br);
+					}, string)
+					popUp.style.display = "inline-block";
+				}
 			}
 		}
 	}
+}
+
+close.addEventListener('click', function(){
+	popUp.style.display = 'none';
+	while (divInside.firstChild) {
+   		divInside.removeChild(divInside.firstChild);
+	}
+})
+
+window.onclick = function(event) {
+	if (event.target != popUp)
+	{
+		popUp.style.display = "none"
+		while (divInside.firstChild) {
+   		 	divInside.removeChild(divInside.firstChild);
+		}
+	}
+
 }
 
 function comment(evt)
