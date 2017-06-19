@@ -27,7 +27,7 @@ class ControllerChangepwd extends Controller
 					$this->add_buff('invalid_password', '<div class="alert alert-danger">Password conditions:<br>- Inclusion of one or more numerical digits<br>- The use of both upper-case and lower-case letters<br>- Min lenght: 6 characters</div>');
 				else {
 					$set = array(
-											'password'		=>		"'" . hash('whirlpool', $_POST['password']) . "'"
+											'password'		=>		"'" . hash('whirlpool', $pwd) . "'"
 								);
 					self::$up->update_value('users', $set, $conditions);
 					$this->add_buff('password_changed', '<div class="alert alert-success">Your password has been changed</div>');
