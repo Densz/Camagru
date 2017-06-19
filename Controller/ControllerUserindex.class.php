@@ -4,7 +4,7 @@ class ControllerUserindex extends Controller
 {
 	public function view()
 	{
-		if (!isset($_SESSION['auth']) && empty($_SESSION['auth']))
+		if (!isset($_SESSION['auth']) || empty($_SESSION['auth']))
 			header('Location: ' . Routeur::redirect('Authsignin/noAccess'));
 		else
 		{

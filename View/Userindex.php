@@ -6,7 +6,7 @@
 	<h3 style="text-align: center;">Few helps</h3>
 	<ul>
 		<li>Choose your filter</li>
-		<li>Click on the live or on the canvas at the position where you want see your filter appears</li>
+		<li>Click on the canvas at the position where you want see your filter appears</li>
 		<li>Take your picture</li>
 		<li>Add your filter</li>
 		<li>If this one is perfect, save it by clicking on - Save picture -</li>

@@ -196,6 +196,7 @@ div label input {
 	margin-top: 10px;
 	max-width: 500px;
 	width: 100%;
+	cursor: pointer;
 }
 
 img.image {

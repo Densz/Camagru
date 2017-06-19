@@ -152,7 +152,7 @@ window.onscroll = function() {
 						imgDiv = document.querySelector(".img-thumbnail"),
 						cloneDiv = imgDiv.cloneNode(true),
 						i = 0;
-					if (string.indexOf('null') === 0 || string.indexOf('<!DOCTYPE') === 0)
+					if (!string || string.indexOf('null') === 0 || string.indexOf('<!DOCTYPE') === 0)
 						return ;
 					json = JSON.parse(string);
 					cloneDiv.removeChild(cloneDiv.lastChild);

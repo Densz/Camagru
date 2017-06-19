@@ -46,13 +46,11 @@ class ControllerUsergallery extends Controller
 								'img_path'	=>	"'" . $info['image_path'] . "'",
 								'login'		=>	"'" . $_SESSION['auth'] . "'"
 							);
-		$liked_by_user = self::$sel->query_select('id', 'likes', $conditions);
-		if (isset($liked_by_user) && !empty($liked_by_user))
-			$info['liked'] = 'yes';
-		else
-			$info['liked'] = 'no';
-		} else {
-			$info['liked'] = 'no';
+			$liked_by_user = self::$sel->query_select('id', 'likes', $conditions);
+			if (isset($liked_by_user) && !empty($liked_by_user))
+				$info['liked'] = 'yes';
+			else
+				$info['liked'] = 'no';
 		}
 
 		//Get Count(Like)
@@ -117,7 +115,7 @@ class ControllerUsergallery extends Controller
 				echo $form->input('comment', 'Comment this photo', null, 'form-control', false);
 				echo '<button class="btn btn-primary">Comment</button>';
 			} else {
-				echo '<button class="btn btn-primary style="display: none;">Comment</button>';
+				echo '<button class="btn btn-primary" style="display: none;">Comment</button>';
 			}
 			echo '<br>';
 			self::displayCom(self::$posts[$begin]['image_path']);

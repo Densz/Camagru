@@ -1,6 +1,7 @@
 <?php $form = new Form(); ?>
 <div class="sign-pages">
 <?php if (isset($invalid_password_confirmation)) { echo $invalid_password_confirmation; } ?>
+<?php if (isset($invalid_password)) { echo $invalid_password; } ?>
 <?php if (isset($password_changed)) { echo $password_changed; } ?>
 <?php if (isset($wrong_link)) { echo $wrong_link; } ?>
 

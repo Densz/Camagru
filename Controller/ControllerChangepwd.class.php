@@ -13,7 +13,8 @@ class ControllerChangepwd extends Controller
 
 	public function updatePwd()
 	{
-		if($_POST['password'] === $_POST['password2'])
+		$pwd = htmlspecialchars($_POST['password']);
+		if ($pwd === htmlspecialchars($_POST['password2']))
 		{
 			$conditions = array(
 									'password'		=>		"'" . Routeur::$url['params'][0] . "'",
@@ -22,14 +23,18 @@ class ControllerChangepwd extends Controller
 			$req = self::$sel->query_select('*', 'users', $conditions);
 			if (isset($req) && !empty($req))
 			{
-				$set = array(
-										'password'		=>		"'" . hash('whirlpool', $_POST['password']) . "'"
-							);
-				self::$up->update_value('users', $set, $conditions);
-				$this->add_buff('password_changed', '<div class="alert alert-success">Your password has been changed</div>');
+				if (!preg_match('/^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', $pwd))
+					$this->add_buff('invalid_password', '<div class="alert alert-danger">Password conditions:<br>- Inclusion of one or more numerical digits<br>- The use of both upper-case and lower-case letters<br>- Min lenght: 6 characters</div>');
+				else {
+					$set = array(
+											'password'		=>		"'" . hash('whirlpool', $_POST['password']) . "'"
+								);
+					self::$up->update_value('users', $set, $conditions);
+					$this->add_buff('password_changed', '<div class="alert alert-success">Your password has been changed</div>');
+				}	
 			}
 			else
-				$this->add_buff('wrong_link', '<div class="alert alert-danger">Url address not valid</div>');
+				$this->add_buff('wrong_link', '<div class="alert alert-danger">User not found</div>');
 		}
 		else
 			$this->add_buff('invalid_password_confirmation', '<div class="alert alert-danger">Invalid password confirmation</div>');
