@@ -18,7 +18,7 @@ class ControllerResetpwd extends Controller
 			if (isset($req) && !empty($req))
 			{
 				$emailTo = htmlspecialchars($_POST['email']);
-				$emailFrom = 'tamere@camagru.com';
+				$emailFrom = 'teamcamagru@camagru.com';
 				$subject = "Camagru - Reset your password";
 				$message = '
 Hi ' . ucfirst($req['login']) . '

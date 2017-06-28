@@ -17,10 +17,14 @@ class ControllerChangepwd extends Controller
 		if ($pwd === htmlspecialchars($_POST['password2']))
 		{
 			$conditions = array(
-									'password'		=>		"'" . Routeur::$url['params'][0] . "'",
-									'id'			=>		"'" . intval(Routeur::$url['params'][1]) . "'"
+									'password'		=>		'?',
+									'id'			=>		'?'
 								);
-			$req = self::$sel->query_select('*', 'users', $conditions);
+			$attributes = array(
+									Routeur::$url['params'][0],
+									intval(Routeur::$url['params'][1])
+								);
+			$req = self::$sel->query_select('*', 'users', $conditions, true, null, null, $attributes);
 			if (isset($req) && !empty($req))
 			{
 				if (!preg_match('/^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', $pwd))
@@ -29,7 +33,7 @@ class ControllerChangepwd extends Controller
 					$set = array(
 											'password'		=>		"'" . hash('whirlpool', $pwd) . "'"
 								);
-					self::$up->update_value('users', $set, $conditions);
+					self::$up->update_value('users', $set, $conditions, $attributes);
 					$this->add_buff('password_changed', '<div class="alert alert-success">Your password has been changed</div>');
 				}	
 			}
